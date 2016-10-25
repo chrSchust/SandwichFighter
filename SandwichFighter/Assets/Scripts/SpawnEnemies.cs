@@ -7,7 +7,11 @@ public class SpawnEnemies : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        InvokeRepeating("Spawn", 0, 2);
+        for(int i = 0; i<5; ++i)
+        {
+            Spawn();
+        }
+        InvokeRepeating("Spawn", 0, 10);
     }
 
     void Spawn()

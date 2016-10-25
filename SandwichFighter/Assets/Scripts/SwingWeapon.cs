@@ -21,4 +21,15 @@ public class SwingWeapon : MonoBehaviour {
             transform.localRotation = Quaternion.Lerp(transform.localRotation, new Quaternion(0f, 0f, 0f, 1f), Time.deltaTime * speed);
         }
     }
+
+    void OnCollisionEnter(Collision col)
+    {
+        Debug.Log(col.gameObject.name);
+
+        if (col.gameObject.tag == "Enemy")
+        {
+            Debug.Log("hit");
+            col.gameObject.GetComponent<MoveToPlayer>().HitByPlayer(10);
+        }
+    }
 }
