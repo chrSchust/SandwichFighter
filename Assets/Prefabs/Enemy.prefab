@@ -24,6 +24,7 @@ GameObject:
   - 23: {fileID: 23000013045017676}
   - 54: {fileID: 54000013979680418}
   - 114: {fileID: 114000013449330032}
+  - 195: {fileID: 195000010853359252}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -106,10 +107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc278c6de4f4c14c97dc62c019bdeb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
-  hitMaterial: {fileID: 2100000, guid: bde3084222844d445867d5e2bfbbfba6, type: 2}
+  hitMaterial: {fileID: 2100000, guid: 2783ba5515c4979449dfdc038e259529, type: 2}
   defaultMaterial: {fileID: 2100000, guid: f378dada3db4d6c40856d0b35b2e0f7a, type: 2}
+  normalMaterial: {fileID: 2100000, guid: 10e7ba4392854034281805b9d9c80bee, type: 2}
+  veganMaterial: {fileID: 2100000, guid: bde3084222844d445867d5e2bfbbfba6, type: 2}
   health: 0
+  baseDamage: 10
 --- !u!135 &135000010752398166
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -122,3 +125,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &195000010853359252
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011828818028}
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

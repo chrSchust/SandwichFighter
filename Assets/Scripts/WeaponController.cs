@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class SwingWeapon : MonoBehaviour {
+
+public class WeaponController : MonoBehaviour {
 
     public float speed = 0.1F;
+    public List<int> ingredients { get; set; }
 
     // Use this for initialization
     void Start () {
@@ -24,12 +27,9 @@ public class SwingWeapon : MonoBehaviour {
 
     void OnCollisionEnter(Collision col)
     {
-        Debug.Log(col.gameObject.name);
-
         if (col.gameObject.tag == "Enemy" && Input.GetMouseButton(0))
         {
-            Debug.Log("hit");
-            col.gameObject.GetComponent<MoveToPlayer>().HitByPlayer(10);
+            col.gameObject.GetComponent<EnemyController>().HitByPlayer(ingredients);
         }
     }
 }
