@@ -2,6 +2,10 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityStandardAssets.Characters.FirstPerson;
+
 
 public class GameFlowController : MonoBehaviour
 {
@@ -11,16 +15,22 @@ public class GameFlowController : MonoBehaviour
     private List<Level> levels;
     private int fails = 0;
     private int kills = 0;
+    private List<int> activeIngredientList = new List<int>();
+
+    public RectTransform parentPanel;
+    public GameObject prefabButton;
+
 
     // Use this for initialization
     void Start()
     {
+
+        GameObject panel = GameObject.Find("Panel");
+        panel.GetComponent<CanvasGroup>().alpha = 0f;
+        panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
+
         initLevels();
         showLevelSelecetionUI();
-
-        //remove these when ui implemented
-        setActiveLevel(1);
-        startLevel();
     }
 
     private void initLevels()
@@ -43,26 +53,96 @@ public class GameFlowController : MonoBehaviour
 
     private void showLevelSelecetionUI()
     {
-        //use unlockedLevelsCount here
+        GameObject panel = GameObject.Find("Panel");
+        foreach (Transform child in panel.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        panel.GetComponent<CanvasGroup>().alpha = 1f;
+        panel.GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+        GameObject player = GameObject.Find("FirstPersonCharacter");
+        player.GetComponent<FirstPersonController>().enabled = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        foreach (Level level in levels)
+        {
+            int index = levels.IndexOf(level);
+            GameObject goButton = Instantiate(prefabButton) as GameObject;
+            goButton.transform.SetParent(parentPanel, false);
+            goButton.GetComponentInChildren<Text>().text = "Level " + (index + 1);
+            goButton.GetComponentInChildren<Text>().fontSize = 50;
+            goButton.GetComponent<Button>().onClick.AddListener(() => ButtonClicked(index));
+        }
+
+    }
+
+    public void ButtonClicked(int buttonNo)
+    {
+        setActiveLevel(buttonNo);
+        showIngredientsSelectionUI();
     }
 
     //call from level selection UI 
     private void setActiveLevel(int levelNumber)
     {
         activeLevel = levels[levelNumber];
-        showIngredientsSelectionUI();
     }
 
     private void showIngredientsSelectionUI()
     {
-        //use activeLevel.availableIngredients here
+        GameObject.Find("LevelEnd").GetComponent<Text>().text = "";
+
+        GameObject panel = GameObject.Find("Panel");
+        foreach (Transform child in panel.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        panel.GetComponent<CanvasGroup>().alpha = 1f;
+        panel.GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+        GameObject player = GameObject.Find("FirstPersonCharacter");
+        player.GetComponent<FirstPersonController>().enabled = false;
+
+        foreach (int ingredient in activeLevel.availableIngredients)
+        {
+            GameObject goButton = Instantiate(prefabButton) as GameObject;
+            goButton.transform.SetParent(parentPanel, false);
+            goButton.GetComponentInChildren<Text>().text = Ingredient.NameList[ingredient];
+            goButton.GetComponentInChildren<Text>().fontSize = 50;
+            int tempIngredient = ingredient;
+            goButton.GetComponent<Button>().onClick.AddListener(() => IngredientButtonClicked(tempIngredient, goButton));
+        }
+        GameObject startButton = Instantiate(prefabButton) as GameObject;
+        startButton.transform.SetParent(parentPanel, false);
+        startButton.GetComponentInChildren<Text>().text = "START";
+        startButton.GetComponentInChildren<Text>().fontSize = 50;
+        startButton.GetComponent<Button>().onClick.AddListener(() => StartButtonClicked());
+    }
+
+    private void StartButtonClicked()
+    {
+        GameObject panel = GameObject.Find("Panel");
+        panel.GetComponent<CanvasGroup>().alpha = 0f;
+        panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+        GameObject player = GameObject.Find("FirstPersonCharacter");
+        player.GetComponent<FirstPersonController>().enabled = true;
+        startLevel();
+    }
+
+    private void IngredientButtonClicked(int ingredient, GameObject button)
+    {
+        button.GetComponent<Image>().color = Color.green;
+        activeIngredientList.Add(ingredient);
     }
 
     //call from ingredients selection UI 
     private void startLevel()
     {
         GameObject weapon = GameObject.Find("Weapon");
-        weapon.GetComponent<WeaponController>().ingredients = new List<int> { Ingredient.WHITE_BREAD, Ingredient.BUTTER };
+        weapon.GetComponent<WeaponController>().ingredients = activeIngredientList;
 
         GameObject spawner = GameObject.Find("Spawner");
         StartCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
@@ -73,13 +153,23 @@ public class GameFlowController : MonoBehaviour
         fails++;
         if (fails == activeLevel.maxFailsForGameOver)
         {
+            GameObject.Find("LevelEnd").GetComponent<Text>().text = "Game Over";
+            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                GameObject.Destroy(enemy);
+            }
             showGameOverUI();
+            fails = 0;
+            kills = 0;
+            activeIngredientList = new List<int>();
+            GameObject spawner = GameObject.Find("Spawner");
+            StopCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
         }
     }
 
     private void showGameOverUI()
     {
-        Debug.Log("Game Over");
+        showLevelSelecetionUI();
     }
 
     internal void checkWon()
@@ -87,10 +177,24 @@ public class GameFlowController : MonoBehaviour
         kills++;
         if (kills == activeLevel.minKillsForWin)
         {
-            Debug.Log("Level cleared");
+            GameObject.Find("LevelEnd").GetComponent<Text>().text = "Level Cleared";
+            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                GameObject.Destroy(enemy);
+            }
             unlockedLevelsCount++;
-            showLevelSelecetionUI();
+            showLevelClearedUI();
+            kills = 0;
+            fails = 0;
+            activeIngredientList = new List<int>();
+            GameObject spawner = GameObject.Find("Spawner");
+            StopCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
         }
+    }
+
+    private void showLevelClearedUI()
+    {
+        showLevelSelecetionUI();
     }
 
     // Update is called once per frame

@@ -7,6 +7,8 @@ public class Enemy
 
     public static Dictionary<int, int> HealthList = new Dictionary<int, int> { { NORMAL, 50 }, { VEGAN, 30 } };
 
+    public static Dictionary<int, string> NameList = new Dictionary<int, string> { { NORMAL, "Normal" }, { VEGAN, "Vegan" } };
+
     public static Dictionary<int, Dictionary<int, int>> IngredientBonus = new Dictionary<int, Dictionary<int, int>>
     {
         {
