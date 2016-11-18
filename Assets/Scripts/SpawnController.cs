@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public class SpawnController : MonoBehaviour
 {
 
-    public GameObject enemy;
+    public GameObject enemyVegan;
+	public GameObject enemyNormal;
 
     // Use this for initialization
     void Start()
@@ -29,8 +30,11 @@ public class SpawnController : MonoBehaviour
         {
             for (int i = 0; i < entry.Value; i++)
             {
-                GameObject enemyObject = Instantiate(enemy, transform.GetChild(UnityEngine.Random.Range(0, transform.childCount)).position, Quaternion.identity) as GameObject;
-                enemyObject.GetComponent<EnemyController>().type = entry.Key;
+				GameObject enemy = enemyNormal;
+				if (entry.Key == Enemy.VEGAN) {
+					enemy = enemyVegan;
+				}
+				GameObject enemyObject = Instantiate(enemy, transform.GetChild(UnityEngine.Random.Range(0, transform.childCount)).position, Quaternion.identity) as GameObject;
                 yield return new WaitForSeconds(activeLevel.spawnInterval);
             }
         }

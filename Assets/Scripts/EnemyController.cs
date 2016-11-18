@@ -6,38 +6,48 @@ using System.Collections.Generic;
 public class EnemyController : MonoBehaviour {
     private GameObject destination;
     public Material hitMaterial;
-    public Material defaultMaterial;
-    public Material normalMaterial;
-    public Material veganMaterial;
     public float health;
     public int type { get; set; }
     public int baseDamage = 10;
 
-    // Use this for initialization
+	private Animator animator;
+	private Material defaultMaterial;
+	private NavMeshAgent agent;
+	// Use this for initialization
     void Start () {
-        health = Enemy.HealthList[type];
+		animator = GetComponent<Animator> ();
+		health = Enemy.HealthList[type];
 
-        switch (type)
+        /* switch (type)
         {
             case Enemy.NORMAL:
-                defaultMaterial = normalMaterial;
+                //defaultMaterial = normalMaterial;
+				defaultMaterial = GetComponentInChildren<Renderer>().material;;
                 break;
             case Enemy.VEGAN:
-                defaultMaterial = veganMaterial;
+				defaultMaterial = GetComponentInChildren<Renderer>().material;
                 break;
             default:
                 break;
-        }
-        this.GetComponent<Renderer>().material = defaultMaterial;
+        }*/
+        // this.GetComponent<Renderer>().material = defaultMaterial;
+		defaultMaterial = GetComponentInChildren<Renderer>().material;
+		defaultMaterial = hitMaterial;
+		Debug.Log (defaultMaterial);
 
         destination = GameObject.Find("Destination");
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
         agent.destination = destination.transform.position;
     }
 
     void FixedUpdate()
     {
+		animator.SetFloat ("Speed", 1f);
+		destination = GameObject.Find("Destination");
 
+		// Bad performance in the future. Try to find other solution later
+		agent = GetComponent<NavMeshAgent>();
+		agent.destination = destination.transform.position;
     }
 
     public void HitByPlayer(List<int> ingredients)
@@ -74,9 +84,9 @@ public class EnemyController : MonoBehaviour {
         while(time <= duration)
         {
             time += Time.deltaTime;
-            this.GetComponent<Renderer>().material = hitMaterial;
+			GetComponentInChildren<Renderer>().material = hitMaterial;
             yield return null;
         }
-        this.GetComponent<Renderer>().material = defaultMaterial;
+		GetComponentInChildren<Renderer>().material = defaultMaterial;
     }
 }
