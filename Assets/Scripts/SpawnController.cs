@@ -35,6 +35,7 @@ public class SpawnController : MonoBehaviour
 					enemy = enemyVegan;
 				}
 				GameObject enemyObject = Instantiate(enemy, transform.GetChild(UnityEngine.Random.Range(0, transform.childCount)).position, Quaternion.identity) as GameObject;
+				enemyObject.GetComponent<EnemyController>().type = entry.Key;
                 yield return new WaitForSeconds(activeLevel.spawnInterval);
             }
         }

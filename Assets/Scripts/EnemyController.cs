@@ -32,8 +32,6 @@ public class EnemyController : MonoBehaviour {
         }*/
         // this.GetComponent<Renderer>().material = defaultMaterial;
 		defaultMaterial = GetComponentInChildren<Renderer>().material;
-		defaultMaterial = hitMaterial;
-		Debug.Log (defaultMaterial);
 
         destination = GameObject.Find("Destination");
         agent = GetComponent<NavMeshAgent>();
