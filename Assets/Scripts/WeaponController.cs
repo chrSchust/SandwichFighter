@@ -25,7 +25,7 @@ public class WeaponController : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Enemy" && Input.GetMouseButton(0))
         {
