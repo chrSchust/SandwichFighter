@@ -11,6 +11,22 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1000012235436838}
   m_IsPrefabParent: 1
+--- !u!1 &1000011151982912
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000011823025024}
+  - 114: {fileID: 114000010520719440}
+  m_Layer: 0
+  m_Name: WeaponHitPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000011187271442
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,11 +57,11 @@ GameObject:
   - 114: {fileID: 114000012070114046}
   - 54: {fileID: 54000012682821894}
   - 82: {fileID: 82000011527597052}
-  - 208: {fileID: 208000012506785670}
   - 114: {fileID: 114000012153422906}
+  - 208: {fileID: 208000013997930604}
   m_Layer: 0
   m_Name: FirstPersonCharacter
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +78,7 @@ GameObject:
   - 136: {fileID: 136000011717500644}
   - 23: {fileID: 23000010667886632}
   - 114: {fileID: 114000014099424836}
-  - 54: {fileID: 54000011572897394}
+  - 54: {fileID: 54000013718162006}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -83,6 +99,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000013222364060}
   m_RootOrder: 0
+--- !u!4 &4000011823025024
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011151982912}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000013222364060}
+  m_RootOrder: 1
 --- !u!4 &4000013186884818
 Transform:
   m_ObjectHideFlags: 1
@@ -90,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012235436838}
   m_LocalRotation: {x: 0, y: 0.98376, z: 0, w: 0.17948897}
-  m_LocalPosition: {x: 2.85, y: 4.54, z: 5.63}
+  m_LocalPosition: {x: 2.49, y: 4.54, z: 5.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 159.32, z: 0}
   m_Children:
@@ -109,6 +138,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000011099436304}
+  - {fileID: 4000011823025024}
   m_Father: {fileID: 4000013186884818}
   m_RootOrder: 0
 --- !u!20 &20000010971431364
@@ -181,21 +211,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013834065194}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54000011572897394
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013834065194}
-  serializedVersion: 2
-  m_Mass: 55
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!54 &54000012682821894
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -210,6 +225,21 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54000013718162006
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013834065194}
+  serializedVersion: 2
+  m_Mass: 55
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!81 &81000012734152190
 AudioListener:
@@ -292,6 +322,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114000010520719440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011151982912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f877e2000d8645f6936ce1688a04c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 0
+  maxHitDistance: 2.5
 --- !u!114 &114000012070114046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -449,7 +492,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!208 &208000012506785670
+--- !u!208 &208000013997930604
 NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

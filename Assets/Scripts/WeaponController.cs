@@ -6,12 +6,6 @@ using System.Collections.Generic;
 public class WeaponController : MonoBehaviour {
 
     public float speed = 0.1F;
-    public List<int> ingredients { get; set; }
-
-    // Use this for initialization
-    void Start () {
-
-    }
 
     // Update is called once per frame
     void Update () {
@@ -22,14 +16,6 @@ public class WeaponController : MonoBehaviour {
         else
         {
             transform.localRotation = Quaternion.Lerp(transform.localRotation, new Quaternion(0f, 0f, 0f, 1f), Time.deltaTime * speed);
-        }
-    }
-
-    void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.tag == "Enemy" && Input.GetMouseButton(0))
-        {
-            col.gameObject.GetComponent<EnemyController>().HitByPlayer(ingredients);
         }
     }
 }

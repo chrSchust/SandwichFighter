@@ -80,7 +80,7 @@ public class EnemyController : MonoBehaviour
 
     public void HitByPlayer(List<int> ingredients)
     {
-        StartCoroutine(displayDamage());
+		StartCoroutine(displayDamage());
 
         int bonusDamage = 0;
         foreach (int ingredient in ingredients)

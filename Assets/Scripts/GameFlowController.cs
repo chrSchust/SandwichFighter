@@ -141,8 +141,8 @@ public class GameFlowController : MonoBehaviour
     //call from ingredients selection UI 
     private void startLevel()
     {
-        GameObject weapon = GameObject.Find("Weapon");
-        weapon.GetComponent<WeaponController>().ingredients = activeIngredientList;
+		GameObject weapon = GameObject.Find("WeaponHitPoint");
+		weapon.GetComponent<MeleeAttack>().ingredients = activeIngredientList;
 
         GameObject spawner = GameObject.Find("Spawner");
         StartCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
