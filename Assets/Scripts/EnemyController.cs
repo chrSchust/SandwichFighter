@@ -118,7 +118,6 @@ public class EnemyController : MonoBehaviour
 		GetComponentInChildren<Renderer>().material = defaultMaterial;
     }
 
-
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Waypoint")
@@ -127,7 +126,7 @@ public class EnemyController : MonoBehaviour
             if (lastWaypointIndex == Array.IndexOf(waypoints, other.gameObject))
             {
                 wayPointsVisited++;
-                if (wayPointsVisited == wayPointsToVisit)
+                if (wayPointsVisited >= wayPointsToVisit)
                 {
                     moveToDestination();
                 }
