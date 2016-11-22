@@ -108,9 +108,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitMaterial: {fileID: 2100000, guid: 2783ba5515c4979449dfdc038e259529, type: 2}
-  defaultMaterial: {fileID: 2100000, guid: f378dada3db4d6c40856d0b35b2e0f7a, type: 2}
-  normalMaterial: {fileID: 2100000, guid: 10e7ba4392854034281805b9d9c80bee, type: 2}
-  veganMaterial: {fileID: 2100000, guid: bde3084222844d445867d5e2bfbbfba6, type: 2}
   health: 0
   baseDamage: 10
 --- !u!135 &135000010752398166
