@@ -67,7 +67,7 @@ public class EnemyController : MonoBehaviour
         lastWaypointIndex = newWaypointIndex;
         GameObject waypoint = waypoints[newWaypointIndex];
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
-        agent.destination = waypoint.transform.position;
+        agent.destination = waypoint.transform.position; 
     }
 
     void moveToDestination()
