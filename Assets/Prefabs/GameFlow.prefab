@@ -22,7 +22,7 @@ GameObject:
   - 114: {fileID: 114000011169441908}
   m_Layer: 0
   m_Name: GameFlow
-  m_TagString: Untagged
+  m_TagString: GameFlowController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,3 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e054243178fbd448ba6c406152d2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentPanel: {fileID: 0}
+  prefabButton: {fileID: 1000010426803476, guid: 75e508930fdbe574bb5454148eadc021,
+    type: 2}

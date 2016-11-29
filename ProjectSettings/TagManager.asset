@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - Waypoint
+  - Weapon
+  - GuiManager
+  - GameFlowController
   layers:
   - Default
   - TransparentFX
