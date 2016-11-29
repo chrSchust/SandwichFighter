@@ -8,6 +8,7 @@ public class SpawnController : MonoBehaviour
 
     public GameObject enemyVegan;
 	public GameObject enemyNormal;
+    public GameObject enemyFat;
 
     // Use this for initialization
     void Start()
@@ -34,7 +35,11 @@ public class SpawnController : MonoBehaviour
 				if (entry.Key == Enemy.VEGAN) {
 					enemy = enemyVegan;
 				}
-				GameObject enemyObject = Instantiate(enemy, transform.GetChild(UnityEngine.Random.Range(0, transform.childCount)).position, Quaternion.identity) as GameObject;
+                if (entry.Key == Enemy.FAT)
+                {
+                    enemy = enemyFat;
+                }
+                GameObject enemyObject = Instantiate(enemy, transform.GetChild(UnityEngine.Random.Range(0, transform.childCount)).position, Quaternion.identity) as GameObject;
 				enemyObject.GetComponent<EnemyController>().type = entry.Key;
                 yield return new WaitForSeconds(activeLevel.spawnInterval);
             }

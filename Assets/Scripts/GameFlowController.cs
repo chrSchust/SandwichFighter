@@ -15,7 +15,7 @@ public class GameFlowController : MonoBehaviour
     private List<Level> levels;
     private int fails = 0;
     private int kills = 0;
-    private List<int> activeIngredientList = new List<int>();
+    private List<Ingredient> activeIngredientList = new List<Ingredient>();
 
     public RectTransform parentPanel;
     public GameObject prefabButton;
@@ -35,18 +35,22 @@ public class GameFlowController : MonoBehaviour
 
     private void initLevels()
     {
+        Salami salami = new Salami();
+        Chicken chicken = new Chicken();
+        Salad salad = new Salad();
+        Tomato tomato = new Tomato();
         levels = new List<Level>()
                 {
                   new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.NORMAL, 3)},
                       maxFailsForGameOver = 2,
                       minKillsForWin = 1,
-                      availableIngredients = new List<int>() {Ingredient.WHITE_BREAD},
+                      availableIngredients = new List<Ingredient>() {chicken, tomato},
                       spawnInterval = 5
                 },
                     new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.NORMAL, 1), new KeyValuePair<int, int>(Enemy.VEGAN, 2), new KeyValuePair<int, int>(Enemy.NORMAL, 1)},
                       maxFailsForGameOver = 2,
                       minKillsForWin = 2,
-                      availableIngredients = new List<int>() {Ingredient.WHITE_BREAD, Ingredient.BUTTER},
+                      availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
                       spawnInterval = 2
                 }};
     }
@@ -105,13 +109,13 @@ public class GameFlowController : MonoBehaviour
         GameObject player = GameObject.Find("FirstPersonCharacter");
         player.GetComponent<FirstPersonController>().enabled = false;
 
-        foreach (int ingredient in activeLevel.availableIngredients)
+        foreach (Ingredient ingredient in activeLevel.availableIngredients)
         {
             GameObject goButton = Instantiate(prefabButton) as GameObject;
             goButton.transform.SetParent(parentPanel, false);
-            goButton.GetComponentInChildren<Text>().text = Ingredient.NameList[ingredient];
+            goButton.GetComponentInChildren<Text>().text = ingredient.getName();
             goButton.GetComponentInChildren<Text>().fontSize = 50;
-            int tempIngredient = ingredient;
+            Ingredient tempIngredient = ingredient;
             goButton.GetComponent<Button>().onClick.AddListener(() => IngredientButtonClicked(tempIngredient, goButton));
         }
         GameObject startButton = Instantiate(prefabButton) as GameObject;
@@ -132,7 +136,7 @@ public class GameFlowController : MonoBehaviour
         startLevel();
     }
 
-    private void IngredientButtonClicked(int ingredient, GameObject button)
+    private void IngredientButtonClicked(Ingredient ingredient, GameObject button)
     {
         button.GetComponent<Image>().color = Color.green;
         activeIngredientList.Add(ingredient);
@@ -141,7 +145,7 @@ public class GameFlowController : MonoBehaviour
     //call from ingredients selection UI 
     private void startLevel()
     {
-		GameObject weapon = GameObject.Find("WeaponHitPoint");
+        GameObject weapon = GameObject.Find("WeaponHitPoint");
 		weapon.GetComponent<MeleeAttack>().ingredients = activeIngredientList;
 
         GameObject spawner = GameObject.Find("Spawner");
@@ -161,7 +165,7 @@ public class GameFlowController : MonoBehaviour
             showGameOverUI();
             fails = 0;
             kills = 0;
-            activeIngredientList = new List<int>();
+            activeIngredientList = new List<Ingredient>();
             GameObject spawner = GameObject.Find("Spawner");
             StopCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
         }
@@ -186,7 +190,7 @@ public class GameFlowController : MonoBehaviour
             showLevelClearedUI();
             kills = 0;
             fails = 0;
-            activeIngredientList = new List<int>();
+            activeIngredientList = new List<Ingredient>();
             GameObject spawner = GameObject.Find("Spawner");
             StopCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
         }

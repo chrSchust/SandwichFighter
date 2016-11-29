@@ -11,6 +11,6 @@ public class Level
 
     public int spawnInterval { get; set; }
 
-    public List<int> availableIngredients { get; set; }
+    public List<Ingredient> availableIngredients { get; set; }
 
 }
