@@ -20,14 +20,27 @@ public class GuiManager : MonoBehaviour {
 	private GameFlowController gameFlowController;
 	private int sandwichChose;
 	private int chosenLevel;
+	private Transform panelBread;
+	private Transform panelIngredient1;
+	private Transform panelIngredient2;
+	private Dropdown dropdownBread;
+	private Dropdown dropdownIngredient1;
+	private Dropdown dropdownIngredient2;
+
 
 	// Use this for initialization
 	void Start () {
+		
+	}
+
+	public void Init(List<Level> levels) {
 		sandwichChose = 0;
 		gameFlowController = GameObject.FindGameObjectWithTag ("GameFlowController").GetComponent<GameFlowController> ();
 		if (gameFlowController == null) {
 			Debug.LogError ("GameFlowController not found");
 		}
+		SetLevels (levels);
+		FindAndSetAllSubPanels ();
 
 		// Set visibilies for the first time
 		SetVisibilityPanel (PANEL_BACKGROUND, true);
@@ -72,15 +85,58 @@ public class GuiManager : MonoBehaviour {
 			SetVisibilityPanel(PANEL_SELECTED_SANDWICH, true);
 			SetVisibilityPreviousSandwichButton (true);
 		}
-		ShowBreadChoice ();
+
+		// First show bread panel after that the other
+		// Ingredients
+		SetVisibilityNextSandwichButton (false);
+		ShowBreadPanel ();
 	}
 
-	private void ShowBreadChoice() {
-		
+	private void ShowBreadPanel() {
+//		DisableAllSandwichSubPanels ();
+	}
+
+	private void InitializeAllDropdownsWithValues(int chosenLevel) {
+		// Get all dropdowns
+		FindAndSetAllDropdowns();
+
+		SetLevels (gameFlowController.GetLevels ());
+		Level level = this.levels[chosenLevel-1];
+
+		// TODO Get and set all available breads
+
+		// Get and set all available ingredients
+		List<string> optionsTmp = new List<string>();
+		List<Ingredient> ingredients = level.availableIngredients;
+		foreach (Ingredient ingredient in ingredients) {
+			optionsTmp.Add (ingredient.getName());
+		}
+		dropdownBread.ClearOptions ();
+
+		// TODO add options
+		dropdownIngredient1.ClearOptions();
+		dropdownIngredient1.AddOptions (optionsTmp);
+		dropdownIngredient2.ClearOptions ();
+		dropdownIngredient2.AddOptions (optionsTmp);
+		dropdownIngredient2.value = -1;
+	}
+
+	private void DisableAllSandwichSubPanels() { 
+		panelBread.gameObject.SetActive (false);
+		panelIngredient1.gameObject.SetActive(false);
+		panelIngredient2.gameObject.SetActive(false);
 	}
 
 	private void SetVisibilityPreviousSandwichButton(bool visible) {
 		Transform previousButton = panelSandwich.transform.FindChild ("ButtonPreviousSandwich");
+		if (previousButton == null) {
+			Debug.LogError ("Previous Button is null");
+		}
+		previousButton.gameObject.SetActive (visible);
+	}
+
+	private void SetVisibilityNextSandwichButton(bool visible) {
+		Transform previousButton = panelSandwich.transform.FindChild ("ButtonNextSandwich");
 		if (previousButton == null) {
 			Debug.LogError ("Previous Button is null");
 		}
@@ -115,6 +171,7 @@ public class GuiManager : MonoBehaviour {
 	private void LevelButtonClicked(int chosenLevel) {
 		SetChosenLevel (chosenLevel);
 		ShowSandwichCombinator (0);
+		InitializeAllDropdownsWithValues (chosenLevel);
 	}
 
 	private void SetVisibilityPanel(string panelKey, bool visibility) {
@@ -134,6 +191,33 @@ public class GuiManager : MonoBehaviour {
 				return panelSelectedSandwich;
 			default :
 				return null;
+		}
+	}
+
+	private void FindAndSetAllSubPanels() {
+		// Get the sub panels
+		Transform panelSandwichTransform = panelSandwich.transform;
+		panelBread = panelSandwichTransform.FindChild("PanelBread");
+		Transform panelIngredient1Transform = panelSandwich.transform;
+		panelIngredient1 = panelIngredient1Transform.FindChild("PanelIngredient1");
+		Transform panelIngredient2Transform = panelSandwich.transform;
+		panelIngredient2 = panelIngredient2Transform.FindChild("PanelIngredient2");
+		if (panelBread == null ||
+			panelIngredient1 == null ||
+			panelIngredient2 == null) {
+			Debug.LogError ("A sub panel is null");
+		}
+	}
+
+	private void FindAndSetAllDropdowns() {
+		string dropdownText = "Dropdown";
+		dropdownBread = panelBread.FindChild (dropdownText).GetComponent<Dropdown>();
+		dropdownIngredient1= panelIngredient1.FindChild (dropdownText).GetComponent<Dropdown>();
+		dropdownIngredient2 = panelIngredient2.FindChild (dropdownText).GetComponent<Dropdown>();
+		if (dropdownBread == null ||
+		   dropdownIngredient1 == null ||
+		   dropdownIngredient2 == null) {
+			Debug.LogError ("A dropdown is null");
 		}
 	}
 }

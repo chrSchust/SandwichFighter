@@ -10,7 +10,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class GameFlowController : MonoBehaviour
 {
 
-    private int unlockedLevelsCount = 3;
+    private int unlockedLevelsCount = 0;
     private Level activeLevel;
     private List<Level> levels;
     private int fails = 0;
@@ -29,11 +29,11 @@ public class GameFlowController : MonoBehaviour
 		if (guiManager == null) {
 			Debug.LogError ("GuiManager is null");
 		}
-
 //        GameObject panel = GameObject.Find("Panel");
 //        panel.GetComponent<CanvasGroup>().alpha = 0f;
 //        panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
         initLevels();
+		guiManager.Init (levels);
 //        showLevelSelecetionUI();
     }
 
@@ -85,6 +85,9 @@ public class GameFlowController : MonoBehaviour
 //        }
 
 //    }
+	public List<Level> GetLevels() {
+		return levels;
+	}
 
 	public void statusFirstPersonController(bool status) {
 		GameObject player = GameObject.Find("FirstPersonCharacter");
