@@ -59,6 +59,7 @@ public class GuiManager : MonoBehaviour {
 	}
 
 	private void ShowSandwichCombinator(int sandwichChosen) {
+		SetVisibilityPanel (PANEL_LEVEL_SELECTION, false);
 		SetVisibilityPanel (PANEL_SANDWICH, true);
 		SetVisibilityPanel (PANEL_BACKGROUND, true);
 		if (sandwichChosen == 0) {

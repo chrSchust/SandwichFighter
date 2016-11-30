@@ -1318,6 +1318,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012573513206, guid: f92c97b0803d1435ba16c0a48f225daa,
+        type: 2}
+      propertyPath: m_Text
+      value: Weiter
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011696532978, guid: f92c97b0803d1435ba16c0a48f225daa,
+        type: 2}
+      propertyPath: m_Text
+      value: "Zur\xFCck"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f92c97b0803d1435ba16c0a48f225daa, type: 2}
   m_IsPrefabParent: 0
