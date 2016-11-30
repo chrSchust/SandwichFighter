@@ -10,7 +10,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class GameFlowController : MonoBehaviour
 {
 
-    private int unlockedLevelsCount = 0;
+    private int unlockedLevelsCount = 3;
     private Level activeLevel;
     private List<Level> levels;
     private int fails = 0;
