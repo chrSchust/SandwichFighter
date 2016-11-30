@@ -86,6 +86,11 @@ public class GameFlowController : MonoBehaviour
 
 //    }
 
+	public void statusFirstPersonController(bool status) {
+		GameObject player = GameObject.Find("FirstPersonCharacter");
+		player.GetComponent<FirstPersonController>().enabled = status;
+	}
+
     public void ButtonClicked(int buttonNo)
     {
         setActiveLevel(buttonNo);
