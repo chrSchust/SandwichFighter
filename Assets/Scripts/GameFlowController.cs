@@ -10,7 +10,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class GameFlowController : MonoBehaviour
 {
 
-    private int unlockedLevelsCount = 0;
+    private int unlockedLevelsCount = 2;
     private Level activeLevel;
     private List<Level> levels;
     private int fails = 0;
@@ -172,7 +172,8 @@ public class GameFlowController : MonoBehaviour
 
 	public void StartLevel(List<Ingredient> activeIngredientList, Level activeLevel)
     {
-        GameObject weapon = GameObject.Find("WeaponHitPoint");
+		this.activeLevel = activeLevel;
+		GameObject weapon = GameObject.Find("WeaponHitPoint");
 		weapon.GetComponent<MeleeAttack>().ingredients = activeIngredientList;
 
         GameObject spawner = GameObject.Find("Spawner");
@@ -184,7 +185,9 @@ public class GameFlowController : MonoBehaviour
         fails++;
         if (fails == activeLevel.maxFailsForGameOver)
         {
-            GameObject.Find("LevelEnd").GetComponent<Text>().text = "Game Over";
+            // GameObject.Find("LevelEnd").GetComponent<Text>().text = "Game Over";
+			// TODO Have to be linked with GUIManager for now just use Debug message
+			Debug.Log("Game over");
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
                 GameObject.Destroy(enemy);
@@ -208,7 +211,9 @@ public class GameFlowController : MonoBehaviour
         kills++;
         if (kills == activeLevel.minKillsForWin)
         {
-            GameObject.Find("LevelEnd").GetComponent<Text>().text = "Level Cleared";
+            // GameObject.Find("LevelEnd").GetComponent<Text>().text = "Level Cleared";
+			// TODO Have to be linked with GUIManager for now just use Debug message
+			Debug.Log("Level cleared");
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
                 GameObject.Destroy(enemy);
