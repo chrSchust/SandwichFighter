@@ -18,8 +18,6 @@ public class GuiManager : MonoBehaviour {
 
 	private List<Level> levels;
 	private GameFlowController gameFlowController;
-	private int sandwichChose;
-	private int chosenLevel;
 	private Transform panelBread;
 	private Transform panelIngredient1;
 	private Transform panelIngredient2;
@@ -27,35 +25,28 @@ public class GuiManager : MonoBehaviour {
 	private Dropdown dropdownIngredient1;
 	private Dropdown dropdownIngredient2;
 
+	void Start() {
 
-	// Use this for initialization
-	void Start () {
-		
 	}
 
-	public void Init(List<Level> levels) {
-		sandwichChose = 0;
-		gameFlowController = GameObject.FindGameObjectWithTag ("GameFlowController").GetComponent<GameFlowController> ();
-		if (gameFlowController == null) {
-			Debug.LogError ("GameFlowController not found");
-		}
+	public void Init(List<Level> levels, int unlockedLevelsCount) {
 		SetLevels (levels);
 		FindAndSetAllSubPanels ();
 
-		// Set visibilies for the first time
+		// Set visibilities for the first time
 		SetVisibilityPanel (PANEL_BACKGROUND, true);
 		SetVisibilityPanel (PANEL_SELECTED_SANDWICH, false);
 		SetVisibilityPanel (PANEL_LEVEL_SELECTION, false);
 		SetVisibilityPanel (PANEL_SANDWICH, false);
 		SetVisibilityCursor (true);
 		// Check if a level is already unlocked
-		if (gameFlowController.GetUnlockedLevelsCount () > 0) {
+		if (unlockedLevelsCount > 0) {
 			// Show selection of levels
 			SetVisibilityPanel (PANEL_LEVEL_SELECTION, true);
-			AddButtonToLevelSelection (gameFlowController.GetUnlockedLevelsCount ());
+			AddButtonToLevelSelection (unlockedLevelsCount);
 		} else {
-			ShowSandwichCombinator (this.sandwichChose);
-			LevelButtonClicked (1);
+			// If no level got unlocked start with the first level
+			LevelButtonClicked (0);
 		}
 	}
 
@@ -63,15 +54,8 @@ public class GuiManager : MonoBehaviour {
 		this.levels = levels;
 	}
 
-	private void SetChosenLevel(int chosenLevel){
-		this.chosenLevel = chosenLevel;
-	}
-
-	private int GetChosenLevel(){
-		return this.chosenLevel;
-	}
-
-	private void ShowSandwichCombinator(int sandwichChosen) {
+	private void ShowSandwichCombinator(int sandwichChosen, int chosenLevel) {
+		InitializeAllDropdownsWithValues (chosenLevel);
 		SetVisibilityPanel (PANEL_LEVEL_SELECTION, false);
 		SetVisibilityPanel (PANEL_SANDWICH, true);
 		SetVisibilityPanel (PANEL_BACKGROUND, true);
@@ -99,9 +83,7 @@ public class GuiManager : MonoBehaviour {
 	private void InitializeAllDropdownsWithValues(int chosenLevel) {
 		// Get all dropdowns
 		FindAndSetAllDropdowns();
-
-		SetLevels (gameFlowController.GetLevels ());
-		Level level = this.levels[chosenLevel-1];
+		Level level = this.levels[chosenLevel];
 
 		// TODO Get and set all available breads
 
@@ -159,24 +141,32 @@ public class GuiManager : MonoBehaviour {
             GameObject.Destroy(child.gameObject);
         }
 
-		for(int i = 0; i < unlockedLevelsCount; i++) {
-			GameObject goButton = Instantiate(prefabButtonLevel) as GameObject;
-			goButton.transform.SetParent(panelRect, false);
-            goButton.GetComponentInChildren<Text>().text = "Level " + (i + 1);
-            goButton.GetComponentInChildren<Text>().fontSize = 16;
-			goButton.GetComponent<Button>().onClick.AddListener(() => LevelButtonClicked(i + 1));
+		foreach (Level level in levels)
+        {
+            int index = levels.IndexOf(level);
+			if (index < unlockedLevelsCount) {
+				GameObject goButton = Instantiate (prefabButtonLevel) as GameObject;
+				goButton.transform.SetParent (panelRect, false);
+				goButton.GetComponentInChildren<Text> ().text = "Level " + (index + 1);
+				goButton.GetComponentInChildren<Text> ().fontSize = 16;
+				goButton.GetComponent<Button> ().onClick.AddListener (() => LevelButtonClicked (index));
+			} else {
+				break;
+			}
         }
 	}
 
 	private void LevelButtonClicked(int chosenLevel) {
-		SetChosenLevel (chosenLevel);
-		ShowSandwichCombinator (0);
-		InitializeAllDropdownsWithValues (chosenLevel);
+		ShowSandwichCombinator (0, chosenLevel);
 	}
 
 	private void SetVisibilityPanel(string panelKey, bool visibility) {
 		GameObject panel = GetPanel (panelKey);
 		panel.SetActive (visibility);
+//		if (panelKey.Equals (PANEL_LEVEL_SELECTION) &&
+//		   !visibility) {
+//
+//		}
 	}
 
 	private GameObject GetPanel(string panelKey) {

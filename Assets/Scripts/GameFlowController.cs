@@ -33,7 +33,7 @@ public class GameFlowController : MonoBehaviour
 //        panel.GetComponent<CanvasGroup>().alpha = 0f;
 //        panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
         initLevels();
-		guiManager.Init (levels);
+		guiManager.Init (levels, unlockedLevelsCount);
 //        showLevelSelecetionUI();
     }
 
@@ -56,7 +56,13 @@ public class GameFlowController : MonoBehaviour
                       minKillsForWin = 2,
                       availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
                       spawnInterval = 2
-                }};
+				},
+				new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.NORMAL, 1), new KeyValuePair<int, int>(Enemy.VEGAN, 2), new KeyValuePair<int, int>(Enemy.NORMAL, 1)},
+					maxFailsForGameOver = 2,
+					minKillsForWin = 2,
+					availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
+					spawnInterval = 2
+				}};
     }
 
 //    private void showLevelSelecetionUI()
@@ -99,10 +105,6 @@ public class GameFlowController : MonoBehaviour
         setActiveLevel(buttonNo);
 //        showIngredientsSelectionUI();
     }
-
-	public int GetUnlockedLevelsCount() {
-		return this.unlockedLevelsCount;
-	}
 
     //call from level selection UI 
     private void setActiveLevel(int levelNumber)
