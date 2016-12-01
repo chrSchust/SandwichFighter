@@ -33,7 +33,7 @@ public class GameFlowController : MonoBehaviour
 //        panel.GetComponent<CanvasGroup>().alpha = 0f;
 //        panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
         initLevels();
-		guiManager.Init (levels, unlockedLevelsCount);
+		guiManager.Init (this, levels, unlockedLevelsCount);
 //        showLevelSelecetionUI();
     }
 
@@ -161,7 +161,16 @@ public class GameFlowController : MonoBehaviour
 //    }
 
     //call from ingredients selection UI 
-    private void startLevel()
+//    private void startLevel()
+//    {
+//        GameObject weapon = GameObject.Find("WeaponHitPoint");
+//		weapon.GetComponent<MeleeAttack>().ingredients = activeIngredientList;
+//
+//        GameObject spawner = GameObject.Find("Spawner");
+//        StartCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
+//    }
+
+	public void StartLevel(List<Ingredient> activeIngredientList, Level activeLevel)
     {
         GameObject weapon = GameObject.Find("WeaponHitPoint");
 		weapon.GetComponent<MeleeAttack>().ingredients = activeIngredientList;
