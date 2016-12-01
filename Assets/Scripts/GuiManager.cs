@@ -62,6 +62,7 @@ public class GuiManager : MonoBehaviour {
 	}
 
 	private void ShowSandwichCombinator(int sandwichChosen, int chosenLevel) {
+		SetVisibilityPanel (PANEL_LEVEL_SELECTION, false);
 		InitializeAllDropdownsWithValues (chosenLevel);
 
 		if (sandwichChosen == 0) {
