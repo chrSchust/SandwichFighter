@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.SceneManagement;
 
 
 public class GameFlowController : MonoBehaviour
@@ -17,6 +18,7 @@ public class GameFlowController : MonoBehaviour
     private int kills = 0;
     private List<Ingredient> activeIngredientList = new List<Ingredient>();
 	private GuiManager guiManager = null;
+    private Coroutine spawnMethod;
 
     public RectTransform parentPanel;
     public GameObject prefabButton;
@@ -177,7 +179,7 @@ public class GameFlowController : MonoBehaviour
 		weapon.GetComponent<MeleeAttack>().ingredients = activeIngredientList;
 
         GameObject spawner = GameObject.Find("Spawner");
-        StartCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
+        spawnMethod = StartCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
     }
 
     internal void checkGameOver()
@@ -197,7 +199,7 @@ public class GameFlowController : MonoBehaviour
             kills = 0;
             activeIngredientList = new List<Ingredient>();
             GameObject spawner = GameObject.Find("Spawner");
-            StopCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
+            StopCoroutine(spawnMethod);
         }
     }
 
@@ -219,12 +221,12 @@ public class GameFlowController : MonoBehaviour
                 GameObject.Destroy(enemy);
             }
             unlockedLevelsCount++;
-//            showLevelClearedUI();
+            //            showLevelClearedUI();
             kills = 0;
             fails = 0;
             activeIngredientList = new List<Ingredient>();
             GameObject spawner = GameObject.Find("Spawner");
-            StopCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
+            StopCoroutine(spawnMethod);
         }
     }
 

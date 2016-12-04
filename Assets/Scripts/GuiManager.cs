@@ -239,18 +239,18 @@ public class GuiManager : MonoBehaviour {
 	}
 
 	private void SetVisibilityPanel(string panelKey, bool visibility) {
-		GameObject panel = GetPanel (panelKey);
+        GameObject panel = GetPanel (panelKey);
 		panel.SetActive (visibility);
-		if (panelKey.Equals (PANEL_SANDWICH)) {
-			// Set next button listener
-			Transform panelTrans = panel.transform;
+		if (panelKey.Equals (PANEL_SANDWICH) && visibility == true) {
+            // Set next button listener
+            Transform panelTrans = panel.transform;
 			Button next = panelTrans.FindChild (BUTTON_NEXT_SANWICH).GetComponent<Button> ();
 			next.onClick.AddListener (() => NextSandwichButtonClicked ());
 		}
 	}
 
 	private void NextSandwichButtonClicked() {
-		if (ingredient1 != null && ingredient2 != null && activeLevel != null) {
+        if (ingredient1 != null && ingredient2 != null && activeLevel != null) {
 			List<Ingredient> activeIngredients = new List<Ingredient> ();
 			activeIngredients.Add (ingredient1);
 			activeIngredients.Add (ingredient2);
