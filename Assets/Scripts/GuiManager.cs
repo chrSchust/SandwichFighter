@@ -32,6 +32,10 @@ public class GuiManager : MonoBehaviour
     private Ingredient ingredient2;
     private Level activeLevel;
 
+    private bool firstBread = true;
+    List<Ingredient> ingredients1 = new List<Ingredient>();
+    List<Ingredient> ingredients2 = new List<Ingredient>();
+
     void Start()
     {
 
@@ -63,7 +67,10 @@ public class GuiManager : MonoBehaviour
     private void ShowSandwichCombinator(int sandwichChosen, int chosenLevel)
     {
         SetVisibilityPanel(PANEL_LEVEL_SELECTION, false);
-        InitializeAllDropdownsWithValues(chosenLevel);
+        if (firstBread == true)
+        {
+            InitializeAllDropdownsWithValues(chosenLevel);
+        }
 
         if (sandwichChosen == 0)
         {
@@ -81,9 +88,13 @@ public class GuiManager : MonoBehaviour
 
         SetVisibilityPanel(PANEL_SANDWICH, true);
         SetVisibilityNextSandwichButton(true);
-        SetDropdownBreadListener(dropdownBread, chosenLevel);
-        SetDropdownIngredient1Listener(dropdownIngredient1, chosenLevel);
-        SetDropdownIngredient2Listener(dropdownIngredient2, chosenLevel);
+        if (firstBread == true)
+        {
+            SetDropdownBreadListener(dropdownBread, chosenLevel);
+            SetDropdownIngredient1Listener(dropdownIngredient1, chosenLevel);
+            SetDropdownIngredient2Listener(dropdownIngredient2, chosenLevel);
+        }
+
     }
 
     private void SetDropdownBreadListener(Dropdown dropdownBread, int chosenLevel)
@@ -93,12 +104,13 @@ public class GuiManager : MonoBehaviour
             Debug.LogError("dropdown bread is null");
         }
         // Set an empty start up value
-        SetBlankDefaultDropdownValue(dropdownBread);
+        //SetBlankDefaultDropdownValue(dropdownBread);
         // Set onChange listener
         dropdownBread.onValueChanged.AddListener(delegate
         {
             SetBreadValue(dropdownBread.value, chosenLevel);
         });
+        SetBreadValue(0, chosenLevel);
     }
 
     private void SetDropdownIngredient1Listener(Dropdown dropdownIngredient1, int chosenLevel)
@@ -109,12 +121,13 @@ public class GuiManager : MonoBehaviour
         }
 
         // Set an empty start up value
-        SetBlankDefaultDropdownValue(dropdownIngredient1);
+        //SetBlankDefaultDropdownValue(dropdownIngredient1);
         // Set onChange listener
         dropdownIngredient1.onValueChanged.AddListener(delegate
         {
             SetIngredient1Value(dropdownIngredient1.value, chosenLevel);
         });
+        SetIngredient1Value(0, chosenLevel);
     }
 
     private void SetDropdownIngredient2Listener(Dropdown dropdownIngredient2, int chosenLevel)
@@ -125,12 +138,13 @@ public class GuiManager : MonoBehaviour
         }
 
         // Set an empty start up value
-        SetBlankDefaultDropdownValue(dropdownIngredient2);
+        //SetBlankDefaultDropdownValue(dropdownIngredient2);
         // Set onChange listener
         dropdownIngredient2.onValueChanged.AddListener(delegate
         {
             SetIngredient2Value(dropdownIngredient2.value, chosenLevel);
         });
+        SetIngredient2Value(0, chosenLevel);
     }
 
     private void SetBreadValue(int chosenItem, int chosenLevel)
@@ -277,6 +291,7 @@ public class GuiManager : MonoBehaviour
             // Set next button listener
             Transform panelTrans = panel.transform;
             Button next = panelTrans.FindChild(BUTTON_NEXT_SANWICH).GetComponent<Button>();
+            next.onClick.RemoveAllListeners();
             next.onClick.AddListener(() => NextSandwichButtonClicked());
         }
     }
@@ -285,11 +300,20 @@ public class GuiManager : MonoBehaviour
     {
         if (ingredient1 != null && ingredient2 != null && activeLevel != null)
         {
-            List<Ingredient> activeIngredients = new List<Ingredient>();
-            activeIngredients.Add(ingredient1);
-            activeIngredients.Add(ingredient2);
-            // For now just start the game
-            StartLevel(activeIngredients, activeLevel);
+            if (firstBread == true)
+            {
+                ingredients1.Add(ingredient1);
+                ingredients1.Add(ingredient2);
+                firstBread = false;
+                ShowSandwichCombinator(1, levels.IndexOf(activeLevel));
+            }
+            else
+            {
+                ingredients2.Add(ingredient1);
+                ingredients2.Add(ingredient2);
+                StartLevel(ingredients1, ingredients2, activeLevel);
+            }
+
         }
         else
         {
@@ -297,11 +321,11 @@ public class GuiManager : MonoBehaviour
         }
     }
 
-    private void StartLevel(List<Ingredient> activeIngredients, Level activeLevel)
+    private void StartLevel(List<Ingredient> ingredients1, List<Ingredient> ingredients2, Level activeLevel)
     {
         SetVisibilityCursor(false);
         SetVisibilityAllPanels(false);
-        gameFlowController.StartLevel(activeIngredients, activeLevel);
+        gameFlowController.StartLevel(ingredients1, ingredients2, activeLevel);
     }
 
     private void SetVisibilityAllPanels(bool visibility)

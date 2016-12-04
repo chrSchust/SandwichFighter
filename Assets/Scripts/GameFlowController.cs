@@ -11,32 +11,42 @@ using UnityEngine.SceneManagement;
 public class GameFlowController : MonoBehaviour
 {
 
-    private int unlockedLevelsCount = 2;
+    private int unlockedLevelsCount = 1;
     private Level activeLevel;
     private List<Level> levels;
     private int fails = 0;
     private int kills = 0;
     private List<Ingredient> activeIngredientList = new List<Ingredient>();
-	private GuiManager guiManager = null;
+    private GuiManager guiManager = null;
     private Coroutine spawnMethod;
+
+    private GameObject player;
+    private Vector3 playerStartPosition;
+    private Quaternion playerStartRotation;
 
     public RectTransform parentPanel;
     public GameObject prefabButton;
+    public GameObject GuiManagerPrefab;
 
 
     // Use this for initialization
     void Start()
     {
-		guiManager = GameObject.FindGameObjectWithTag ("GuiManager").GetComponent<GuiManager> ();
-		if (guiManager == null) {
-			Debug.LogError ("GuiManager is null");
-		}
-//        GameObject panel = GameObject.Find("Panel");
-//        panel.GetComponent<CanvasGroup>().alpha = 0f;
-//        panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        player = GameObject.Find("FirstPersonCharacter");
+        playerStartPosition = player.transform.position;
+        playerStartRotation = player.transform.rotation;
+
+        guiManager = GameObject.FindGameObjectWithTag("GuiManager").GetComponent<GuiManager>();
+        if (guiManager == null)
+        {
+            Debug.LogError("GuiManager is null");
+        }
+        //        GameObject panel = GameObject.Find("Panel");
+        //        panel.GetComponent<CanvasGroup>().alpha = 0f;
+        //        panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
         initLevels();
-		guiManager.Init (this, levels, unlockedLevelsCount);
-//        showLevelSelecetionUI();
+        guiManager.Init(this, levels, unlockedLevelsCount);
+        //        showLevelSelecetionUI();
     }
 
     private void initLevels()
@@ -58,54 +68,56 @@ public class GameFlowController : MonoBehaviour
                       minKillsForWin = 2,
                       availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
                       spawnInterval = 2
-				},
-				new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.NORMAL, 1), new KeyValuePair<int, int>(Enemy.VEGAN, 2), new KeyValuePair<int, int>(Enemy.NORMAL, 1)},
-					maxFailsForGameOver = 2,
-					minKillsForWin = 2,
-					availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
-					spawnInterval = 2
-				}};
+                },
+                new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.NORMAL, 1), new KeyValuePair<int, int>(Enemy.VEGAN, 2), new KeyValuePair<int, int>(Enemy.NORMAL, 1)},
+                    maxFailsForGameOver = 2,
+                    minKillsForWin = 2,
+                    availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
+                    spawnInterval = 2
+                }};
     }
 
-//    private void showLevelSelecetionUI()
-//    {
-//        GameObject panel = GameObject.Find("Panel");
-//        foreach (Transform child in panel.transform)
-//        {
-//            GameObject.Destroy(child.gameObject);
-//        }
-//        panel.GetComponent<CanvasGroup>().alpha = 1f;
-//        panel.GetComponent<CanvasGroup>().blocksRaycasts = true;
+    //    private void showLevelSelecetionUI()
+    //    {
+    //        GameObject panel = GameObject.Find("Panel");
+    //        foreach (Transform child in panel.transform)
+    //        {
+    //            GameObject.Destroy(child.gameObject);
+    //        }
+    //        panel.GetComponent<CanvasGroup>().alpha = 1f;
+    //        panel.GetComponent<CanvasGroup>().blocksRaycasts = true;
 
-//        GameObject player = GameObject.Find("FirstPersonCharacter");
-//        player.GetComponent<FirstPersonController>().enabled = false;
-//        Cursor.visible = true;
-//        Cursor.lockState = CursorLockMode.None;
+    //        GameObject player = GameObject.Find("FirstPersonCharacter");
+    //        player.GetComponent<FirstPersonController>().enabled = false;
+    //        Cursor.visible = true;
+    //        Cursor.lockState = CursorLockMode.None;
 
-//        foreach (Level level in levels)
-//        {
-//            int index = levels.IndexOf(level);
-//            GameObject goButton = Instantiate(prefabButton) as GameObject;
-//            goButton.transform.SetParent(parentPanel, false);
-//            goButton.GetComponentInChildren<Text>().text = "Level " + (index + 1);
-//            goButton.GetComponentInChildren<Text>().fontSize = 50;
-//            goButton.GetComponent<Button>().onClick.AddListener(() => ButtonClicked(index));
-//        }
+    //        foreach (Level level in levels)
+    //        {
+    //            int index = levels.IndexOf(level);
+    //            GameObject goButton = Instantiate(prefabButton) as GameObject;
+    //            goButton.transform.SetParent(parentPanel, false);
+    //            goButton.GetComponentInChildren<Text>().text = "Level " + (index + 1);
+    //            goButton.GetComponentInChildren<Text>().fontSize = 50;
+    //            goButton.GetComponent<Button>().onClick.AddListener(() => ButtonClicked(index));
+    //        }
 
-//    }
-	public List<Level> GetLevels() {
-		return levels;
-	}
+    //    }
+    public List<Level> GetLevels()
+    {
+        return levels;
+    }
 
-	public void statusFirstPersonController(bool status) {
-		GameObject player = GameObject.Find("FirstPersonCharacter");
-		player.GetComponent<FirstPersonController>().enabled = status;
-	}
+    public void statusFirstPersonController(bool status)
+    {
+        GameObject player = GameObject.Find("FirstPersonCharacter");
+        player.GetComponent<FirstPersonController>().enabled = status;
+    }
 
     public void ButtonClicked(int buttonNo)
     {
         setActiveLevel(buttonNo);
-//        showIngredientsSelectionUI();
+        //        showIngredientsSelectionUI();
     }
 
     //call from level selection UI 
@@ -114,69 +126,71 @@ public class GameFlowController : MonoBehaviour
         activeLevel = levels[levelNumber];
     }
 
-//    private void showIngredientsSelectionUI()
-//    {
-//        GameObject.Find("LevelEnd").GetComponent<Text>().text = "";
-//
-//        GameObject panel = GameObject.Find("Panel");
-//        foreach (Transform child in panel.transform)
-//        {
-//            GameObject.Destroy(child.gameObject);
-//        }
-//        panel.GetComponent<CanvasGroup>().alpha = 1f;
-//        panel.GetComponent<CanvasGroup>().blocksRaycasts = true;
-//
-//        GameObject player = GameObject.Find("FirstPersonCharacter");
-//        player.GetComponent<FirstPersonController>().enabled = false;
-//
-//        foreach (Ingredient ingredient in activeLevel.availableIngredients)
-//        {
-//            GameObject goButton = Instantiate(prefabButton) as GameObject;
-//            goButton.transform.SetParent(parentPanel, false);
-//            goButton.GetComponentInChildren<Text>().text = ingredient.getName();
-//            goButton.GetComponentInChildren<Text>().fontSize = 50;
-//            Ingredient tempIngredient = ingredient;
-//            goButton.GetComponent<Button>().onClick.AddListener(() => IngredientButtonClicked(tempIngredient, goButton));
-//        }
-//        GameObject startButton = Instantiate(prefabButton) as GameObject;
-//        startButton.transform.SetParent(parentPanel, false);
-//        startButton.GetComponentInChildren<Text>().text = "START";
-//        startButton.GetComponentInChildren<Text>().fontSize = 50;
-//        startButton.GetComponent<Button>().onClick.AddListener(() => StartButtonClicked());
-//    }
+    //    private void showIngredientsSelectionUI()
+    //    {
+    //        GameObject.Find("LevelEnd").GetComponent<Text>().text = "";
+    //
+    //        GameObject panel = GameObject.Find("Panel");
+    //        foreach (Transform child in panel.transform)
+    //        {
+    //            GameObject.Destroy(child.gameObject);
+    //        }
+    //        panel.GetComponent<CanvasGroup>().alpha = 1f;
+    //        panel.GetComponent<CanvasGroup>().blocksRaycasts = true;
+    //
+    //        GameObject player = GameObject.Find("FirstPersonCharacter");
+    //        player.GetComponent<FirstPersonController>().enabled = false;
+    //
+    //        foreach (Ingredient ingredient in activeLevel.availableIngredients)
+    //        {
+    //            GameObject goButton = Instantiate(prefabButton) as GameObject;
+    //            goButton.transform.SetParent(parentPanel, false);
+    //            goButton.GetComponentInChildren<Text>().text = ingredient.getName();
+    //            goButton.GetComponentInChildren<Text>().fontSize = 50;
+    //            Ingredient tempIngredient = ingredient;
+    //            goButton.GetComponent<Button>().onClick.AddListener(() => IngredientButtonClicked(tempIngredient, goButton));
+    //        }
+    //        GameObject startButton = Instantiate(prefabButton) as GameObject;
+    //        startButton.transform.SetParent(parentPanel, false);
+    //        startButton.GetComponentInChildren<Text>().text = "START";
+    //        startButton.GetComponentInChildren<Text>().fontSize = 50;
+    //        startButton.GetComponent<Button>().onClick.AddListener(() => StartButtonClicked());
+    //    }
 
-//    private void StartButtonClicked()
-//    {
-//        GameObject panel = GameObject.Find("Panel");
-//        panel.GetComponent<CanvasGroup>().alpha = 0f;
-//        panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
-//
-//        GameObject player = GameObject.Find("FirstPersonCharacter");
-//        player.GetComponent<FirstPersonController>().enabled = true;
-//        startLevel();
-//    }
+    //    private void StartButtonClicked()
+    //    {
+    //        GameObject panel = GameObject.Find("Panel");
+    //        panel.GetComponent<CanvasGroup>().alpha = 0f;
+    //        panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
+    //
+    //        GameObject player = GameObject.Find("FirstPersonCharacter");
+    //        player.GetComponent<FirstPersonController>().enabled = true;
+    //        startLevel();
+    //    }
 
-//    private void IngredientButtonClicked(Ingredient ingredient, GameObject button)
-//    {
-//        button.GetComponent<Image>().color = Color.green;
-//        activeIngredientList.Add(ingredient);
-//    }
+    //    private void IngredientButtonClicked(Ingredient ingredient, GameObject button)
+    //    {
+    //        button.GetComponent<Image>().color = Color.green;
+    //        activeIngredientList.Add(ingredient);
+    //    }
 
     //call from ingredients selection UI 
-//    private void startLevel()
-//    {
-//        GameObject weapon = GameObject.Find("WeaponHitPoint");
-//		weapon.GetComponent<MeleeAttack>().ingredients = activeIngredientList;
-//
-//        GameObject spawner = GameObject.Find("Spawner");
-//        StartCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
-//    }
+    //    private void startLevel()
+    //    {
+    //        GameObject weapon = GameObject.Find("WeaponHitPoint");
+    //		weapon.GetComponent<MeleeAttack>().ingredients = activeIngredientList;
+    //
+    //        GameObject spawner = GameObject.Find("Spawner");
+    //        StartCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
+    //    }
 
-	public void StartLevel(List<Ingredient> activeIngredientList, Level activeLevel)
+    public void StartLevel(List<Ingredient> ingredientList1, List<Ingredient> ingredientList2, Level activeLevel)
     {
-		this.activeLevel = activeLevel;
-		GameObject weapon = GameObject.Find("WeaponHitPoint");
-		weapon.GetComponent<MeleeAttack>().ingredients = activeIngredientList;
+        this.activeLevel = activeLevel;
+        GameObject weapon = GameObject.Find("WeaponHitPoint");
+        weapon.GetComponent<MeleeAttack>().ingredients1 = ingredientList1;
+        weapon.GetComponent<MeleeAttack>().ingredients2 = ingredientList2;
+        weapon.GetComponent<MeleeAttack>().activeIngredients = ingredientList1;
 
         GameObject spawner = GameObject.Find("Spawner");
         spawnMethod = StartCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
@@ -188,13 +202,22 @@ public class GameFlowController : MonoBehaviour
         if (fails == activeLevel.maxFailsForGameOver)
         {
             // GameObject.Find("LevelEnd").GetComponent<Text>().text = "Game Over";
-			// TODO Have to be linked with GUIManager for now just use Debug message
-			Debug.Log("Game over");
+            // TODO Have to be linked with GUIManager for now just use Debug message
+            Debug.Log("Game over");
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
                 GameObject.Destroy(enemy);
             }
-//            showGameOverUI();
+            //            showGameOverUI();
+
+            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
+            GameObject.Destroy(guiManagerGo);
+            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
+            guiManager.Init(this, levels, unlockedLevelsCount);
+
+            player.transform.position = playerStartPosition;
+            player.transform.rotation = playerStartRotation;
+
             fails = 0;
             kills = 0;
             activeIngredientList = new List<Ingredient>();
@@ -203,10 +226,10 @@ public class GameFlowController : MonoBehaviour
         }
     }
 
-//    private void showGameOverUI()
-//    {
-//        showLevelSelecetionUI();
-//    }
+    //    private void showGameOverUI()
+    //    {
+    //        showLevelSelecetionUI();
+    //    }
 
     internal void checkWon()
     {
@@ -214,14 +237,25 @@ public class GameFlowController : MonoBehaviour
         if (kills == activeLevel.minKillsForWin)
         {
             // GameObject.Find("LevelEnd").GetComponent<Text>().text = "Level Cleared";
-			// TODO Have to be linked with GUIManager for now just use Debug message
-			Debug.Log("Level cleared");
+            // TODO Have to be linked with GUIManager for now just use Debug message
+            Debug.Log("Level cleared");
             foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
                 GameObject.Destroy(enemy);
             }
-            unlockedLevelsCount++;
+            if (unlockedLevelsCount == levels.IndexOf(activeLevel)+1){
+                unlockedLevelsCount++;
+            }
             //            showLevelClearedUI();
+
+            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
+            GameObject.Destroy(guiManagerGo);
+            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
+            guiManager.Init(this, levels, unlockedLevelsCount);
+
+            player.transform.position = playerStartPosition;
+            player.transform.rotation = playerStartRotation;
+
             kills = 0;
             fails = 0;
             activeIngredientList = new List<Ingredient>();
@@ -230,10 +264,10 @@ public class GameFlowController : MonoBehaviour
         }
     }
 
-//    private void showLevelClearedUI()
-//    {
-//        showLevelSelecetionUI();
-//    }
+    //    private void showLevelClearedUI()
+    //    {
+    //        showLevelSelecetionUI();
+    //    }
 
     // Update is called once per frame
     void Update()
