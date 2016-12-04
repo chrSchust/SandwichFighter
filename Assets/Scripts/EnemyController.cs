@@ -9,7 +9,6 @@ public class EnemyController : MonoBehaviour
     public float health;
     public float speed;
     public int type { get; set; }
-    public int baseDamage = 10;
     private int? lastWaypointIndex = null;
     private int wayPointsToVisit;
     private int wayPointsVisited = 0;
@@ -84,7 +83,7 @@ public class EnemyController : MonoBehaviour
     }
 
 
-    public void HitByPlayer(List<Ingredient> ingredients)
+    public void HitByPlayer(List<Ingredient> ingredients, Bread activebread)
     {
         StartCoroutine(displayDamage());
 
@@ -108,7 +107,7 @@ public class EnemyController : MonoBehaviour
             //Debug.Log(ingredient.getDamageBonus(type));
             bonusDamage = bonusDamage + ingredient.getDamageBonus(type);
         }
-
+        int baseDamage = activebread.getBaseDamage();
         int damage = baseDamage + bonusDamage;
         health = health - damage;
         if (health <= 0)

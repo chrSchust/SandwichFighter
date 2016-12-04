@@ -13,4 +13,6 @@ public class Level
 
     public List<Ingredient> availableIngredients { get; set; }
 
+    public List<KeyValuePair<Bread, int>> availableBreadsWithHits { get; set; }
+
 }

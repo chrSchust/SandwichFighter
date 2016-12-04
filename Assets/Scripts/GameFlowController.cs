@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.SceneManagement;
-
+using System.Reflection;
 
 public class GameFlowController : MonoBehaviour
 {
@@ -55,25 +55,32 @@ public class GameFlowController : MonoBehaviour
         Chicken chicken = new Chicken();
         Salad salad = new Salad();
         Tomato tomato = new Tomato();
+
+        White white = new White();
+        WholeGrain wholeGrain = new WholeGrain();
+
         levels = new List<Level>()
                 {
                   new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.NORMAL, 3)},
                       maxFailsForGameOver = 2,
                       minKillsForWin = 1,
                       availableIngredients = new List<Ingredient>() {chicken, tomato},
-                      spawnInterval = 5
+                      spawnInterval = 5,
+                      availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 5) }
                 },
                     new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.NORMAL, 1), new KeyValuePair<int, int>(Enemy.VEGAN, 2), new KeyValuePair<int, int>(Enemy.NORMAL, 1)},
                       maxFailsForGameOver = 2,
                       minKillsForWin = 2,
                       availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
-                      spawnInterval = 2
+                      spawnInterval = 2,
+                      availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 5), new KeyValuePair<Bread, int>(wholeGrain, 10) }
                 },
                 new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.NORMAL, 1), new KeyValuePair<int, int>(Enemy.VEGAN, 2), new KeyValuePair<int, int>(Enemy.NORMAL, 1)},
                     maxFailsForGameOver = 2,
                     minKillsForWin = 2,
                     availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
-                    spawnInterval = 2
+                    spawnInterval = 2,
+                    availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 5), new KeyValuePair<Bread, int>(wholeGrain, 10) }
                 }};
     }
 
@@ -184,13 +191,24 @@ public class GameFlowController : MonoBehaviour
     //        StartCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
     //    }
 
-    public void StartLevel(List<Ingredient> ingredientList1, List<Ingredient> ingredientList2, Level activeLevel)
+    public void StartLevel(List<Ingredient> ingredientList1, List<Ingredient> ingredientList2, KeyValuePair<Bread, int> bread1, KeyValuePair<Bread, int> bread2, Level activeLevel)
     {
         this.activeLevel = activeLevel;
         GameObject weapon = GameObject.Find("WeaponHitPoint");
         weapon.GetComponent<MeleeAttack>().ingredients1 = ingredientList1;
         weapon.GetComponent<MeleeAttack>().ingredients2 = ingredientList2;
         weapon.GetComponent<MeleeAttack>().activeIngredients = ingredientList1;
+        weapon.GetComponent<MeleeAttack>().bread1 = bread1.Key;
+        weapon.GetComponent<MeleeAttack>().breadHealth1 = bread1.Value;
+        //weapon.GetComponent<MeleeAttack>().bread2 = bread2.Key;
+
+        Type t = bread2.Key.GetType();
+        Assembly a = Assembly.GetAssembly(t);
+        Bread newObject = (Bread) a.CreateInstance(t.FullName);
+        weapon.GetComponent<MeleeAttack>().bread2 = newObject;
+
+        weapon.GetComponent<MeleeAttack>().breadHealth2 = bread2.Value;
+        weapon.GetComponent<MeleeAttack>().activebread = bread1.Key;
 
         GameObject spawner = GameObject.Find("Spawner");
         spawnMethod = StartCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
@@ -217,6 +235,8 @@ public class GameFlowController : MonoBehaviour
 
             player.transform.position = playerStartPosition;
             player.transform.rotation = playerStartRotation;
+
+            //GameObject.Find("Weapon").GetComponentInChildren<Renderer>().enabled = true;
 
             fails = 0;
             kills = 0;
@@ -255,6 +275,8 @@ public class GameFlowController : MonoBehaviour
 
             player.transform.position = playerStartPosition;
             player.transform.rotation = playerStartRotation;
+
+            //GameObject.Find("Weapon").GetComponentInChildren<Renderer>().enabled = true;
 
             kills = 0;
             fails = 0;

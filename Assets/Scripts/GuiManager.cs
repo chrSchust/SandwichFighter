@@ -30,11 +30,15 @@ public class GuiManager : MonoBehaviour
 
     private Ingredient ingredient1;
     private Ingredient ingredient2;
+    private KeyValuePair<Bread, int> bread;
     private Level activeLevel;
 
     private bool firstBread = true;
     List<Ingredient> ingredients1 = new List<Ingredient>();
     List<Ingredient> ingredients2 = new List<Ingredient>();
+    private KeyValuePair<Bread, int> bread1;
+    private KeyValuePair<Bread, int> bread2;
+
 
     void Start()
     {
@@ -149,8 +153,9 @@ public class GuiManager : MonoBehaviour
 
     private void SetBreadValue(int chosenItem, int chosenLevel)
     {
-        // TODO Implement after logic implementation
-
+        Level level = this.levels[chosenLevel];
+        List<KeyValuePair<Bread, int>> availableBreadsWithHits = level.availableBreadsWithHits;
+        bread = availableBreadsWithHits[chosenItem];
     }
 
     private void SetIngredient1Value(int chosenItem, int chosenLevel)
@@ -184,11 +189,12 @@ public class GuiManager : MonoBehaviour
         FindAndSetAllDropdowns();
         Level level = this.levels[chosenLevel];
 
-        // TODO Get and set all available breads
-        // List<string> breads is just an example
         List<string> breads = new List<string>();
-        breads.Add("Weißbrot");
-        breads.Add("Vollkornbrot");
+        List<KeyValuePair<Bread, int>> availableBreadsWithHits = level.availableBreadsWithHits;
+        foreach (KeyValuePair<Bread, int> entry in availableBreadsWithHits)
+        {
+            breads.Add(entry.Key.getName());
+        }
 
         // Get and set all available ingredients
         List<string> optionsTmp = new List<string>();
@@ -304,6 +310,7 @@ public class GuiManager : MonoBehaviour
             {
                 ingredients1.Add(ingredient1);
                 ingredients1.Add(ingredient2);
+                bread1 = bread;
                 firstBread = false;
                 ShowSandwichCombinator(1, levels.IndexOf(activeLevel));
             }
@@ -311,7 +318,8 @@ public class GuiManager : MonoBehaviour
             {
                 ingredients2.Add(ingredient1);
                 ingredients2.Add(ingredient2);
-                StartLevel(ingredients1, ingredients2, activeLevel);
+                bread2 = bread;
+                StartLevel(ingredients1, ingredients2, bread1, bread2, activeLevel);
             }
 
         }
@@ -321,11 +329,11 @@ public class GuiManager : MonoBehaviour
         }
     }
 
-    private void StartLevel(List<Ingredient> ingredients1, List<Ingredient> ingredients2, Level activeLevel)
+    private void StartLevel(List<Ingredient> ingredients1, List<Ingredient> ingredients2, KeyValuePair<Bread, int> bread1, KeyValuePair<Bread, int> bread2, Level activeLevel)
     {
         SetVisibilityCursor(false);
         SetVisibilityAllPanels(false);
-        gameFlowController.StartLevel(ingredients1, ingredients2, activeLevel);
+        gameFlowController.StartLevel(ingredients1, ingredients2, bread1, bread2, activeLevel);
     }
 
     private void SetVisibilityAllPanels(bool visibility)
