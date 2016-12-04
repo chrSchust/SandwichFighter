@@ -61,26 +61,26 @@ public class GameFlowController : MonoBehaviour
 
         levels = new List<Level>()
                 {
-                  new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.FAT, 1), new KeyValuePair<int, int>(Enemy.NORMAL, 2)},
+                  new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.FAT, 0), new KeyValuePair<int, int>(Enemy.NORMAL, 3)},
                       maxFailsForGameOver = 2,
-                      minKillsForWin = 1,
-                      availableIngredients = new List<Ingredient>() {chicken, tomato},
-                      spawnInterval = 5,
-                      availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 5) }
+                      minKillsForWin = 2,
+                      availableIngredients = new List<Ingredient>() {chicken},
+                      spawnInterval = 10,
+                      availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 30) }
                 },
                     new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.NORMAL, 1), new KeyValuePair<int, int>(Enemy.VEGAN, 2), new KeyValuePair<int, int>(Enemy.NORMAL, 1)},
                       maxFailsForGameOver = 2,
-                      minKillsForWin = 2,
-                      availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
-                      spawnInterval = 2,
-                      availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 5), new KeyValuePair<Bread, int>(wholeGrain, 10) }
+                      minKillsForWin = 3,
+                      availableIngredients = new List<Ingredient>() {chicken, tomato},
+                      spawnInterval = 8,
+                      availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 20), new KeyValuePair<Bread, int>(wholeGrain, 20) }
                 },
-                new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.NORMAL, 1), new KeyValuePair<int, int>(Enemy.VEGAN, 2), new KeyValuePair<int, int>(Enemy.NORMAL, 1)},
+                new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.FAT, 1), new KeyValuePair<int, int>(Enemy.VEGAN, 2), new KeyValuePair<int, int>(Enemy.NORMAL, 2)},
                     maxFailsForGameOver = 2,
-                    minKillsForWin = 2,
+                    minKillsForWin = 5,
                     availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
                     spawnInterval = 2,
-                    availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 5), new KeyValuePair<Bread, int>(wholeGrain, 10) }
+                    availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 20), new KeyValuePair<Bread, int>(wholeGrain, 20) }
                 }};
     }
 

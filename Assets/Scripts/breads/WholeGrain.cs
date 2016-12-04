@@ -5,7 +5,7 @@ using System;
 public class WholeGrain : Bread {
     public int getBaseDamage()
     {
-        return 5;
+        return 15;
     }
 
     public string getName()
