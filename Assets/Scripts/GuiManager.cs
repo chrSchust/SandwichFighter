@@ -89,14 +89,14 @@ public class GuiManager : MonoBehaviour
         if (sandwichChosen == 0)
         {
             // No sandwich was chosen
-            SetVisibilityPanel(PANEL_SELECTED_SANDWICH, false);
+			SetVisibilityPanel(PANEL_SELECTED_SANDWICH, false);
 
         }
         else
         {
             // one or more sandwiches are already available
             // so show PANEL_SELECTED_SANDWICH
-            SetVisibilityPanel(PANEL_SELECTED_SANDWICH, true);
+			ShowChosenSandwichPanel(ingredients1, bread1);
         }
 
         SetVisibilityPanel(PANEL_SANDWICH, true);
@@ -110,6 +110,23 @@ public class GuiManager : MonoBehaviour
         }
 
     }
+
+	private void ShowChosenSandwichPanel(List<Ingredient> ingredients1, KeyValuePair<Bread, int> bread1) {
+		SetVisibilityPanel(PANEL_SELECTED_SANDWICH, true);
+
+		// Get textfield of panel
+		Transform textfield = panelSelectedSandwich.transform.FindChild("TextConstilation");
+		Text text = textfield.GetComponent<Text> ();
+
+		// Set text out of ingredients and bread choice
+		string textUi = "";
+		textUi = bread1.Key.getName () + "\n";
+
+		foreach (Ingredient ingredient in ingredients1) {
+			textUi += ingredient.getName ()+"\n";
+		}
+		text.text = textUi;
+	}
 
     private void SetDropdownBreadListener(Dropdown dropdownBread, int chosenLevel)
     {
