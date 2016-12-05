@@ -11,6 +11,7 @@ public class GuiManager : MonoBehaviour
     public const string PANEL_SELECTED_SANDWICH = "PanelSelectedSandwich";
     public const string PANEL_SANDWICH = "PanelSandwich";
     public const string BUTTON_NEXT_SANWICH = "ButtonNextSandwich";
+	public const string BUTTON_PREVIOUS_SANDWICH_LEVEL = "ButtonPreviousSandwich";
 
     public GameObject prefabButtonLevel;
     public GameObject panelBackground;
@@ -57,16 +58,20 @@ public class GuiManager : MonoBehaviour
         SetVisibilityPanel(PANEL_LEVEL_SELECTION, false);
         SetVisibilityPanel(PANEL_SANDWICH, false);
         SetVisibilityCursor(true);
-        // Check if a level is already unlocked
-        SetVisibilityPanel(PANEL_LEVEL_SELECTION, true);
-        AddButtonToLevelSelection(unlockedLevelsCount);
-
+        
+		// Check if a level is already unlocked
+		ShowLevelSelection(unlockedLevelsCount);
     }
 
     public void SetLevels(List<Level> levels)
     {
         this.levels = levels;
     }
+
+	private void ShowLevelSelection(int unlockedLevelsCount) {
+		SetVisibilityPanel(PANEL_LEVEL_SELECTION, true);
+		AddButtonToLevelSelection(unlockedLevelsCount);
+	}
 
     private void ShowSandwichCombinator(int sandwichChosen, int chosenLevel)
     {
@@ -80,18 +85,17 @@ public class GuiManager : MonoBehaviour
         {
             // No sandwich was chosen
             SetVisibilityPanel(PANEL_SELECTED_SANDWICH, false);
-            SetVisibilityPreviousSandwichButton(false);
         }
         else
         {
             // one or more sandwiches are already available
             // so show PANEL_SELECTED_SANDWICH
             SetVisibilityPanel(PANEL_SELECTED_SANDWICH, true);
-            SetVisibilityPreviousSandwichButton(true);
         }
 
         SetVisibilityPanel(PANEL_SANDWICH, true);
         SetVisibilityNextSandwichButton(true);
+		SetVisibilityPreviousSandwichLevelButton(true);
         if (firstBread == true)
         {
             SetDropdownBreadListener(dropdownBread, chosenLevel);
@@ -220,7 +224,7 @@ public class GuiManager : MonoBehaviour
     //		panelIngredient2.gameObject.SetActive(false);
     //	}
 
-    private void SetVisibilityPreviousSandwichButton(bool visible)
+    private void SetVisibilityPreviousSandwichLevelButton(bool visible)
     {
         Transform previousButton = panelSandwich.transform.FindChild("ButtonPreviousSandwich");
         if (previousButton == null)
@@ -268,7 +272,7 @@ public class GuiManager : MonoBehaviour
                 goButton.transform.SetParent(panelRect, false);
                 goButton.GetComponentInChildren<Text>().text = "Level " + (index + 1);
                 goButton.GetComponentInChildren<Text>().fontSize = 16;
-                goButton.GetComponent<Button>().onClick.AddListener(() => LevelButtonClicked(index));
+                goButton.GetComponent<Button>().onClick.AddListener(() => OnLevelButtonClicked(index));
             }
             else
             {
@@ -277,7 +281,7 @@ public class GuiManager : MonoBehaviour
         }
     }
 
-    private void LevelButtonClicked(int chosenLevel)
+    private void OnLevelButtonClicked(int chosenLevel)
     {
         SetActiveLevel(chosenLevel);
         ShowSandwichCombinator(0, chosenLevel);
@@ -298,11 +302,16 @@ public class GuiManager : MonoBehaviour
             Transform panelTrans = panel.transform;
             Button next = panelTrans.FindChild(BUTTON_NEXT_SANWICH).GetComponent<Button>();
             next.onClick.RemoveAllListeners();
-            next.onClick.AddListener(() => NextSandwichButtonClicked());
-        }
+            next.onClick.AddListener(() => OnNextSandwichButtonClicked());
+			// Set previous button listener
+			panelTrans = panel.transform;
+			Button previous = panelTrans.FindChild(BUTTON_PREVIOUS_SANDWICH_LEVEL).GetComponent<Button>();
+			previous.onClick.RemoveAllListeners();
+			previous.onClick.AddListener(() => OnPreviousSandwichButtonClicked());
+		}
     }
 
-    private void NextSandwichButtonClicked()
+    private void OnNextSandwichButtonClicked()
     {
         if (ingredient1 != null && ingredient2 != null && activeLevel != null)
         {
@@ -321,13 +330,18 @@ public class GuiManager : MonoBehaviour
                 bread2 = bread;
                 StartLevel(ingredients1, ingredients2, bread1, bread2, activeLevel);
             }
-
         }
         else
         {
             Debug.Log("wait");
         }
     }
+
+	private void OnPreviousSandwichButtonClicked() {
+		if (ingredient1 == null && ingredient2 == null) {
+
+		}
+	}
 
     private void StartLevel(List<Ingredient> ingredients1, List<Ingredient> ingredients2, KeyValuePair<Bread, int> bread1, KeyValuePair<Bread, int> bread2, Level activeLevel)
     {
