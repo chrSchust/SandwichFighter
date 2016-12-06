@@ -6,6 +6,7 @@ public class MeleeAttack : MonoBehaviour
 {
     public float distance;
     public float maxHitDistance = 2.5f;
+    public float hitRadius = 1.0f;
     public List<Ingredient> ingredients1 { get; set; }
     public List<Ingredient> ingredients2 { get; set; }
     public List<Ingredient> activeIngredients { get; set; }
@@ -89,15 +90,14 @@ public class MeleeAttack : MonoBehaviour
                 }
             }
 
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
+            RaycastHit[] allHits;
+            allHits = Physics.SphereCastAll(transform.position, hitRadius, transform.forward, maxHitDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            foreach (RaycastHit hit in allHits)
             {
-                distance = hit.distance;
-                //Debug.Log (distance);
-                if (distance < maxHitDistance)
+                if (hit.transform.gameObject.tag == "Enemy")
                 {
-                    //hit.transform.SendMessage ("HitByPlayer", ingredients, SendMessageOptions.DontRequireReceiver);
                     hit.transform.gameObject.GetComponent<EnemyController>().HitByPlayer(activeIngredients, activebread);
+                    break;
                 }
             }
         }
