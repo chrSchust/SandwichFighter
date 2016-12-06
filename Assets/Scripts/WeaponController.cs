@@ -6,6 +6,14 @@ using System.Collections.Generic;
 public class WeaponController : MonoBehaviour {
 
     public float speed = 0.1F;
+    public Quaternion startRotation;
+    public Material material1;
+
+    void Start()
+    {
+        startRotation = transform.localRotation;
+        GetComponentInChildren<Renderer>().material = material1;
+    }
 
     // Update is called once per frame
     void Update () {
@@ -15,7 +23,7 @@ public class WeaponController : MonoBehaviour {
         }
         else
         {
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, new Quaternion(0f, 0f, 0f, 1f), Time.deltaTime * speed);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, startRotation, Time.deltaTime * speed);
         }
     }
 }
