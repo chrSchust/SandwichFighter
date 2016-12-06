@@ -228,10 +228,11 @@ public class GameFlowController : MonoBehaviour
             }
             //            showGameOverUI();
 
-            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
-            GameObject.Destroy(guiManagerGo);
-            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
-            guiManager.Init(this, levels, unlockedLevelsCount);
+//            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
+//            GameObject.Destroy(guiManagerGo);
+//            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
+//            guiManager.Init(this, levels, unlockedLevelsCount);
+			guiManager.ShowWinLoseMessageAndRestart("Game Over!", levels, unlockedLevelsCount);
 
             player.transform.position = playerStartPosition;
             player.transform.rotation = playerStartRotation;
@@ -268,10 +269,11 @@ public class GameFlowController : MonoBehaviour
             }
             //            showLevelClearedUI();
 
-            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
-            GameObject.Destroy(guiManagerGo);
-            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
-            guiManager.Init(this, levels, unlockedLevelsCount);
+//            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
+//            GameObject.Destroy(guiManagerGo);
+//            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
+//            guiManager.Init(this, levels, unlockedLevelsCount);
+			guiManager.ShowWinLoseMessageAndRestart("Win!", levels, unlockedLevelsCount);
 
             player.transform.position = playerStartPosition;
             player.transform.rotation = playerStartRotation;

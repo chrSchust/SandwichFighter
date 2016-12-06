@@ -10,6 +10,7 @@ public class GuiManager : MonoBehaviour
     public const string PANEL_LEVEL_SELECTION = "PanelLevelSelection";
     public const string PANEL_SELECTED_SANDWICH = "PanelSelectedSandwich";
     public const string PANEL_SANDWICH = "PanelSandwich";
+	public const string PANEL_WIN_LOSE = "PanelWinLose";
     public const string BUTTON_NEXT_SANWICH = "ButtonNextSandwich";
 	public const string BUTTON_PREVIOUS_SANDWICH_LEVEL = "ButtonPreviousSandwich";
 
@@ -18,6 +19,7 @@ public class GuiManager : MonoBehaviour
     public GameObject panelLevelSelection;
     public GameObject panelSelectedSandwich;
     public GameObject panelSandwich;
+	public GameObject panelWinLose;
 
     private List<Level> levels;
     private GameFlowController gameFlowController;
@@ -41,24 +43,11 @@ public class GuiManager : MonoBehaviour
     private KeyValuePair<Bread, int> bread2;
 	private int unlockedLevelsCount;
 
-
-    void Start()
-    {
-
-    }
-
     public void Init(GameFlowController gameFlowController, List<Level> levels, int unlockedLevelsCount)
     {
         this.gameFlowController = gameFlowController;
         SetLevels(levels);
         FindAndSetAllSubPanels();
-
-        // Set visibilities for the first time
-        SetVisibilityPanel(PANEL_BACKGROUND, true);
-        SetVisibilityPanel(PANEL_SELECTED_SANDWICH, false);
-        SetVisibilityPanel(PANEL_LEVEL_SELECTION, false);
-        SetVisibilityPanel(PANEL_SANDWICH, false);
-        SetVisibilityCursor(true);
         
 		// Check if a level is already unlocked
 		this.unlockedLevelsCount = unlockedLevelsCount;
@@ -71,11 +60,53 @@ public class GuiManager : MonoBehaviour
     }
 
 	private void ShowLevelSelection(int unlockedLevelsCount) {
+		// Set visibilities for the first time
 		SetVisibilityPanel(PANEL_BACKGROUND, true);
 		SetVisibilityPanel(PANEL_SELECTED_SANDWICH, false);
 		SetVisibilityPanel(PANEL_SANDWICH, false);
+		SetVisibilityPanel (PANEL_WIN_LOSE, false);
 		SetVisibilityPanel(PANEL_LEVEL_SELECTION, true);
+		SetVisibilityCursor(true);
 		AddButtonToLevelSelection(unlockedLevelsCount);
+	}
+
+	/**
+   * Show the win or lose message and after the button "weiter" was clicked the level
+   * selection will be shown.
+   *
+   **/
+	public void ShowWinLoseMessageAndRestart(string text, List<Level> levels, int unlockedLevelsCount) {
+		SetLevels (levels);
+		this.unlockedLevelsCount = unlockedLevelsCount;
+		SetVisibilityAllPanels (false);
+		SetVisibilityPanel (PANEL_WIN_LOSE, true);
+		SetWinLoseTextUI (text);
+		SetVisibilityCursor (true);
+	}
+
+	private void SetWinLoseTextUI(string text) {
+		// Get textfield of panel
+		Transform textfield = panelWinLose.transform.FindChild("Text");
+		Text textUi = textfield.GetComponent<Text> ();
+
+		// Set text out of ingredients and bread choice
+		textUi.text = text;
+		AddListenerToWinLoseNextButton ();
+	}
+
+	private void AddListenerToWinLoseNextButton() {
+		Transform nextTransform = panelWinLose.transform.FindChild("Button");
+		if (nextTransform == null)
+		{
+			Debug.LogError("Next Button is null");
+		}
+		Button nextButton = nextTransform.GetComponent<Button> ();
+		nextButton.onClick.RemoveAllListeners ();
+		nextButton.onClick.AddListener(() => OnNextButtonWinLose(this.unlockedLevelsCount));
+	}
+
+	private void OnNextButtonWinLose(int unlockedLevelsCount) {
+		ShowLevelSelection (unlockedLevelsCount);
 	}
 
 	private void ShowSandwichCombinator(int sandwichChosen, int unlockedLevelsCount, int chosenLevel)
@@ -83,14 +114,13 @@ public class GuiManager : MonoBehaviour
 		SetVisibilityPanel(PANEL_LEVEL_SELECTION, false);
         if (firstBread == true)
         {
-            InitializeAllDropdownsWithValues(chosenLevel);
+			InitializeAllDropdownsWithValues(chosenLevel);
         }
 
         if (sandwichChosen == 0)
         {
             // No sandwich was chosen
 			SetVisibilityPanel(PANEL_SELECTED_SANDWICH, false);
-
         }
         else
         {
@@ -139,9 +169,9 @@ public class GuiManager : MonoBehaviour
         // Set onChange listener
         dropdownBread.onValueChanged.AddListener(delegate
         {
-            SetBreadValue(dropdownBread.value, chosenLevel);
+            OnBreadValueChanged(dropdownBread.value, chosenLevel);
         });
-        SetBreadValue(0, chosenLevel);
+        OnBreadValueChanged(0, chosenLevel);
     }
 
     private void SetDropdownIngredient1Listener(Dropdown dropdownIngredient1, int chosenLevel)
@@ -156,9 +186,9 @@ public class GuiManager : MonoBehaviour
         // Set onChange listener
         dropdownIngredient1.onValueChanged.AddListener(delegate
         {
-            SetIngredient1Value(dropdownIngredient1.value, chosenLevel);
+            OnIngredient1ValueChanged(dropdownIngredient1.value, chosenLevel);
         });
-        SetIngredient1Value(0, chosenLevel);
+        OnIngredient1ValueChanged(0, chosenLevel);
     }
 
     private void SetDropdownIngredient2Listener(Dropdown dropdownIngredient2, int chosenLevel)
@@ -173,28 +203,31 @@ public class GuiManager : MonoBehaviour
         // Set onChange listener
         dropdownIngredient2.onValueChanged.AddListener(delegate
         {
-            SetIngredient2Value(dropdownIngredient2.value, chosenLevel);
+            OnIngredient2ValueChanged(dropdownIngredient2.value, chosenLevel);
         });
-        SetIngredient2Value(0, chosenLevel);
+        OnIngredient2ValueChanged(0, chosenLevel);
     }
 
-    private void SetBreadValue(int chosenItem, int chosenLevel)
+    private void OnBreadValueChanged(int chosenItem, int chosenLevel)
     {
-        Level level = this.levels[chosenLevel];
+		chosenLevel = levels.IndexOf (activeLevel);
+		Level level = this.levels[chosenLevel];
         List<KeyValuePair<Bread, int>> availableBreadsWithHits = level.availableBreadsWithHits;
         bread = availableBreadsWithHits[chosenItem];
     }
 
-    private void SetIngredient1Value(int chosenItem, int chosenLevel)
+    private void OnIngredient1ValueChanged(int chosenItem, int chosenLevel)
     {
-        Level level = this.levels[chosenLevel];
+		chosenLevel = levels.IndexOf (activeLevel);
+		Level level = this.levels[chosenLevel];
         List<Ingredient> availableIngredients = level.availableIngredients;
         ingredient1 = availableIngredients[chosenItem];
     }
 
-    private void SetIngredient2Value(int chosenItem, int chosenLevel)
+    private void OnIngredient2ValueChanged(int chosenItem, int chosenLevel)
     {
-        Level level = this.levels[chosenLevel];
+		chosenLevel = levels.IndexOf (activeLevel);
+		Level level = this.levels[chosenLevel];
         List<Ingredient> availableIngredients = level.availableIngredients;
         ingredient2 = availableIngredients[chosenItem];
     }
@@ -228,7 +261,7 @@ public class GuiManager : MonoBehaviour
         List<Ingredient> ingredients = level.availableIngredients;
         foreach (Ingredient ingredient in ingredients)
         {
-            optionsTmp.Add(ingredient.getName());
+			optionsTmp.Add(ingredient.getName());
         }
         dropdownBread.ClearOptions();
         // Just an example case
@@ -314,7 +347,9 @@ public class GuiManager : MonoBehaviour
     {
         SetActiveLevel(chosenLevel);
 		firstBread = true;
-		ShowSandwichCombinator(0, chosenLevel, levels.IndexOf(activeLevel));
+		ingredients1.Clear ();
+		ingredients2.Clear ();
+		ShowSandwichCombinator(0, unlockedLevelsCount, levels.IndexOf(activeLevel));
     }
 
     private void SetActiveLevel(int chosenLevel)
@@ -378,6 +413,7 @@ public class GuiManager : MonoBehaviour
         SetVisibilityPanel(PANEL_LEVEL_SELECTION, visibility);
         SetVisibilityPanel(PANEL_SANDWICH, visibility);
         SetVisibilityPanel(PANEL_SELECTED_SANDWICH, visibility);
+		SetVisibilityPanel (PANEL_WIN_LOSE, visibility);
     }
 
     private GameObject GetPanel(string panelKey)
@@ -392,6 +428,8 @@ public class GuiManager : MonoBehaviour
                 return panelSandwich;
             case PANEL_SELECTED_SANDWICH:
                 return panelSelectedSandwich;
+			case PANEL_WIN_LOSE:
+				return panelWinLose;
             default:
                 return null;
         }
