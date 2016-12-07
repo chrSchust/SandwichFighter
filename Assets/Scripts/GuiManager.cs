@@ -110,6 +110,7 @@ public class GuiManager : MonoBehaviour
 
 	private void ShowSandwichCombinator(int unlockedLevelsCount, int chosenLevel)
     {
+		SetVisibilityAllPanels (false);
 		panelLevelSelection.SetActive (false);
         if (firstBread == true)
         {
@@ -138,6 +139,7 @@ public class GuiManager : MonoBehaviour
 	}
 
 	private void ShowChosenSandwichPanel(List<Ingredient> ingredients1, KeyValuePair<Bread, int> bread1) {
+		SetVisibilityAllPanels (false);
 		panelSelectedSandwich.SetActive (true);
 
 		// Get textfield of panel
