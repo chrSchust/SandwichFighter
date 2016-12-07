@@ -65,21 +65,21 @@ public class GameFlowController : MonoBehaviour
                       maxFailsForGameOver = 2,
                       minKillsForWin = 2,
                       availableIngredients = new List<Ingredient>() {chicken},
-                      spawnInterval = 10,
+                      spawnInterval = 6,
                       availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 30) }
                 },
-                    new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.NORMAL, 1), new KeyValuePair<int, int>(Enemy.VEGAN, 2), new KeyValuePair<int, int>(Enemy.NORMAL, 1)},
+                    new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.NORMAL, 1), new KeyValuePair<int, int>(Enemy.VEGAN, 2), new KeyValuePair<int, int>(Enemy.NORMAL, 3)},
                       maxFailsForGameOver = 2,
-                      minKillsForWin = 3,
+                      minKillsForWin = 4,
                       availableIngredients = new List<Ingredient>() {chicken, tomato},
-                      spawnInterval = 8,
+                      spawnInterval = 4,
                       availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 20), new KeyValuePair<Bread, int>(wholeGrain, 20) }
                 },
-                new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.FAT, 1), new KeyValuePair<int, int>(Enemy.VEGAN, 2), new KeyValuePair<int, int>(Enemy.NORMAL, 2)},
+                new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.FAT, 1), new KeyValuePair<int, int>(Enemy.NORMAL, 2), new KeyValuePair<int, int>(Enemy.VEGAN, 3), new KeyValuePair<int, int>(Enemy.FAT, 1), new KeyValuePair<int, int>(Enemy.NORMAL, 4)},
                     maxFailsForGameOver = 2,
-                    minKillsForWin = 5,
+                    minKillsForWin = 8,
                     availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
-                    spawnInterval = 2,
+                    spawnInterval = 3,
                     availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 20), new KeyValuePair<Bread, int>(wholeGrain, 20) }
                 }};
     }
