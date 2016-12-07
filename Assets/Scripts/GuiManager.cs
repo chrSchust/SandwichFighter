@@ -141,6 +141,12 @@ public class GuiManager : MonoBehaviour
 
     }
 
+	private void SetSandwichCombinatorHeadlineText(string text) {
+		Transform textTransform = panelSandwich.transform.FindChild ("TextHeadline");
+		Text headlineText = textTransform.GetComponent<Text> ();
+		headlineText.text = text;
+	}
+
 	private void ShowChosenSandwichPanel(List<Ingredient> ingredients1, KeyValuePair<Bread, int> bread1) {
 		SetVisibilityPanel(PANEL_SELECTED_SANDWICH, true);
 
