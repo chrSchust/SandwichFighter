@@ -160,6 +160,31 @@ public class GuiManager : MonoBehaviour
 		}
 	}
 
+	private void SetWeaponPanelsIngredientsText() {
+		// Get textfield of panel
+		Transform textTrans1 = panelWeaponSlot1.transform.FindChild("TextIngredients");
+		Text text1 = textTrans1.GetComponent<Text> ();
+		Transform textTrans2 = panelWeaponSlot2.transform.FindChild("TextIngredients");
+		Text text2 = textTrans2.GetComponent<Text> ();
+
+		// Set text out of ingredients and bread choice
+		string textUi = "";
+		textUi = bread1.Key.getName () + "\n";
+
+		foreach (Ingredient ingredient in ingredients1) {
+			textUi += ingredient.getName ()+"\n";
+		}
+		text1.text = textUi;
+		// Set text out of ingredients and bread choice
+		textUi = "";
+		textUi = bread2.Key.getName () + "\n";
+
+		foreach (Ingredient ingredient in ingredients2) {
+			textUi += ingredient.getName ()+"\n";
+		}
+		text2.text = textUi;
+	}
+
 	private void SetSandwichCombinatorHeadlineText(string text) {
 		Transform textTransform = panelSandwich.transform.FindChild ("TextHeadline");
 		Text headlineText = textTransform.GetComponent<Text> ();
@@ -384,6 +409,7 @@ public class GuiManager : MonoBehaviour
     {
         SetVisibilityCursor(false);
         SetVisibilityAllPanels(false);
+		SetWeaponPanelsIngredientsText ();
 		ShowWeaponPanels ();
         gameFlowController.StartLevel(ingredients1, ingredients2, bread1, bread2, activeLevel);
     }
