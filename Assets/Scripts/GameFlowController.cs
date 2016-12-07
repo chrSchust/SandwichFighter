@@ -11,7 +11,7 @@ using System.Reflection;
 public class GameFlowController : MonoBehaviour
 {
 
-    private int unlockedLevelsCount = 1;
+    private int unlockedLevelsCount = 2;
     private Level activeLevel;
     private List<Level> levels;
     private int fails = 0;

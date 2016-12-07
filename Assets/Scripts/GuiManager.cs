@@ -117,9 +117,9 @@ public class GuiManager : MonoBehaviour
 			InitializeAllDropdownsWithValues(chosenLevel);
 			// No sandwich was chosen
 			SetVisibilityPanel(PANEL_SELECTED_SANDWICH, false);
-			SetDropdownBreadListener(dropdownBread, chosenLevel);
-			SetDropdownIngredient1Listener(dropdownIngredient1, chosenLevel);
-			SetDropdownIngredient2Listener(dropdownIngredient2, chosenLevel);
+//			SetDropdownBreadListener(dropdownBread, chosenLevel);
+//			SetDropdownIngredient1Listener(dropdownIngredient1, chosenLevel);
+//			SetDropdownIngredient2Listener(dropdownIngredient2, chosenLevel);
 			// Set headline
 			SetSandwichCombinatorHeadlineText("1. Sandwich");
         } else {
@@ -158,79 +158,79 @@ public class GuiManager : MonoBehaviour
 		text.text = textUi;
 	}
 
-    private void SetDropdownBreadListener(Dropdown dropdownBread, int chosenLevel)
-    {
-        if (dropdownBread == null)
-        {
-            Debug.LogError("dropdown bread is null");
-        }
-        // Set an empty start up value
-        //SetBlankDefaultDropdownValue(dropdownBread);
-        // Set onChange listener
-        dropdownBread.onValueChanged.AddListener(delegate
-        {
-            OnBreadValueChanged(dropdownBread.value, chosenLevel);
-        });
-        OnBreadValueChanged(0, chosenLevel);
-    }
+//    private void SetDropdownBreadListener(Dropdown dropdownBread, int chosenLevel)
+//    {
+//        if (dropdownBread == null)
+//        {
+//            Debug.LogError("dropdown bread is null");
+//        }
+//        // Set an empty start up value
+//        //SetBlankDefaultDropdownValue(dropdownBread);
+//        // Set onChange listener
+//        dropdownBread.onValueChanged.AddListener(delegate
+//        {
+//            OnBreadValueChanged(dropdownBread.value, chosenLevel);
+//        });
+//        OnBreadValueChanged(0, chosenLevel);
+//    }
+//
+//    private void SetDropdownIngredient1Listener(Dropdown dropdownIngredient1, int chosenLevel)
+//    {
+//        if (dropdownIngredient1 == null)
+//        {
+//            Debug.LogError("dropdown ingredient1 is null");
+//        }
+//
+//        // Set an empty start up value
+//        //SetBlankDefaultDropdownValue(dropdownIngredient1);
+//        // Set onChange listener
+//        dropdownIngredient1.onValueChanged.AddListener(delegate
+//        {
+//            OnIngredient1ValueChanged(dropdownIngredient1.value, chosenLevel);
+//        });
+//        OnIngredient1ValueChanged(0, chosenLevel);
+//    }
+//
+//    private void SetDropdownIngredient2Listener(Dropdown dropdownIngredient2, int chosenLevel)
+//    {
+//        if (dropdownIngredient2 == null)
+//        {
+//            Debug.LogError("dropdown ingredient1 is null");
+//        }
+//
+//        // Set an empty start up value
+//        //SetBlankDefaultDropdownValue(dropdownIngredient2);
+//        // Set onChange listener
+//        dropdownIngredient2.onValueChanged.AddListener(delegate
+//        {
+//            OnIngredient2ValueChanged(dropdownIngredient2.value, chosenLevel);
+//        });
+//        OnIngredient2ValueChanged(0, chosenLevel);
+//    }
 
-    private void SetDropdownIngredient1Listener(Dropdown dropdownIngredient1, int chosenLevel)
-    {
-        if (dropdownIngredient1 == null)
-        {
-            Debug.LogError("dropdown ingredient1 is null");
-        }
+//    private void OnBreadValueChanged(int chosenItem, int chosenLevel)
+//    {
+//		chosenLevel = levels.IndexOf (activeLevel);
+//		Level level = this.levels[chosenLevel];
+//        List<KeyValuePair<Bread, int>> availableBreadsWithHits = level.availableBreadsWithHits;
+//        bread = availableBreadsWithHits[chosenItem];
+//    }
 
-        // Set an empty start up value
-        //SetBlankDefaultDropdownValue(dropdownIngredient1);
-        // Set onChange listener
-        dropdownIngredient1.onValueChanged.AddListener(delegate
-        {
-            OnIngredient1ValueChanged(dropdownIngredient1.value, chosenLevel);
-        });
-        OnIngredient1ValueChanged(0, chosenLevel);
-    }
+//    private void OnIngredient1ValueChanged(int chosenItem, int chosenLevel)
+//    {
+//		chosenLevel = levels.IndexOf (activeLevel);
+//		Level level = this.levels[chosenLevel];
+//        List<Ingredient> availableIngredients = level.availableIngredients;
+//        ingredient1 = availableIngredients[chosenItem];
+//    }
 
-    private void SetDropdownIngredient2Listener(Dropdown dropdownIngredient2, int chosenLevel)
-    {
-        if (dropdownIngredient2 == null)
-        {
-            Debug.LogError("dropdown ingredient1 is null");
-        }
-
-        // Set an empty start up value
-        //SetBlankDefaultDropdownValue(dropdownIngredient2);
-        // Set onChange listener
-        dropdownIngredient2.onValueChanged.AddListener(delegate
-        {
-            OnIngredient2ValueChanged(dropdownIngredient2.value, chosenLevel);
-        });
-        OnIngredient2ValueChanged(0, chosenLevel);
-    }
-
-    private void OnBreadValueChanged(int chosenItem, int chosenLevel)
-    {
-		chosenLevel = levels.IndexOf (activeLevel);
-		Level level = this.levels[chosenLevel];
-        List<KeyValuePair<Bread, int>> availableBreadsWithHits = level.availableBreadsWithHits;
-        bread = availableBreadsWithHits[chosenItem];
-    }
-
-    private void OnIngredient1ValueChanged(int chosenItem, int chosenLevel)
-    {
-		chosenLevel = levels.IndexOf (activeLevel);
-		Level level = this.levels[chosenLevel];
-        List<Ingredient> availableIngredients = level.availableIngredients;
-        ingredient1 = availableIngredients[chosenItem];
-    }
-
-    private void OnIngredient2ValueChanged(int chosenItem, int chosenLevel)
-    {
-		chosenLevel = levels.IndexOf (activeLevel);
-		Level level = this.levels[chosenLevel];
-        List<Ingredient> availableIngredients = level.availableIngredients;
-        ingredient2 = availableIngredients[chosenItem];
-    }
+//    private void OnIngredient2ValueChanged(int chosenItem, int chosenLevel)
+//    {
+//		chosenLevel = levels.IndexOf (activeLevel);
+//		Level level = this.levels[chosenLevel];
+//        List<Ingredient> availableIngredients = level.availableIngredients;
+//        ingredient2 = availableIngredients[chosenItem];
+//    }
 
     private void SetBlankDefaultDropdownValue(Dropdown dropdown)
     {
@@ -365,7 +365,9 @@ public class GuiManager : MonoBehaviour
 
 	private void OnNextSandwichButtonClicked(int unlockedLevelsCount)
     {
-        if (ingredient1 != null && ingredient2 != null && activeLevel != null)
+		// Get data from all Dropdowns of sandwichchooser
+		GetAndSetSandwichDataFromAllDropdowns ();
+		if (ingredient1 != null && ingredient2 != null && activeLevel != null)
         {
             if (firstBread == true)
             {
@@ -388,6 +390,20 @@ public class GuiManager : MonoBehaviour
             Debug.Log("wait");
         }
     }
+
+	private void GetAndSetSandwichDataFromAllDropdowns() {
+		// When "Next" Button got clicked put the choice in the lists
+		int breadId = dropdownBread.value;
+		int ingredient1Id = dropdownIngredient1.value;
+		int ingredient2Id = dropdownIngredient2.value;
+
+		Level level = this.levels[levels.IndexOf (activeLevel)];
+		List<Ingredient> availableIngredients = level.availableIngredients;
+		List<KeyValuePair<Bread, int>> availableBreadsWithHits = level.availableBreadsWithHits;
+		bread = availableBreadsWithHits[breadId];
+		ingredient1 = availableIngredients[ingredient1Id];
+		ingredient2 = availableIngredients[ingredient2Id];
+	}
 
 	private void OnPreviousSandwichButtonClicked(int unlockedLevelsCount, int chosenLevel) {
 		if (firstBread == true) {
