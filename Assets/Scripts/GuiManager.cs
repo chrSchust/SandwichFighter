@@ -6,11 +6,6 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class GuiManager : MonoBehaviour
 {
-    public const string PANEL_BACKGROUND = "PanelBackground";
-    public const string PANEL_LEVEL_SELECTION = "PanelLevelSelection";
-    public const string PANEL_SELECTED_SANDWICH = "PanelSelectedSandwich";
-    public const string PANEL_SANDWICH = "PanelSandwich";
-	public const string PANEL_WIN_LOSE = "PanelWinLose";
     public const string BUTTON_NEXT_SANWICH = "ButtonNextSandwich";
 	public const string BUTTON_PREVIOUS_SANDWICH_LEVEL = "ButtonPreviousSandwich";
 
@@ -20,6 +15,8 @@ public class GuiManager : MonoBehaviour
     public GameObject panelSelectedSandwich;
     public GameObject panelSandwich;
 	public GameObject panelWinLose;
+	public GameObject panelWeaponSlot1;
+	public GameObject panelWeaponSlot2;
 
     private List<Level> levels;
     private GameFlowController gameFlowController;
@@ -60,12 +57,14 @@ public class GuiManager : MonoBehaviour
     }
 
 	private void ShowLevelSelection(int unlockedLevelsCount) {
+		SetVisibilityAllPanels (false);
 		// Set visibilities for the first time
-		SetVisibilityPanel(PANEL_BACKGROUND, true);
-		SetVisibilityPanel(PANEL_SELECTED_SANDWICH, false);
-		SetVisibilityPanel(PANEL_SANDWICH, false);
-		SetVisibilityPanel (PANEL_WIN_LOSE, false);
-		SetVisibilityPanel(PANEL_LEVEL_SELECTION, true);
+		panelBackground.SetActive(true);
+		panelSelectedSandwich.SetActive (false);
+		panelSandwich.SetActive (false);
+		panelWinLose.SetActive (false);
+		panelLevelSelection.SetActive (true);
+
 		SetVisibilityCursor(true);
 		AddButtonToLevelSelection(unlockedLevelsCount);
 	}
@@ -79,7 +78,7 @@ public class GuiManager : MonoBehaviour
 		SetLevels (levels);
 		this.unlockedLevelsCount = unlockedLevelsCount;
 		SetVisibilityAllPanels (false);
-		SetVisibilityPanel (PANEL_WIN_LOSE, true);
+		panelWinLose.SetActive (true);
 		SetWinLoseTextUI (text);
 		SetVisibilityCursor (true);
 	}
@@ -111,15 +110,13 @@ public class GuiManager : MonoBehaviour
 
 	private void ShowSandwichCombinator(int unlockedLevelsCount, int chosenLevel)
     {
-		SetVisibilityPanel(PANEL_LEVEL_SELECTION, false);
+		panelLevelSelection.SetActive (false);
         if (firstBread == true)
         {
 			InitializeAllDropdownsWithValues(chosenLevel);
 			// No sandwich was chosen
-			SetVisibilityPanel(PANEL_SELECTED_SANDWICH, false);
-//			SetDropdownBreadListener(dropdownBread, chosenLevel);
-//			SetDropdownIngredient1Listener(dropdownIngredient1, chosenLevel);
-//			SetDropdownIngredient2Listener(dropdownIngredient2, chosenLevel);
+			panelSelectedSandwich.SetActive(false);
+
 			// Set headline
 			SetSandwichCombinatorHeadlineText("1. Sandwich");
         } else {
@@ -129,8 +126,7 @@ public class GuiManager : MonoBehaviour
 			// Set headline
 			SetSandwichCombinatorHeadlineText("2. Sandwich");
         }
-
-        SetVisibilityPanel(PANEL_SANDWICH, true);
+		panelSandwich.SetActive (true);
 		SetVisibilityNextSandwichButton(true, unlockedLevelsCount);
 		SetVisibilityPreviousSandwichLevelButton(true, unlockedLevelsCount, chosenLevel);
     }
@@ -142,7 +138,7 @@ public class GuiManager : MonoBehaviour
 	}
 
 	private void ShowChosenSandwichPanel(List<Ingredient> ingredients1, KeyValuePair<Bread, int> bread1) {
-		SetVisibilityPanel(PANEL_SELECTED_SANDWICH, true);
+		panelSelectedSandwich.SetActive (true);
 
 		// Get textfield of panel
 		Transform textfield = panelSelectedSandwich.transform.FindChild("TextConstilation");
@@ -173,40 +169,6 @@ public class GuiManager : MonoBehaviour
 //        });
 //        OnBreadValueChanged(0, chosenLevel);
 //    }
-//
-//    private void SetDropdownIngredient1Listener(Dropdown dropdownIngredient1, int chosenLevel)
-//    {
-//        if (dropdownIngredient1 == null)
-//        {
-//            Debug.LogError("dropdown ingredient1 is null");
-//        }
-//
-//        // Set an empty start up value
-//        //SetBlankDefaultDropdownValue(dropdownIngredient1);
-//        // Set onChange listener
-//        dropdownIngredient1.onValueChanged.AddListener(delegate
-//        {
-//            OnIngredient1ValueChanged(dropdownIngredient1.value, chosenLevel);
-//        });
-//        OnIngredient1ValueChanged(0, chosenLevel);
-//    }
-//
-//    private void SetDropdownIngredient2Listener(Dropdown dropdownIngredient2, int chosenLevel)
-//    {
-//        if (dropdownIngredient2 == null)
-//        {
-//            Debug.LogError("dropdown ingredient1 is null");
-//        }
-//
-//        // Set an empty start up value
-//        //SetBlankDefaultDropdownValue(dropdownIngredient2);
-//        // Set onChange listener
-//        dropdownIngredient2.onValueChanged.AddListener(delegate
-//        {
-//            OnIngredient2ValueChanged(dropdownIngredient2.value, chosenLevel);
-//        });
-//        OnIngredient2ValueChanged(0, chosenLevel);
-//    }
 
 //    private void OnBreadValueChanged(int chosenItem, int chosenLevel)
 //    {
@@ -214,22 +176,6 @@ public class GuiManager : MonoBehaviour
 //		Level level = this.levels[chosenLevel];
 //        List<KeyValuePair<Bread, int>> availableBreadsWithHits = level.availableBreadsWithHits;
 //        bread = availableBreadsWithHits[chosenItem];
-//    }
-
-//    private void OnIngredient1ValueChanged(int chosenItem, int chosenLevel)
-//    {
-//		chosenLevel = levels.IndexOf (activeLevel);
-//		Level level = this.levels[chosenLevel];
-//        List<Ingredient> availableIngredients = level.availableIngredients;
-//        ingredient1 = availableIngredients[chosenItem];
-//    }
-
-//    private void OnIngredient2ValueChanged(int chosenItem, int chosenLevel)
-//    {
-//		chosenLevel = levels.IndexOf (activeLevel);
-//		Level level = this.levels[chosenLevel];
-//        List<Ingredient> availableIngredients = level.availableIngredients;
-//        ingredient2 = availableIngredients[chosenItem];
 //    }
 
     private void SetBlankDefaultDropdownValue(Dropdown dropdown)
@@ -274,12 +220,6 @@ public class GuiManager : MonoBehaviour
         dropdownIngredient2.AddOptions(optionsTmp);
     }
 
-    //	private void DisableAllSandwichSubPanels() { 
-    //		panelBread.gameObject.SetActive (false);
-    //		panelIngredient1.gameObject.SetActive(false);
-    //		panelIngredient2.gameObject.SetActive(false);
-    //	}
-
 	private void SetVisibilityPreviousSandwichLevelButton(bool visible, int unlockedLevelsCount, int chosenLevel)
     {
         Transform previousButton = panelSandwich.transform.FindChild("ButtonPreviousSandwich");
@@ -318,7 +258,7 @@ public class GuiManager : MonoBehaviour
 
     private void AddButtonToLevelSelection(int unlockedLevelsCount)
     {
-        GameObject panel = GetPanel(PANEL_LEVEL_SELECTION);
+		GameObject panel = panelLevelSelection;
         RectTransform panelRect = panel.GetComponentInChildren<RectTransform>();
         foreach (Transform child in panel.transform)
         {
@@ -355,12 +295,6 @@ public class GuiManager : MonoBehaviour
     private void SetActiveLevel(int chosenLevel)
     {
         this.activeLevel = levels[chosenLevel];
-    }
-
-    private void SetVisibilityPanel(string panelKey, bool visibility)
-    {
-        GameObject panel = GetPanel(panelKey);
-        panel.SetActive(visibility);
     }
 
 	private void OnNextSandwichButtonClicked(int unlockedLevelsCount)
@@ -425,30 +359,13 @@ public class GuiManager : MonoBehaviour
 
     private void SetVisibilityAllPanels(bool visibility)
     {
-        SetVisibilityPanel(PANEL_BACKGROUND, visibility);
-        SetVisibilityPanel(PANEL_LEVEL_SELECTION, visibility);
-        SetVisibilityPanel(PANEL_SANDWICH, visibility);
-        SetVisibilityPanel(PANEL_SELECTED_SANDWICH, visibility);
-		SetVisibilityPanel (PANEL_WIN_LOSE, visibility);
-    }
-
-    private GameObject GetPanel(string panelKey)
-    {
-        switch (panelKey)
-        {
-            case PANEL_BACKGROUND:
-                return panelBackground;
-            case PANEL_LEVEL_SELECTION:
-                return panelLevelSelection;
-            case PANEL_SANDWICH:
-                return panelSandwich;
-            case PANEL_SELECTED_SANDWICH:
-                return panelSelectedSandwich;
-			case PANEL_WIN_LOSE:
-				return panelWinLose;
-            default:
-                return null;
-        }
+		panelBackground.SetActive (visibility);
+		panelLevelSelection.SetActive (visibility);
+		panelSandwich.SetActive (visibility);
+		panelSelectedSandwich.SetActive (visibility);
+		panelWinLose.SetActive (visibility);
+		panelWeaponSlot1.SetActive (visibility);
+		panelWeaponSlot2.SetActive (visibility);
     }
 
     private void FindAndSetAllSubPanels()
