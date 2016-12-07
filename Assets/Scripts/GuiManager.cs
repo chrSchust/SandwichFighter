@@ -109,21 +109,18 @@ public class GuiManager : MonoBehaviour
 		ShowLevelSelection (unlockedLevelsCount);
 	}
 
-	private void ShowSandwichCombinator(int sandwichChosen, int unlockedLevelsCount, int chosenLevel)
+	private void ShowSandwichCombinator(int unlockedLevelsCount, int chosenLevel)
     {
 		SetVisibilityPanel(PANEL_LEVEL_SELECTION, false);
         if (firstBread == true)
         {
 			InitializeAllDropdownsWithValues(chosenLevel);
-        }
-
-        if (sandwichChosen == 0)
-        {
-            // No sandwich was chosen
+			// No sandwich was chosen
 			SetVisibilityPanel(PANEL_SELECTED_SANDWICH, false);
-        }
-        else
-        {
+			SetDropdownBreadListener(dropdownBread, chosenLevel);
+			SetDropdownIngredient1Listener(dropdownIngredient1, chosenLevel);
+			SetDropdownIngredient2Listener(dropdownIngredient2, chosenLevel);
+        } else {
             // one or more sandwiches are already available
             // so show PANEL_SELECTED_SANDWICH
 			ShowChosenSandwichPanel(ingredients1, bread1);
@@ -132,13 +129,6 @@ public class GuiManager : MonoBehaviour
         SetVisibilityPanel(PANEL_SANDWICH, true);
 		SetVisibilityNextSandwichButton(true, unlockedLevelsCount);
 		SetVisibilityPreviousSandwichLevelButton(true, unlockedLevelsCount, chosenLevel);
-        if (firstBread == true)
-        {
-            SetDropdownBreadListener(dropdownBread, chosenLevel);
-            SetDropdownIngredient1Listener(dropdownIngredient1, chosenLevel);
-            SetDropdownIngredient2Listener(dropdownIngredient2, chosenLevel);
-        }
-
     }
 
 	private void SetSandwichCombinatorHeadlineText(string text) {
@@ -355,7 +345,7 @@ public class GuiManager : MonoBehaviour
 		firstBread = true;
 		ingredients1.Clear ();
 		ingredients2.Clear ();
-		ShowSandwichCombinator(0, unlockedLevelsCount, levels.IndexOf(activeLevel));
+		ShowSandwichCombinator(unlockedLevelsCount, levels.IndexOf(activeLevel));
     }
 
     private void SetActiveLevel(int chosenLevel)
@@ -379,7 +369,7 @@ public class GuiManager : MonoBehaviour
                 ingredients1.Add(ingredient2);
                 bread1 = bread;
                 firstBread = false;
-				ShowSandwichCombinator(1, unlockedLevelsCount, levels.IndexOf(activeLevel));
+				ShowSandwichCombinator(unlockedLevelsCount, levels.IndexOf(activeLevel));
             }
             else
             {
@@ -402,7 +392,7 @@ public class GuiManager : MonoBehaviour
 			ingredients1.Clear ();
 			ingredients2.Clear ();
 			firstBread = true;
-			ShowSandwichCombinator (0, unlockedLevelsCount, levels.IndexOf(activeLevel));
+			ShowSandwichCombinator (unlockedLevelsCount, levels.IndexOf(activeLevel));
 		}
 	}
 
