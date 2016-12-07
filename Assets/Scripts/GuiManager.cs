@@ -132,6 +132,34 @@ public class GuiManager : MonoBehaviour
 		SetVisibilityPreviousSandwichLevelButton(true, unlockedLevelsCount, chosenLevel);
     }
 
+	private void ShowWeaponPanels() {
+		SetVisibilityAllPanels (false);
+		panelWeaponSlot1.SetActive (true);
+		panelWeaponSlot2.SetActive (true);
+		SetChosenWeapon (1);
+	}
+
+	public void SetChosenWeapon(int weaponSlotNumber) {
+		Color colorNotChosen = new Color();
+		ColorUtility.TryParseHtmlString("#FFFFFF63", out colorNotChosen);
+		Image img1 = panelWeaponSlot1.GetComponent<Image> ();
+		Image img2 = panelWeaponSlot2.GetComponent<Image> ();
+		switch (weaponSlotNumber) {
+			case 1:
+				img1.color = UnityEngine.Color.grey;
+				img2.color = colorNotChosen;
+				break;
+			case 2:
+				img1.color = colorNotChosen;
+				img2.color = UnityEngine.Color.grey;
+				break;
+			default:
+				img1.color = UnityEngine.Color.grey;
+				img2.color = colorNotChosen;
+				break;
+		}
+	}
+
 	private void SetSandwichCombinatorHeadlineText(string text) {
 		Transform textTransform = panelSandwich.transform.FindChild ("TextHeadline");
 		Text headlineText = textTransform.GetComponent<Text> ();
@@ -356,6 +384,7 @@ public class GuiManager : MonoBehaviour
     {
         SetVisibilityCursor(false);
         SetVisibilityAllPanels(false);
+		ShowWeaponPanels ();
         gameFlowController.StartLevel(ingredients1, ingredients2, bread1, bread2, activeLevel);
     }
 
