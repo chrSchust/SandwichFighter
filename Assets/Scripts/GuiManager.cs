@@ -120,10 +120,14 @@ public class GuiManager : MonoBehaviour
 			SetDropdownBreadListener(dropdownBread, chosenLevel);
 			SetDropdownIngredient1Listener(dropdownIngredient1, chosenLevel);
 			SetDropdownIngredient2Listener(dropdownIngredient2, chosenLevel);
+			// Set headline
+			SetSandwichCombinatorHeadlineText("1. Sandwich");
         } else {
             // one or more sandwiches are already available
             // so show PANEL_SELECTED_SANDWICH
 			ShowChosenSandwichPanel(ingredients1, bread1);
+			// Set headline
+			SetSandwichCombinatorHeadlineText("2. Sandwich");
         }
 
         SetVisibilityPanel(PANEL_SANDWICH, true);

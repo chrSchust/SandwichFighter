@@ -3472,7 +3472,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1. Auswahl
+  m_Text: 1. Sandwich
 --- !u!222 &222000010083218142
 CanvasRenderer:
   m_ObjectHideFlags: 1
