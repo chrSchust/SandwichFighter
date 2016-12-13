@@ -3,10 +3,15 @@ using System;
 
 public class Salami : Ingredient
 {
-    public string getName()
+	public string getName()
     {
         return "Salami";
     }
+
+	public string getType()
+	{
+		return IngredientType.MEAT;
+	}
 
     public int getDamageBonus(int enemyType)
     {

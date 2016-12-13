@@ -8,6 +8,11 @@ public class Chicken : Ingredient
         return "Hähnchen";
     }
 
+	public string getType()
+	{
+		return IngredientType.MEAT;
+	}
+
     public int getDamageBonus(int enemyType)
     {
         switch (enemyType)

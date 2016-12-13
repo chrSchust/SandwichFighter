@@ -8,6 +8,11 @@ public class Tomato : Ingredient
         return "Tomaten";
     }
 
+	public string getType()
+	{
+		return IngredientType.VEGETABLE;
+	}
+
     public int getDamageBonus(int enemyType)
     {
         switch (enemyType)

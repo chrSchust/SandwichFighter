@@ -130,6 +130,15 @@ public class GuiManager : MonoBehaviour
 		panelSandwich.SetActive (true);
 		SetVisibilityNextSandwichButton(true, unlockedLevelsCount);
 		SetVisibilityPreviousSandwichLevelButton(true, unlockedLevelsCount, chosenLevel);
+//		SetEffectsIngredientPanel1 ();
+		SetDropdownIngredientListener (panelIngredient1.transform, dropdownIngredient1);
+		SetDropdownIngredientListener (panelIngredient2.transform, dropdownIngredient2);
+		List<Ingredient> availableIngredients = activeLevel.availableIngredients;
+		Ingredient chosenIngredient = availableIngredients[dropdownIngredient1.value];
+		SetEffectsIngredientPanel (panelIngredient1.transform, chosenIngredient.getType());
+		SetDropdownIngredientListener (panelIngredient1.transform, dropdownIngredient1);
+		chosenIngredient = availableIngredients[dropdownIngredient2.value];
+		SetEffectsIngredientPanel (panelIngredient2.transform, chosenIngredient.getType());
     }
 
 	private void ShowWeaponPanels() {
@@ -137,6 +146,10 @@ public class GuiManager : MonoBehaviour
 		panelWeaponSlot1.SetActive (true);
 		panelWeaponSlot2.SetActive (true);
 		SetChosenWeapon (1);
+	}
+
+	private void ShowEffectsIngredientPanel2() {
+
 	}
 
 	public void SetChosenWeapon(int weaponSlotNumber) {
@@ -232,6 +245,54 @@ public class GuiManager : MonoBehaviour
 //        List<KeyValuePair<Bread, int>> availableBreadsWithHits = level.availableBreadsWithHits;
 //        bread = availableBreadsWithHits[chosenItem];
 //    }
+
+	private void SetDropdownIngredientListener(Transform panelTransform, Dropdown dropdown) {
+        // Set onChange listener
+		dropdown.onValueChanged.AddListener(delegate
+        {
+				OnIngredientValueChanged(dropdown.value, panelTransform, dropdown);
+        });
+    }
+
+	private void OnIngredientValueChanged(int chosenItem, Transform panelTransform, Dropdown dropdown)
+    {
+		List<Ingredient> availableIngredients = activeLevel.availableIngredients;
+		Ingredient chosenIngredient = availableIngredients[chosenItem];
+		SetEffectsIngredientPanel (panelTransform, chosenIngredient.getType());
+    }
+
+	private void SetEffectsIngredientPanel(Transform panelIngredient, string ingredientType) {
+		Transform panelEffectsTrans = panelIngredient.transform.FindChild ("PanelEffects");
+		Transform textVegiPosTrans = panelEffectsTrans.FindChild ("TextVegiPos");
+		Text textVegiPos = textVegiPosTrans.GetComponent<Text> ();
+		Transform textVegiNegTrans = panelEffectsTrans.FindChild ("TextVegiNeg");
+		Text textVegiNeg = textVegiNegTrans.GetComponent<Text> ();
+		Transform textMeatPosTrans = panelEffectsTrans.FindChild ("TextMeatPos");
+		Text textMeatPos = textMeatPosTrans.GetComponent<Text> ();
+		Transform textMeatNegTrans = panelEffectsTrans.FindChild ("TextMeatNeg");
+		Text textMeatNeg = textMeatNegTrans.GetComponent<Text> ();
+
+		switch (ingredientType) {
+			case IngredientType.MEAT:
+				textVegiPos.text = "mehr Schaden";
+				textVegiNeg.text = "schneller";
+				textMeatPos.text = "langsamer";
+				textMeatNeg.text = "weniger Schaden";
+				break;
+			case IngredientType.VEGETABLE:
+				textVegiPos.text = "langsamer";
+				textVegiNeg.text = "weniger Schaden";
+				textMeatPos.text = "mehr Schaden";
+				textMeatNeg.text = "schneller";
+				break;
+			default:
+				textVegiPos.text = "";
+				textVegiNeg.text = "";
+				textMeatPos.text = "";
+				textMeatNeg.text = "";
+				break;
+		}
+	}
 
     private void SetBlankDefaultDropdownValue(Dropdown dropdown)
     {
