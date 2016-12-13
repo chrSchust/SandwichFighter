@@ -126,10 +126,17 @@ public class EnemyController : MonoBehaviour
         while (time <= duration)
         {
             time += Time.deltaTime;
-            GetComponentInChildren<Renderer>().material = hitMaterial;
+            foreach(Renderer r in GetComponentsInChildren<Renderer>())
+            {
+                r.material = hitMaterial;
+            }
+            //GetComponentInChildren<Renderer>().material = hitMaterial;
             yield return null;
         }
-        GetComponentInChildren<Renderer>().material = defaultMaterial;
+        foreach (Renderer r in GetComponentsInChildren<Renderer>())
+        {
+            r.material = defaultMaterial;
+        }
     }
 
     void OnTriggerEnter(Collider other)
