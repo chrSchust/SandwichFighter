@@ -13,6 +13,11 @@ public class EnemyController : MonoBehaviour
     private int wayPointsToVisit;
     private int wayPointsVisited = 0;
 
+    private Vector3 tempDest;
+    private bool avoiding = false;
+    public float maxHitDistance = 10f;
+    public float hitRadius = 0.3f;
+
     private NavMeshAgent agent;
 
     private Animator animator;
@@ -53,11 +58,48 @@ public class EnemyController : MonoBehaviour
     void FixedUpdate()
     {
         animator.SetFloat("Speed", 1f);
-        // destination = GameObject.Find("Destination");
 
-        // Bad performance in the future. Try to find other solution later
-        // agent = GetComponent<NavMeshAgent>();
-        // agent.destination = destination.transform.position;
+        Debug.DrawLine(transform.position + transform.forward, transform.position + transform.forward * maxHitDistance, Color.red);
+        RaycastHit[] allHits;
+        allHits = Physics.SphereCastAll(transform.position + transform.forward, hitRadius, transform.forward, maxHitDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+        foreach (RaycastHit hit in allHits)
+        {
+            if (hit.transform.gameObject.tag == "Player" && avoiding == false)
+            {
+                tempDest = agent.destination;
+                avoiding = true;
+
+                NavMeshPath path = new NavMeshPath();
+                agent.CalculatePath(GameObject.Find("AvoidRight").transform.position, path);
+                if (path.status == NavMeshPathStatus.PathComplete)
+                {
+                    agent.destination = GameObject.Find("AvoidRight").transform.position;
+                    Debug.LogError("Avoid Right!");
+                }
+                else
+                {
+                    path = new NavMeshPath();
+                    agent.CalculatePath(GameObject.Find("AvoidLeft").transform.position, path);
+                    if (path.status == NavMeshPathStatus.PathComplete)
+                    {
+                        agent.destination = GameObject.Find("AvoidLeft").transform.position;
+                        Debug.LogError("Avoid Left!");
+                    }
+                    else
+                    {
+                        Debug.LogError("Can't Avoid!");
+                        avoiding = false;
+                    }
+
+                }
+            }
+            if (avoiding == true && agent.remainingDistance <= agent.stoppingDistance)
+            {
+                agent.destination = tempDest;
+                avoiding = false;
+                Debug.LogError("Avoided!");
+            }
+        }
     }
 
     void moveToWaypoint()
@@ -126,7 +168,7 @@ public class EnemyController : MonoBehaviour
         while (time <= duration)
         {
             time += Time.deltaTime;
-            foreach(Renderer r in GetComponentsInChildren<Renderer>())
+            foreach (Renderer r in GetComponentsInChildren<Renderer>())
             {
                 r.material = hitMaterial;
             }
@@ -143,6 +185,7 @@ public class EnemyController : MonoBehaviour
     {
         if (other.gameObject.tag == "Waypoint")
         {
+            avoiding = false;
             GameObject[] waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
             if (lastWaypointIndex == Array.IndexOf(waypoints, other.gameObject))
             {

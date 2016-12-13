@@ -9,6 +9,7 @@ TagManager:
   - Weapon
   - GuiManager
   - GameFlowController
+  - Avoid
   layers:
   - Default
   - TransparentFX
