@@ -96,7 +96,7 @@ public class EnemyController : MonoBehaviour
             {
                 agent.destination = tempDest;
                 avoiding = false;
-                Debug.LogError("Avoided!");
+                //Debug.LogError("Avoided!");
             }
         }
     }
