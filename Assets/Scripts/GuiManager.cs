@@ -150,18 +150,21 @@ public class GuiManager : MonoBehaviour
 		SetVisibilityNextSandwichButton(true, unlockedLevelsCount);
 		SetVisibilityPreviousSandwichLevelButton(true, unlockedLevelsCount, chosenLevel);
 //		SetEffectsIngredientPanel1 ();
+		SetDropdownBreadListener (panelBread.transform, dropdownBread);
 		SetDropdownIngredientListener (panelIngredient1.transform, dropdownIngredient1);
 		SetDropdownIngredientListener (panelIngredient2.transform, dropdownIngredient2);
+		List<KeyValuePair<Bread, int>> availableBreadWithHits = activeLevel.availableBreadsWithHits;
+		KeyValuePair<Bread, int> chosenBread = availableBreadWithHits[dropdownBread.value];
+		SetEffectsBreadPanel (panelBread.transform,
+			chosenBread
+		);
 		List<Ingredient> availableIngredients = activeLevel.availableIngredients;
 		Ingredient chosenIngredient = availableIngredients[dropdownIngredient1.value];
 		SetEffectsIngredientPanel (panelIngredient1.transform, 
-			activeLevel.availableIngredients, 
 			chosenIngredient
 		);
-		SetDropdownIngredientListener (panelIngredient1.transform, dropdownIngredient1);
 		chosenIngredient = availableIngredients[dropdownIngredient2.value];
 		SetEffectsIngredientPanel (panelIngredient2.transform, 
-			activeLevel.availableIngredients,
 			chosenIngredient
 		);
     }
@@ -267,6 +270,14 @@ public class GuiManager : MonoBehaviour
 //        bread = availableBreadsWithHits[chosenItem];
 //    }
 
+	private void SetDropdownBreadListener(Transform panelTransform, Dropdown dropdown) {
+		// Set onChange listener
+		dropdown.onValueChanged.AddListener(delegate
+			{
+				OnBreadValueChanged(dropdown.value, panelTransform, dropdown);
+			});
+	}
+
 	private void SetDropdownIngredientListener(Transform panelTransform, Dropdown dropdown) {
         // Set onChange listener
 		dropdown.onValueChanged.AddListener(delegate
@@ -275,19 +286,40 @@ public class GuiManager : MonoBehaviour
         });
     }
 
+	private void OnBreadValueChanged(int chosenItem, Transform panelTransform, Dropdown dropdown)
+	{
+		List<KeyValuePair<Bread, int>> availableBreadWithHits = activeLevel.availableBreadsWithHits;
+		KeyValuePair<Bread, int> chosenBread = availableBreadWithHits[chosenItem];
+		SetEffectsBreadPanel (panelTransform,
+			chosenBread
+		);
+	}
+
 	private void OnIngredientValueChanged(int chosenItem, Transform panelTransform, Dropdown dropdown)
     {
 		List<Ingredient> availableIngredients = activeLevel.availableIngredients;
 		Ingredient chosenIngredient = availableIngredients[chosenItem];
-		SetEffectsIngredientPanel (panelTransform, 
-			activeLevel.availableIngredients,
+		SetEffectsIngredientPanel (panelTransform,
 			chosenIngredient
 		);
     }
 
+	private void SetEffectsBreadPanel (
+		Transform panelBread,
+		KeyValuePair<Bread, int> chosenBread
+	) {
+		Transform panelEffectsTrans = panelBread.transform.FindChild ("PanelEffects");
+		Transform textDamageTrans = panelEffectsTrans.FindChild ("TextDamage");
+		Text textDamage = textDamageTrans.GetComponent<Text> ();
+		Transform textHitsTrans = panelEffectsTrans.FindChild ("TextHits");
+		Text textHits = textHitsTrans.GetComponent<Text> ();
+
+		textDamage.text = chosenBread.Key.getBaseDamage ().ToString () + " Schaden";
+		textHits.text = chosenBread.Value.ToString () + " Haltbarkeit";
+	}
+
 	private void SetEffectsIngredientPanel(
 		Transform panelIngredient, 
-		List<Ingredient> availableIngredients, 
 		Ingredient chosenIngredient
 	) {
 		Transform panelEffectsTrans = panelIngredient.transform.FindChild ("PanelEffects");
@@ -304,10 +336,24 @@ public class GuiManager : MonoBehaviour
 		int speedBonusMeat = chosenIngredient.getSpeedBonus (Enemy.FAT);
 		int damageBonusVegi = chosenIngredient.getDamageBonus(Enemy.VEGAN);
 		int damageBonusMeat = chosenIngredient.getDamageBonus(Enemy.FAT);
-		string speedBonusVegiTxt = speedBonusVegi.ToString () + " Geschwindigkeit";
-		string speedBonusMeatTxt = speedBonusMeat.ToString () + " Geschwindigkeit";
-		string damageBonusVegiTxt = damageBonusVegi.ToString () + " Schaden";
-		string damageBonusMeatTxt = damageBonusMeat.ToString () + " Schaden";
+
+		string speedBonusVegiTxt = "";
+		string speedBonusMeatTxt = "";
+		string damageBonusVegiTxt = "";
+		string damageBonusMeatTxt = "";
+
+		if (speedBonusMeat > 0)
+			speedBonusMeatTxt = "+";
+		if (speedBonusVegi > 0)
+			speedBonusVegiTxt = "+";
+		if (damageBonusMeat > 0)
+			damageBonusMeatTxt = "+";
+		if (damageBonusVegi > 0)
+			damageBonusVegiTxt = "+";
+		speedBonusVegiTxt += speedBonusVegi.ToString () + " Geschwindigkeit";
+		speedBonusMeatTxt += speedBonusMeat.ToString () + " Geschwindigkeit";
+		damageBonusVegiTxt += damageBonusVegi.ToString () + " Schaden";
+		damageBonusMeatTxt += damageBonusMeat.ToString () + " Schaden";
 
 		if(chosenIngredient.getType().Equals(IngredientType.MEAT)) {
 			textVegiPos.text = damageBonusVegiTxt;
