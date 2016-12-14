@@ -59,9 +59,8 @@ public class EnemyController : MonoBehaviour
     {
         animator.SetFloat("Speed", 1f);
 
-        Debug.DrawLine(transform.position + transform.forward, transform.position + transform.forward * maxHitDistance, Color.red);
         RaycastHit[] allHits;
-        allHits = Physics.SphereCastAll(transform.position + transform.forward, hitRadius, transform.forward, maxHitDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+        allHits = Physics.SphereCastAll(transform.position + transform.forward + transform.up, hitRadius, transform.forward, maxHitDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
         foreach (RaycastHit hit in allHits)
         {
             if (hit.transform.gameObject.tag == "Player" && avoiding == false)
@@ -74,7 +73,7 @@ public class EnemyController : MonoBehaviour
                 if (path.status == NavMeshPathStatus.PathComplete)
                 {
                     agent.destination = GameObject.Find("AvoidRight").transform.position;
-                    Debug.LogError("Avoid Right!");
+                    //Debug.LogError("Avoid Right!");
                 }
                 else
                 {
@@ -83,11 +82,11 @@ public class EnemyController : MonoBehaviour
                     if (path.status == NavMeshPathStatus.PathComplete)
                     {
                         agent.destination = GameObject.Find("AvoidLeft").transform.position;
-                        Debug.LogError("Avoid Left!");
+                        //Debug.LogError("Avoid Left!");
                     }
                     else
                     {
-                        Debug.LogError("Can't Avoid!");
+                        //Debug.LogError("Can't Avoid!");
                         avoiding = false;
                     }
 
