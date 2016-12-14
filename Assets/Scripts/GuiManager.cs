@@ -154,10 +154,16 @@ public class GuiManager : MonoBehaviour
 		SetDropdownIngredientListener (panelIngredient2.transform, dropdownIngredient2);
 		List<Ingredient> availableIngredients = activeLevel.availableIngredients;
 		Ingredient chosenIngredient = availableIngredients[dropdownIngredient1.value];
-		SetEffectsIngredientPanel (panelIngredient1.transform, chosenIngredient.getType());
+		SetEffectsIngredientPanel (panelIngredient1.transform, 
+			activeLevel.availableIngredients, 
+			chosenIngredient
+		);
 		SetDropdownIngredientListener (panelIngredient1.transform, dropdownIngredient1);
 		chosenIngredient = availableIngredients[dropdownIngredient2.value];
-		SetEffectsIngredientPanel (panelIngredient2.transform, chosenIngredient.getType());
+		SetEffectsIngredientPanel (panelIngredient2.transform, 
+			activeLevel.availableIngredients,
+			chosenIngredient
+		);
     }
 
 	private void ShowWeaponPanels() {
@@ -165,10 +171,6 @@ public class GuiManager : MonoBehaviour
 		panelWeaponSlot1.SetActive (true);
 		panelWeaponSlot2.SetActive (true);
 		SetChosenWeapon (1);
-	}
-
-	private void ShowEffectsIngredientPanel2() {
-
 	}
 
 	public void SetChosenWeapon(int weaponSlotNumber) {
@@ -277,10 +279,17 @@ public class GuiManager : MonoBehaviour
     {
 		List<Ingredient> availableIngredients = activeLevel.availableIngredients;
 		Ingredient chosenIngredient = availableIngredients[chosenItem];
-		SetEffectsIngredientPanel (panelTransform, chosenIngredient.getType());
+		SetEffectsIngredientPanel (panelTransform, 
+			activeLevel.availableIngredients,
+			chosenIngredient
+		);
     }
 
-	private void SetEffectsIngredientPanel(Transform panelIngredient, string ingredientType) {
+	private void SetEffectsIngredientPanel(
+		Transform panelIngredient, 
+		List<Ingredient> availableIngredients, 
+		Ingredient chosenIngredient
+	) {
 		Transform panelEffectsTrans = panelIngredient.transform.FindChild ("PanelEffects");
 		Transform textVegiPosTrans = panelEffectsTrans.FindChild ("TextVegiPos");
 		Text textVegiPos = textVegiPosTrans.GetComponent<Text> ();
@@ -291,25 +300,25 @@ public class GuiManager : MonoBehaviour
 		Transform textMeatNegTrans = panelEffectsTrans.FindChild ("TextMeatNeg");
 		Text textMeatNeg = textMeatNegTrans.GetComponent<Text> ();
 
-		switch (ingredientType) {
-			case IngredientType.MEAT:
-				textVegiPos.text = "mehr Schaden";
-				textVegiNeg.text = "schneller";
-				textMeatPos.text = "langsamer";
-				textMeatNeg.text = "weniger Schaden";
-				break;
-			case IngredientType.VEGETABLE:
-				textVegiPos.text = "langsamer";
-				textVegiNeg.text = "weniger Schaden";
-				textMeatPos.text = "mehr Schaden";
-				textMeatNeg.text = "schneller";
-				break;
-			default:
-				textVegiPos.text = "";
-				textVegiNeg.text = "";
-				textMeatPos.text = "";
-				textMeatNeg.text = "";
-				break;
+		int speedBonusVegi = chosenIngredient.getSpeedBonus (Enemy.VEGAN);
+		int speedBonusMeat = chosenIngredient.getSpeedBonus (Enemy.FAT);
+		int damageBonusVegi = chosenIngredient.getDamageBonus(Enemy.VEGAN);
+		int damageBonusMeat = chosenIngredient.getDamageBonus(Enemy.FAT);
+		string speedBonusVegiTxt = speedBonusVegi.ToString () + " Geschwindigkeit";
+		string speedBonusMeatTxt = speedBonusMeat.ToString () + " Geschwindigkeit";
+		string damageBonusVegiTxt = damageBonusVegi.ToString () + " Schaden";
+		string damageBonusMeatTxt = damageBonusMeat.ToString () + " Schaden";
+
+		if(chosenIngredient.getType().Equals(IngredientType.MEAT)) {
+			textVegiPos.text = damageBonusVegiTxt;
+			textVegiNeg.text = speedBonusVegiTxt;
+			textMeatPos.text = speedBonusMeatTxt;
+			textMeatNeg.text = damageBonusMeatTxt;
+		} else if(chosenIngredient.getType().Equals(IngredientType.VEGETABLE)) {
+			textVegiPos.text = speedBonusVegiTxt;
+			textVegiNeg.text = damageBonusVegiTxt;
+			textMeatPos.text = damageBonusMeatTxt;
+			textMeatNeg.text = speedBonusMeatTxt;
 		}
 	}
 

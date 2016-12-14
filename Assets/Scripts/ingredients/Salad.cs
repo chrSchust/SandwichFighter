@@ -8,9 +8,9 @@ public class Salad : Ingredient
         return "Salat";
     }
 
-	public string getType()
-	{
-		return IngredientType.VEGETABLE;
+	public string getType() 
+	{ 
+		return IngredientType.VEGETABLE; 
 	}
 
     public int getDamageBonus(int enemyType)
