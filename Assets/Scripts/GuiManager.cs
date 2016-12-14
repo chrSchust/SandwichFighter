@@ -17,6 +17,7 @@ public class GuiManager : MonoBehaviour
 	public GameObject panelWinLose;
 	public GameObject panelWeaponSlot1;
 	public GameObject panelWeaponSlot2;
+	public GameObject panelIntroduction;
 
     private List<Level> levels;
     private GameFlowController gameFlowController;
@@ -40,7 +41,7 @@ public class GuiManager : MonoBehaviour
     private KeyValuePair<Bread, int> bread2;
 	private int unlockedLevelsCount;
 
-    public void Init(GameFlowController gameFlowController, List<Level> levels, int unlockedLevelsCount)
+	public void Init(GameFlowController gameFlowController, List<Level> levels, int unlockedLevelsCount)
     {
         this.gameFlowController = gameFlowController;
         SetLevels(levels);
@@ -48,7 +49,8 @@ public class GuiManager : MonoBehaviour
         
 		// Check if a level is already unlocked
 		this.unlockedLevelsCount = unlockedLevelsCount;
-		ShowLevelSelection(unlockedLevelsCount);
+//		ShowLevelSelection(unlockedLevelsCount);
+		ShowIntroduction();
     }
 
     public void SetLevels(List<Level> levels)
@@ -56,13 +58,17 @@ public class GuiManager : MonoBehaviour
         this.levels = levels;
     }
 
+	private void ShowIntroduction() {
+		SetVisibilityAllPanels (false);
+		panelIntroduction.SetActive (true);
+		SetVisibilityCursor(true);
+		AddListenerToIntroductionNextButton ();
+	}
+
 	private void ShowLevelSelection(int unlockedLevelsCount) {
 		SetVisibilityAllPanels (false);
 		// Set visibilities for the first time
 		panelBackground.SetActive(true);
-		panelSelectedSandwich.SetActive (false);
-		panelSandwich.SetActive (false);
-		panelWinLose.SetActive (false);
 		panelLevelSelection.SetActive (true);
 
 		SetVisibilityCursor(true);
@@ -91,6 +97,19 @@ public class GuiManager : MonoBehaviour
 		// Set text out of ingredients and bread choice
 		textUi.text = text;
 		AddListenerToWinLoseNextButton ();
+	}
+
+	private void AddListenerToIntroductionNextButton() {
+		Transform nextIntroductionTransform = panelIntroduction.transform.FindChild ("ButtonNext");
+		if (nextIntroductionTransform == null) {
+			Debug.LogError("Next Button is null");
+		}
+		Button nextIntroductionButton = nextIntroductionTransform.GetComponent<Button> ();
+		nextIntroductionButton.onClick.AddListener (() => OnNextIntroductionButton());
+	}
+
+	private void OnNextIntroductionButton() {
+		ShowLevelSelection (unlockedLevelsCount);
 	}
 
 	private void AddListenerToWinLoseNextButton() {
@@ -484,6 +503,7 @@ public class GuiManager : MonoBehaviour
 		panelWinLose.SetActive (visibility);
 		panelWeaponSlot1.SetActive (visibility);
 		panelWeaponSlot2.SetActive (visibility);
+		panelIntroduction.SetActive (visibility);
     }
 
     private void FindAndSetAllSubPanels()
