@@ -40,6 +40,7 @@ public class GuiManager : MonoBehaviour
     private KeyValuePair<Bread, int> bread1;
     private KeyValuePair<Bread, int> bread2;
 	private int unlockedLevelsCount;
+	private int chosenWeapon = 1;
 
 	public void Init(GameFlowController gameFlowController, List<Level> levels, int unlockedLevelsCount)
     {
@@ -185,16 +186,23 @@ public class GuiManager : MonoBehaviour
 			case 1:
 				img1.color = UnityEngine.Color.grey;
 				img2.color = colorNotChosen;
+				chosenWeapon = 1;
 				break;
 			case 2:
 				img1.color = colorNotChosen;
 				img2.color = UnityEngine.Color.grey;
+				chosenWeapon = 2;
 				break;
 			default:
 				img1.color = UnityEngine.Color.grey;
 				img2.color = colorNotChosen;
+				chosenWeapon = 1;
 				break;
 		}
+	}
+
+	public int GetChosenWeapon() {
+		return chosenWeapon;
 	}
 
 	private void SetWeaponPanelsIngredientsText() {

@@ -19,16 +19,9 @@ public class MeleeAttack : MonoBehaviour
     public int? breadHealth2;
     public Bread activebread;
 
-	private GuiManager guiManager = null;
-
     void Start()
     {
         weapon = GameObject.Find("Weapon");
-		guiManager = GameObject.FindGameObjectWithTag("GuiManager").GetComponent<GuiManager>();
-		if (guiManager == null)
-		{
-			Debug.LogError("GuiManager is null");
-		}
     }
 
     // Update is called once per frame
@@ -39,7 +32,7 @@ public class MeleeAttack : MonoBehaviour
             activeIngredients = ingredients1;
             activebread = bread1;
             weapon.GetComponentInChildren<Renderer>().material = material1;
-			guiManager.SetChosenWeapon (1);
+
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2) && breadHealth2 > 0)
@@ -47,7 +40,6 @@ public class MeleeAttack : MonoBehaviour
             activeIngredients = ingredients2;
             activebread = bread2;
             weapon.GetComponentInChildren<Renderer>().material = material2;
-			guiManager.SetChosenWeapon (2);
         }
 
         if (Input.GetButtonDown("Fire1"))

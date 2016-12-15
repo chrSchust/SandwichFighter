@@ -901,7 +901,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 16.28
+  speedChange: 2
   startRotation: {x: 0, y: 0, z: 0, w: 0}
+  startPosition: {x: 0, y: 0, z: 0}
   material1: {fileID: 2100000, guid: ba690882e4dcaca46b3862e05161378e, type: 2}
 --- !u!1 &582232688
 GameObject:
