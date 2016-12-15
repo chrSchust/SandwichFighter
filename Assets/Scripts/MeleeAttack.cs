@@ -18,10 +18,16 @@ public class MeleeAttack : MonoBehaviour
     public Bread bread2;
     public int? breadHealth2;
     public Bread activebread;
+	private GuiManager guiManager = null;
 
     void Start()
     {
         weapon = GameObject.Find("Weapon");
+		guiManager = GameObject.FindGameObjectWithTag("GuiManager").GetComponent<GuiManager>();
+		if (guiManager == null)
+		{
+			Debug.LogError("GuiManager is null");
+		}
     }
 
     // Update is called once per frame
@@ -64,6 +70,7 @@ public class MeleeAttack : MonoBehaviour
             if (activebread != null && activebread == bread1)
             {
                 breadHealth1--;
+				guiManager.SetBread1Hits (breadHealth1);
                 if (breadHealth1 <= 0)
                 {
                     Debug.Log("bread 1 dead");
@@ -79,6 +86,7 @@ public class MeleeAttack : MonoBehaviour
             if (activebread != null && activebread == bread2)
             {
                 breadHealth2--;
+				guiManager.SetBread2Hits (breadHealth2);
                 if (breadHealth2 <= 0)
                 {
                     Debug.Log("bread 2 dead");

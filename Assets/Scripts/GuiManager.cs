@@ -205,12 +205,50 @@ public class GuiManager : MonoBehaviour
 		return chosenWeapon;
 	}
 
+	public void SetBread1Hits(int? breadHealth) {
+		Transform textTrans1Hits = panelWeaponSlot1.transform.FindChild("TextHits");
+		Text text1Hits = textTrans1Hits.GetComponent<Text> ();
+		text1Hits.text = breadHealth.ToString ();
+		if (breadHealth <= 0) {
+			SetVisibilityWeaponPanel1 (false);
+		}
+	}
+
+	public void SetBread2Hits(int? breadHealth) {
+		Transform textTrans2Hits = panelWeaponSlot2.transform.FindChild("TextHits");
+		Text text2Hits = textTrans2Hits.GetComponent<Text> ();
+		text2Hits.text = breadHealth.ToString ();
+		if (breadHealth <= 0) {
+			SetVisibilityWeaponPanel2 (false);
+		}
+	}
+
+	public void SetVisibilityWeaponPanel1(bool visibility) {
+		if (visibility) {
+
+		} else {
+			panelWeaponSlot1.SetActive (visibility);
+		}
+	}
+
+	public void SetVisibilityWeaponPanel2(bool visibility) {
+		if (visibility) {
+
+		} else {
+			panelWeaponSlot2.SetActive (visibility);
+		}
+	}
+
 	private void SetWeaponPanelsIngredientsText() {
 		// Get textfield of panel
 		Transform textTrans1 = panelWeaponSlot1.transform.FindChild("TextIngredients");
 		Text text1 = textTrans1.GetComponent<Text> ();
 		Transform textTrans2 = panelWeaponSlot2.transform.FindChild("TextIngredients");
 		Text text2 = textTrans2.GetComponent<Text> ();
+		Transform textTrans1Hits = panelWeaponSlot1.transform.FindChild("TextHits");
+		Text text1Hits = textTrans1Hits.GetComponent<Text> ();
+		Transform textTrans2Hits = panelWeaponSlot2.transform.FindChild("TextHits");
+		Text text2Hits = textTrans2Hits.GetComponent<Text> ();
 
 		// Set text out of ingredients and bread choice
 		string textUi = "";
@@ -228,6 +266,10 @@ public class GuiManager : MonoBehaviour
 			textUi += ingredient.getName ()+"\n";
 		}
 		text2.text = textUi;
+
+		// Set the hit value of the bread
+		text1Hits.text = bread1.Value.ToString ();
+		text2Hits.text = bread2.Value.ToString ();
 	}
 
 	private void SetSandwichCombinatorHeadlineText(string text) {
