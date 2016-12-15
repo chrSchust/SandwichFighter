@@ -901,7 +901,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 16.28
-  speedChange: 2
   startRotation: {x: 0, y: 0, z: 0, w: 0}
   startPosition: {x: 0, y: 0, z: 0}
   material1: {fileID: 2100000, guid: ba690882e4dcaca46b3862e05161378e, type: 2}
@@ -2339,7 +2338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 0
-  maxHitDistance: 2.5
+  maxHitDistance: 1
   hitRadius: 1
   material1: {fileID: 2100000, guid: ba690882e4dcaca46b3862e05161378e, type: 2}
   material2: {fileID: 2100000, guid: aab39e36481491d4588082e926add332, type: 2}

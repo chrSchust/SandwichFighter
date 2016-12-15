@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class MeleeAttack : MonoBehaviour
 {
     public float distance;
-    public float maxHitDistance = 2.5f;
+    public float maxHitDistance = 1.0f;
     public float hitRadius = 1.0f;
     public List<Ingredient> ingredients1 { get; set; }
     public List<Ingredient> ingredients2 { get; set; }
