@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class MeleeAttack : MonoBehaviour
 {
@@ -20,6 +21,12 @@ public class MeleeAttack : MonoBehaviour
     public Bread activebread;
 	private GuiManager guiManager = null;
 
+    private bool originalHealthSet;
+    private int? originalHealth1;
+    private int? originalHealth2;
+    private GameObject progressBackground;
+    private GameObject progressForeground;
+
     void Start()
     {
         weapon = GameObject.Find("Weapon");
@@ -28,11 +35,61 @@ public class MeleeAttack : MonoBehaviour
 		{
 			Debug.LogError("GuiManager is null");
 		}
+        progressBackground = GameObject.Find("ProgressBackground");
+        progressForeground = GameObject.Find("ProgressForeground");
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (breadHealth1 != null && breadHealth2 != null && !originalHealthSet)
+        {
+            originalHealth1 = breadHealth1;
+            originalHealth2 = breadHealth2;
+            originalHealthSet = true;
+        }
+
+        if (Input.GetKey(KeyCode.E) && (breadHealth1 <= 0 || breadHealth2 <= 0))
+        {
+            RaycastHit[] allHits;
+            allHits = Physics.SphereCastAll(transform.position, hitRadius, transform.forward, maxHitDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            foreach (RaycastHit hit in allHits)
+            {
+                if (hit.transform.gameObject.name == "Counter")
+                {
+                    progressBackground.SetActive(true);
+                    progressForeground.SetActive(true);
+                    progressForeground.GetComponent<Image>().fillAmount = progressForeground.GetComponent<Image>().fillAmount + (Time.deltaTime * 0.4f);
+
+                    if(progressForeground.GetComponent<Image>().fillAmount >= 1)
+                    {
+                        progressBackground.SetActive(false);
+                        progressForeground.SetActive(false);
+                        progressForeground.GetComponent<Image>().fillAmount = 0;
+
+                        if (breadHealth1 <= 0)
+                        {
+                            breadHealth1 = originalHealth1;
+                        }
+                        if (breadHealth2 <= 0)
+                        {
+                            breadHealth2 = originalHealth2;
+                        }
+                        guiManager.SetBread1Hits(breadHealth1);
+                        guiManager.SetBread2Hits(breadHealth2);
+                    }
+                    break;
+                }
+            }
+        }
+        else
+        {
+            progressBackground.SetActive(false);
+            progressForeground.SetActive(false);
+            progressForeground.GetComponent<Image>().fillAmount = 0;
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha1) && breadHealth1 > 0)
         {
             activeIngredients = ingredients1;

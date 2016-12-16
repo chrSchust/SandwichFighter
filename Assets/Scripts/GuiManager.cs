@@ -212,7 +212,8 @@ public class GuiManager : MonoBehaviour
 		if (breadHealth <= 0) {
 			SetVisibilityWeaponPanel1 (false);
 		}
-	}
+        else SetVisibilityWeaponPanel1(true);
+    }
 
 	public void SetBread2Hits(int? breadHealth) {
 		Transform textTrans2Hits = panelWeaponSlot2.transform.FindChild("TextHits");
@@ -221,22 +222,16 @@ public class GuiManager : MonoBehaviour
 		if (breadHealth <= 0) {
 			SetVisibilityWeaponPanel2 (false);
 		}
-	}
+        else SetVisibilityWeaponPanel2(true);
+    }
 
 	public void SetVisibilityWeaponPanel1(bool visibility) {
-		if (visibility) {
-
-		} else {
 			panelWeaponSlot1.SetActive (visibility);
-		}
+
 	}
 
 	public void SetVisibilityWeaponPanel2(bool visibility) {
-		if (visibility) {
-
-		} else {
 			panelWeaponSlot2.SetActive (visibility);
-		}
 	}
 
 	private void SetWeaponPanelsIngredientsText() {
