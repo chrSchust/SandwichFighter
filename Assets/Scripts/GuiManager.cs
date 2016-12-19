@@ -18,6 +18,7 @@ public class GuiManager : MonoBehaviour
 	public GameObject panelWeaponSlot1;
 	public GameObject panelWeaponSlot2;
 	public GameObject panelIntroduction;
+	public GameObject textGoToCounter;
 
     private List<Level> levels;
     private GameFlowController gameFlowController;
@@ -128,6 +129,10 @@ public class GuiManager : MonoBehaviour
 		ShowLevelSelection (unlockedLevelsCount);
 	}
 
+	public void SetVisibilityTextGoToCounter (bool visibility) {
+		textGoToCounter.SetActive (visibility);
+	}
+
 	private void ShowSandwichCombinator(int unlockedLevelsCount, int chosenLevel)
     {
 		SetVisibilityAllPanels (false);
@@ -225,12 +230,12 @@ public class GuiManager : MonoBehaviour
         else SetVisibilityWeaponPanel2(true);
     }
 
-	public void SetVisibilityWeaponPanel1(bool visibility) {
+	private void SetVisibilityWeaponPanel1(bool visibility) {
 			panelWeaponSlot1.SetActive (visibility);
 
 	}
 
-	public void SetVisibilityWeaponPanel2(bool visibility) {
+	private void SetVisibilityWeaponPanel2(bool visibility) {
 			panelWeaponSlot2.SetActive (visibility);
 	}
 
@@ -604,6 +609,7 @@ public class GuiManager : MonoBehaviour
 		panelWeaponSlot1.SetActive (visibility);
 		panelWeaponSlot2.SetActive (visibility);
 		panelIntroduction.SetActive (visibility);
+		textGoToCounter.SetActive (visibility);
     }
 
     private void FindAndSetAllSubPanels()

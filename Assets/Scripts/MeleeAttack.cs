@@ -50,37 +50,39 @@ public class MeleeAttack : MonoBehaviour
             originalHealthSet = true;
         }
 
+		if (breadHealth1 <= 0 && breadHealth2 <= 0) {
+			guiManager.SetVisibilityTextGoToCounter (true);
+		}
+
         if (Input.GetKey(KeyCode.E) && (breadHealth1 <= 0 || breadHealth2 <= 0))
         {
             RaycastHit[] allHits;
             allHits = Physics.SphereCastAll(transform.position, hitRadius, transform.forward, maxHitDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
             foreach (RaycastHit hit in allHits)
             {
-                if (hit.transform.gameObject.name == "Counter")
-                {
-                    progressBackground.SetActive(true);
-                    progressForeground.SetActive(true);
-                    progressForeground.GetComponent<Image>().fillAmount = progressForeground.GetComponent<Image>().fillAmount + (Time.deltaTime * 0.4f);
+				if (hit.transform.gameObject.name == "Counter") {
+					// Gui stuff
+					guiManager.SetVisibilityTextGoToCounter (false);
+					progressBackground.SetActive (true);
+					progressForeground.SetActive (true);
+					progressForeground.GetComponent<Image> ().fillAmount = progressForeground.GetComponent<Image> ().fillAmount + (Time.deltaTime * 0.4f);
 
-                    if(progressForeground.GetComponent<Image>().fillAmount >= 1)
-                    {
-                        progressBackground.SetActive(false);
-                        progressForeground.SetActive(false);
-                        progressForeground.GetComponent<Image>().fillAmount = 0;
+					if (progressForeground.GetComponent<Image> ().fillAmount >= 1) {
+						progressBackground.SetActive (false);
+						progressForeground.SetActive (false);
+						progressForeground.GetComponent<Image> ().fillAmount = 0;
 
-                        if (breadHealth1 <= 0)
-                        {
-                            breadHealth1 = originalHealth1;
-                        }
-                        if (breadHealth2 <= 0)
-                        {
-                            breadHealth2 = originalHealth2;
-                        }
-                        guiManager.SetBread1Hits(breadHealth1);
-                        guiManager.SetBread2Hits(breadHealth2);
-                    }
-                    break;
-                }
+						if (breadHealth1 <= 0) {
+							breadHealth1 = originalHealth1;
+						}
+						if (breadHealth2 <= 0) {
+							breadHealth2 = originalHealth2;
+						}
+						guiManager.SetBread1Hits (breadHealth1);
+						guiManager.SetBread2Hits (breadHealth2);
+					}
+					break;
+				}
             }
         }
         else

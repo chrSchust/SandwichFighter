@@ -11,7 +11,7 @@ using System.Reflection;
 public class GameFlowController : MonoBehaviour
 {
 
-    private int unlockedLevelsCount = 1;
+    private int unlockedLevelsCount = 3;
     private Level activeLevel;
     private List<Level> levels;
     private int fails = 0;
@@ -59,29 +59,54 @@ public class GameFlowController : MonoBehaviour
         White white = new White();
         WholeGrain wholeGrain = new WholeGrain();
 
-        levels = new List<Level>()
-                {
-                  new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.FAT, 0), new KeyValuePair<int, int>(Enemy.NORMAL, 3)},
-                      maxFailsForGameOver = 2,
-                      minKillsForWin = 2,
-                      availableIngredients = new List<Ingredient>() {chicken},
-                      spawnInterval = 6,
-                      availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 30) }
-                },
-                    new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.NORMAL, 1), new KeyValuePair<int, int>(Enemy.VEGAN, 2), new KeyValuePair<int, int>(Enemy.NORMAL, 3)},
-                      maxFailsForGameOver = 2,
-                      minKillsForWin = 4,
-                      availableIngredients = new List<Ingredient>() {chicken, tomato},
-                      spawnInterval = 4,
-                      availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 20), new KeyValuePair<Bread, int>(wholeGrain, 20) }
-                },
-                new Level {enemyTypeAmount = new List<KeyValuePair<int, int>>() { new KeyValuePair<int, int>(Enemy.FAT, 1), new KeyValuePair<int, int>(Enemy.NORMAL, 2), new KeyValuePair<int, int>(Enemy.VEGAN, 3), new KeyValuePair<int, int>(Enemy.FAT, 1), new KeyValuePair<int, int>(Enemy.NORMAL, 4)},
-                    maxFailsForGameOver = 2,
-                    minKillsForWin = 8,
-                    availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
+        levels = new List<Level>(){
+             	new Level {
+					enemyTypeAmount = new List<KeyValuePair<int, int>>() { 
+						new KeyValuePair<int, int>(Enemy.NORMAL, 10)
+					},
+                	maxFailsForGameOver = 1,
+                    minKillsForWin = 10,
+                    availableIngredients = new List<Ingredient>() {chicken},
                     spawnInterval = 3,
-                    availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {new KeyValuePair<Bread, int>(white, 20), new KeyValuePair<Bread, int>(wholeGrain, 20) }
-                }};
+                    availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
+						new KeyValuePair<Bread, int>(white, 30) 
+					}
+                },
+                new Level {
+					enemyTypeAmount = new List<KeyValuePair<int, int>>() { 
+						new KeyValuePair<int, int>(Enemy.VEGAN, 5), 
+						new KeyValuePair<int, int>(Enemy.NORMAL, 5),
+						new KeyValuePair<int, int>(Enemy.VEGAN, 5),
+						new KeyValuePair<int, int>(Enemy.NORMAL, 5)
+					},
+                    maxFailsForGameOver = 1,
+                    minKillsForWin = 20,
+                    availableIngredients = new List<Ingredient>() {chicken, tomato},
+                    spawnInterval = 3,
+                    availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
+						new KeyValuePair<Bread, int>(white, 30), 
+						new KeyValuePair<Bread, int>(wholeGrain, 20) 
+					}
+                },
+                new Level {
+					enemyTypeAmount = new List<KeyValuePair<int, int>>() { 
+						new KeyValuePair<int, int>(Enemy.NORMAL, 5), 
+						new KeyValuePair<int, int>(Enemy.VEGAN, 5), 
+						new KeyValuePair<int, int>(Enemy.FAT, 1),
+						new KeyValuePair<int, int>(Enemy.NORMAL, 5),
+						new KeyValuePair<int, int>(Enemy.FAT, 1),
+						new KeyValuePair<int, int>(Enemy.VEGAN, 5)
+					},
+                    maxFailsForGameOver = 1,
+                    minKillsForWin = 22,
+                    availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
+                    spawnInterval = 1,
+                    availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
+						new KeyValuePair<Bread, int>(white, 30), 
+						new KeyValuePair<Bread, int>(wholeGrain, 20) 
+					}
+                }
+		};
     }
 
     //    private void showLevelSelecetionUI()
@@ -210,6 +235,9 @@ public class GameFlowController : MonoBehaviour
         weapon.GetComponent<MeleeAttack>().breadHealth2 = bread2.Value;
         weapon.GetComponent<MeleeAttack>().activebread = bread1.Key;
 
+		guiManager.SetBread1Hits (bread1.Value);
+		guiManager.SetBread2Hits (bread2.Value);
+
         GameObject spawner = GameObject.Find("Spawner");
         spawnMethod = StartCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
     }
@@ -232,6 +260,8 @@ public class GameFlowController : MonoBehaviour
 //            GameObject.Destroy(guiManagerGo);
 //            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
 //            guiManager.Init(this, levels, unlockedLevelsCount);
+			guiManager.SetBread1Hits(0);
+			guiManager.SetBread2Hits(0);
 			guiManager.ShowWinLoseMessageAndRestart("Game Over!", levels, unlockedLevelsCount);
 
             player.transform.position = playerStartPosition;
@@ -273,6 +303,8 @@ public class GameFlowController : MonoBehaviour
 //            GameObject.Destroy(guiManagerGo);
 //            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
 //            guiManager.Init(this, levels, unlockedLevelsCount);
+			guiManager.SetBread1Hits(0);
+			guiManager.SetBread2Hits(0);
 			guiManager.ShowWinLoseMessageAndRestart("Win!", levels, unlockedLevelsCount);
 
             player.transform.position = playerStartPosition;
