@@ -28,6 +28,7 @@ public class MainMenuController : MonoBehaviour {
 			// Hide levelSelection button
 			buttonLevelSelection.gameObject.SetActive(false);
 		}
+		AddListenersToButtons ();
 	}
 
 	private void AddListenersToButtons() {
