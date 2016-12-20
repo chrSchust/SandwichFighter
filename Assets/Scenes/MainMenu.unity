@@ -1243,6 +1243,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85f69ca9517649f3b7c2aae62eaa050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonNewGame: {fileID: 674637194}
+  buttonLevelSelection: {fileID: 2138339310}
+  buttonExit: {fileID: 106349624}
+  buttonLevel1: {fileID: 1101009651}
+  buttonLevel2: {fileID: 1659198731}
+  buttonLevel3: {fileID: 1748572594}
+  panelMainMenu: {fileID: 746678130}
+  panelLevelSelection: {fileID: 838467603}
 --- !u!1 &1476479179
 GameObject:
   m_ObjectHideFlags: 0
