@@ -28,6 +28,8 @@ public class GuiManager : MonoBehaviour
     private Dropdown dropdownBread;
     private Dropdown dropdownIngredient1;
     private Dropdown dropdownIngredient2;
+	public GameObject panelEnemyVegan;
+	public GameObject panelEnemyFattie;
     // TODO Add bread
 
     private Ingredient ingredient1;
@@ -75,6 +77,52 @@ public class GuiManager : MonoBehaviour
 
 		SetVisibilityCursor(true);
 		AddButtonToLevelSelection(unlockedLevelsCount);
+	}
+
+	private void ShowEnemyVegan() {
+		SetVisibilityAllPanels(false);
+		panelEnemyVegan.SetActive(true);
+		SetVisibilityCursor(true);
+		AddListenerToEnemyVeganNextButton();
+	}
+
+	private void ShowEnemyFattie()
+	{
+		SetVisibilityAllPanels(false);
+		panelEnemyFattie.SetActive(true);
+		SetVisibilityCursor(true);
+		AddListenerToEnemyFattieNextButton();
+	}
+
+	private void AddListenerToEnemyVeganNextButton() {
+		Transform nextEnemyVeganTransform = panelEnemyVegan.transform.FindChild("ButtonNext");
+		if (nextEnemyVeganTransform == null)
+		{
+			Debug.LogError("Next Button is null");
+		}
+		Button nextIntroductionButton = nextEnemyVeganTransform.GetComponent<Button>();
+		nextIntroductionButton.onClick.AddListener(() => OnNextEnemyVeganButton());
+	}
+
+	private void AddListenerToEnemyFattieNextButton()
+	{
+		Transform nextEnemyFattieTransform = panelEnemyFattie.transform.FindChild("ButtonNext");
+		if (nextEnemyFattieTransform == null)
+		{
+			Debug.LogError("Next Button is null");
+		}
+		Button nextEnemyFattieButton = nextEnemyFattieTransform.GetComponent<Button>();
+		nextEnemyFattieButton.onClick.AddListener(() => OnNextEnemyFattieButton());
+	}
+
+	private void OnNextEnemyVeganButton()
+	{
+		ShowLevelSelection(unlockedLevelsCount);
+	}
+
+	private void OnNextEnemyFattieButton()
+	{
+		ShowLevelSelection(unlockedLevelsCount);
 	}
 
 	/**
@@ -610,6 +658,8 @@ public class GuiManager : MonoBehaviour
 		panelWeaponSlot2.SetActive (visibility);
 		panelIntroduction.SetActive (visibility);
 		textGoToCounter.SetActive (visibility);
+		panelEnemyVegan.SetActive(visibility);
+		panelEnemyFattie.SetActive(visibility);
     }
 
     private void FindAndSetAllSubPanels()
