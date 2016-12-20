@@ -42,17 +42,21 @@ public class GuiManager : MonoBehaviour
     List<Ingredient> ingredients2 = new List<Ingredient>();
     private KeyValuePair<Bread, int> bread1;
     private KeyValuePair<Bread, int> bread2;
-	private int unlockedLevelsCount;
+	private int currentLevel;
 	private int chosenWeapon = 1;
 
-	public void Init(GameFlowController gameFlowController, List<Level> levels, int unlockedLevelsCount)
+	public void Init(GameFlowController gameFlowController, List<Level> levels, int currentLevel)
     {
-        this.gameFlowController = gameFlowController;
+		if (currentLevel == -1) {
+			Debug.LogError ("Wrong currentLevel index");
+		}
+
+		this.gameFlowController = gameFlowController;
         SetLevels(levels);
         FindAndSetAllSubPanels();
         
 		// Check if a level is already unlocked
-		this.unlockedLevelsCount = unlockedLevelsCount;
+		this.currentLevel = currentLevel;
 //		ShowLevelSelection(unlockedLevelsCount);
 		ShowIntroduction();
     }
@@ -117,12 +121,12 @@ public class GuiManager : MonoBehaviour
 
 	private void OnNextEnemyVeganButton()
 	{
-		ShowLevelSelection(unlockedLevelsCount);
+		ShowLevelSelection(currentLevel);
 	}
 
 	private void OnNextEnemyFattieButton()
 	{
-		ShowLevelSelection(unlockedLevelsCount);
+		ShowLevelSelection(currentLevel);
 	}
 
 	/**
@@ -132,7 +136,7 @@ public class GuiManager : MonoBehaviour
    **/
 	public void ShowWinLoseMessageAndRestart(string text, List<Level> levels, int unlockedLevelsCount) {
 		SetLevels (levels);
-		this.unlockedLevelsCount = unlockedLevelsCount;
+		this.currentLevel = unlockedLevelsCount;
 		SetVisibilityAllPanels (false);
 		panelWinLose.SetActive (true);
 		SetWinLoseTextUI (text);
@@ -159,7 +163,7 @@ public class GuiManager : MonoBehaviour
 	}
 
 	private void OnNextIntroductionButton() {
-		ShowLevelSelection (unlockedLevelsCount);
+		ShowLevelSelection (currentLevel);
 	}
 
 	private void AddListenerToWinLoseNextButton() {
@@ -170,7 +174,7 @@ public class GuiManager : MonoBehaviour
 		}
 		Button nextButton = nextTransform.GetComponent<Button> ();
 		nextButton.onClick.RemoveAllListeners ();
-		nextButton.onClick.AddListener(() => OnNextButtonWinLose(this.unlockedLevelsCount));
+		nextButton.onClick.AddListener(() => OnNextButtonWinLose(this.currentLevel));
 	}
 
 	private void OnNextButtonWinLose(int unlockedLevelsCount) {
@@ -517,7 +521,7 @@ public class GuiManager : MonoBehaviour
         }
 		Button previous = previousButton.GetComponent<Button> ();
 		previous.onClick.RemoveAllListeners();
-		previous.onClick.AddListener(() => OnPreviousSandwichButtonClicked(this.unlockedLevelsCount, chosenLevel));
+		previous.onClick.AddListener(() => OnPreviousSandwichButtonClicked(this.currentLevel, chosenLevel));
         previousButton.gameObject.SetActive(visible);
     }
 

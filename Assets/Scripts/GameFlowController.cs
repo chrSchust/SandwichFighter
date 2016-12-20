@@ -45,9 +45,23 @@ public class GameFlowController : MonoBehaviour
         //        panel.GetComponent<CanvasGroup>().alpha = 0f;
         //        panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
         initLevels();
-        guiManager.Init(this, levels, unlockedLevelsCount);
+		// Get the current scene to determine which level was chosen
+
+		guiManager.Init(this, levels, getSceneLevelNumber());
         //        showLevelSelecetionUI();
     }
+
+	private int getSceneLevelNumber() {
+		Scene activeScene = SceneManager.GetActiveScene();
+		string sceneName = activeScene.name;
+
+		switch (sceneName) {
+		case SceneKeys.SCENE_NAME_LEVEL_1:
+			return 1;
+		default :
+			return -1;
+		}
+	}
 
     private void initLevels()
     {

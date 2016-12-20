@@ -20,8 +20,7 @@ public class MainMenuController : MonoBehaviour {
 		// Check if player already unlocked some levels
 		// Is -1 if the player hasn't unlocked any level.
 		// So hide the levelSelection button
-		// TODO create KEY Class for the key "unlockedLevels"
-		unlockedLevels = PlayerPrefs.GetInt("unlockedLevels", -1);
+		unlockedLevels = PlayerPrefs.GetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, -1);
 		if (unlockedLevels > 0) {
 			// Show levelSelection button
 		} else {
