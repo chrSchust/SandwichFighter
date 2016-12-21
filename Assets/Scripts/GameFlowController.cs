@@ -47,11 +47,11 @@ public class GameFlowController : MonoBehaviour
         initLevels();
         // Get the current scene to determine which level was chosen
 
-        guiManager.Init(this, levels, getSceneLevelNumber());
+		guiManager.Init(this, activeLevel);
         //        showLevelSelecetionUI();
     }
 
-    private int getSceneLevelNumber()
+    public int getSceneLevelNumber()
     {
         Scene activeScene = SceneManager.GetActiveScene();
         string sceneName = activeScene.name;
@@ -282,7 +282,7 @@ public class GameFlowController : MonoBehaviour
             //            guiManager.Init(this, levels, unlockedLevelsCount);
             guiManager.SetBread1Hits(0);
             guiManager.SetBread2Hits(0);
-            guiManager.ShowWinLoseMessageAndRestart("Game Over!", levels, unlockedLevelsCount);
+            guiManager.ShowWinLoseMessageAndRestart("Game Over!");
 
             player.transform.position = playerStartPosition;
             player.transform.rotation = playerStartRotation;
@@ -326,7 +326,7 @@ public class GameFlowController : MonoBehaviour
             //            guiManager.Init(this, levels, unlockedLevelsCount);
             guiManager.SetBread1Hits(0);
             guiManager.SetBread2Hits(0);
-            guiManager.ShowWinLoseMessageAndRestart("Win!", levels, unlockedLevelsCount);
+            guiManager.ShowWinLoseMessageAndRestart("Win!");
 
             player.transform.position = playerStartPosition;
             player.transform.rotation = playerStartRotation;

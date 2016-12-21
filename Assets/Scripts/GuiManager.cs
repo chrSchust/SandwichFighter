@@ -11,16 +11,17 @@ public class GuiManager : MonoBehaviour
 
     public GameObject prefabButtonLevel;
     public GameObject panelBackground;
-    public GameObject panelLevelSelection;
+//    public GameObject panelLevelSelection;
     public GameObject panelSelectedSandwich;
     public GameObject panelSandwich;
 	public GameObject panelWinLose;
 	public GameObject panelWeaponSlot1;
 	public GameObject panelWeaponSlot2;
 	public GameObject panelIntroduction;
+	public GameObject panelIntroductionSandwich;
 	public GameObject textGoToCounter;
 
-    private List<Level> levels;
+//    private List<Level> levels;
     private GameFlowController gameFlowController;
     private Transform panelBread;
     private Transform panelIngredient1;
@@ -42,28 +43,24 @@ public class GuiManager : MonoBehaviour
     List<Ingredient> ingredients2 = new List<Ingredient>();
     private KeyValuePair<Bread, int> bread1;
     private KeyValuePair<Bread, int> bread2;
-	private int currentLevel;
+	private int currentLevelNumber;
 	private int chosenWeapon = 1;
 
-	public void Init(GameFlowController gameFlowController, List<Level> levels, int currentLevel)
+	public void Init(GameFlowController gameFlowController, Level level)
     {
-		if (currentLevel == -1) {
-			Debug.LogError ("Wrong currentLevel index");
-		}
-
 		this.gameFlowController = gameFlowController;
-        SetLevels(levels);
         FindAndSetAllSubPanels();
         
-		// Check if a level is already unlocked
-		this.currentLevel = currentLevel;
-//		ShowLevelSelection(unlockedLevelsCount);
-		ShowIntroduction();
-    }
+		this.activeLevel = level;
+		this.currentLevelNumber = gameFlowController.getSceneLevelNumber ();
+		if (this.currentLevelNumber == -1) {
+			Debug.LogError ("currentLevelNumber could not be loaded in GuiManager");
+		}
 
-    public void SetLevels(List<Level> levels)
-    {
-        this.levels = levels;
+		// Show Introduction just in the first level else show the enemytypes
+		if (this.currentLevelNumber == 1) {
+			ShowIntroduction ();
+		}
     }
 
 	private void ShowIntroduction() {
@@ -71,16 +68,6 @@ public class GuiManager : MonoBehaviour
 		panelIntroduction.SetActive (true);
 		SetVisibilityCursor(true);
 		AddListenerToIntroductionNextButton ();
-	}
-
-	private void ShowLevelSelection(int unlockedLevelsCount) {
-		SetVisibilityAllPanels (false);
-		// Set visibilities for the first time
-		panelBackground.SetActive(true);
-		panelLevelSelection.SetActive (true);
-
-		SetVisibilityCursor(true);
-		AddButtonToLevelSelection(unlockedLevelsCount);
 	}
 
 	private void ShowEnemyVegan() {
@@ -105,7 +92,7 @@ public class GuiManager : MonoBehaviour
 			Debug.LogError("Next Button is null");
 		}
 		Button nextIntroductionButton = nextEnemyVeganTransform.GetComponent<Button>();
-		nextIntroductionButton.onClick.AddListener(() => OnNextEnemyVeganButton());
+//		nextIntroductionButton.onClick.AddListener(() => OnNextEnemyVeganButton());
 	}
 
 	private void AddListenerToEnemyFattieNextButton()
@@ -116,31 +103,30 @@ public class GuiManager : MonoBehaviour
 			Debug.LogError("Next Button is null");
 		}
 		Button nextEnemyFattieButton = nextEnemyFattieTransform.GetComponent<Button>();
-		nextEnemyFattieButton.onClick.AddListener(() => OnNextEnemyFattieButton());
+//		nextEnemyFattieButton.onClick.AddListener(() => OnNextEnemyFattieButton());
 	}
 
-	private void OnNextEnemyVeganButton()
-	{
-		ShowLevelSelection(currentLevel);
-	}
-
-	private void OnNextEnemyFattieButton()
-	{
-		ShowLevelSelection(currentLevel);
-	}
+//	private void OnNextEnemyVeganButton()
+//	{
+//		ShowLevelSelection(currentLevel);
+//	}
+//
+//	private void OnNextEnemyFattieButton()
+//	{
+//		ShowLevelSelection(currentLevel);
+//	}
 
 	/**
    * Show the win or lose message and after the button "weiter" was clicked the level
    * selection will be shown.
    *
    **/
-	public void ShowWinLoseMessageAndRestart(string text, List<Level> levels, int unlockedLevelsCount) {
-		SetLevels (levels);
-		this.currentLevel = unlockedLevelsCount;
+	public void ShowWinLoseMessageAndRestart(string text) {
 		SetVisibilityAllPanels (false);
 		panelWinLose.SetActive (true);
 		SetWinLoseTextUI (text);
 		SetVisibilityCursor (true);
+		AddListenerToWinLoseNextButton ();
 	}
 
 	private void SetWinLoseTextUI(string text) {
@@ -150,7 +136,6 @@ public class GuiManager : MonoBehaviour
 
 		// Set text out of ingredients and bread choice
 		textUi.text = text;
-		AddListenerToWinLoseNextButton ();
 	}
 
 	private void AddListenerToIntroductionNextButton() {
@@ -162,10 +147,6 @@ public class GuiManager : MonoBehaviour
 		nextIntroductionButton.onClick.AddListener (() => OnNextIntroductionButton());
 	}
 
-	private void OnNextIntroductionButton() {
-		ShowLevelSelection (currentLevel);
-	}
-
 	private void AddListenerToWinLoseNextButton() {
 		Transform nextTransform = panelWinLose.transform.FindChild("Button");
 		if (nextTransform == null)
@@ -174,24 +155,27 @@ public class GuiManager : MonoBehaviour
 		}
 		Button nextButton = nextTransform.GetComponent<Button> ();
 		nextButton.onClick.RemoveAllListeners ();
-		nextButton.onClick.AddListener(() => OnNextButtonWinLose(this.currentLevel));
+		nextButton.onClick.AddListener(() => OnNextButtonWinLose(this.activeLevel));
 	}
 
-	private void OnNextButtonWinLose(int unlockedLevelsCount) {
-		ShowLevelSelection (unlockedLevelsCount);
+	private void OnNextButtonWinLose(Level unlockedLevelsCount) {
+		
+	}
+
+	private void OnNextIntroductionButton () {
+
 	}
 
 	public void SetVisibilityTextGoToCounter (bool visibility) {
 		textGoToCounter.SetActive (visibility);
 	}
 
-	private void ShowSandwichCombinator(int unlockedLevelsCount, int chosenLevel)
+	private void ShowSandwichCombinator(Level activeLevel)
     {
 		SetVisibilityAllPanels (false);
-		panelLevelSelection.SetActive (false);
         if (firstBread == true)
         {
-			InitializeAllDropdownsWithValues(chosenLevel);
+			InitializeAllDropdownsWithValues(activeLevel);
 			// No sandwich was chosen
 			panelSelectedSandwich.SetActive(false);
 
@@ -205,8 +189,8 @@ public class GuiManager : MonoBehaviour
 			SetSandwichCombinatorHeadlineText("2. Sandwich");
         }
 		panelSandwich.SetActive (true);
-		SetVisibilityNextSandwichButton(true, unlockedLevelsCount);
-		SetVisibilityPreviousSandwichLevelButton(true, unlockedLevelsCount, chosenLevel);
+		SetVisibilityNextSandwichButton(true, activeLevel);
+		SetVisibilityPreviousSandwichLevelButton(true, activeLevel);
 //		SetEffectsIngredientPanel1 ();
 		SetDropdownBreadListener (panelBread.transform, dropdownBread);
 		SetDropdownIngredientListener (panelIngredient1.transform, dropdownIngredient1);
@@ -481,11 +465,11 @@ public class GuiManager : MonoBehaviour
         dropdown.GetComponent<Dropdown>().options.RemoveAt(dropdown.GetComponent<Dropdown>().options.Count - 1);
     }
 
-    private void InitializeAllDropdownsWithValues(int chosenLevel)
+    private void InitializeAllDropdownsWithValues(Level activeLevel)
     {
 		// Get all dropdowns
         FindAndSetAllDropdowns();
-        Level level = this.levels[chosenLevel];
+		Level level = activeLevel;
 
         List<string> breads = new List<string>();
         List<KeyValuePair<Bread, int>> availableBreadsWithHits = level.availableBreadsWithHits;
@@ -512,7 +496,7 @@ public class GuiManager : MonoBehaviour
         dropdownIngredient2.AddOptions(optionsTmp);
     }
 
-	private void SetVisibilityPreviousSandwichLevelButton(bool visible, int unlockedLevelsCount, int chosenLevel)
+	private void SetVisibilityPreviousSandwichLevelButton(bool visible, Level activeLevel)
     {
         Transform previousButton = panelSandwich.transform.FindChild("ButtonPreviousSandwich");
         if (previousButton == null)
@@ -521,11 +505,11 @@ public class GuiManager : MonoBehaviour
         }
 		Button previous = previousButton.GetComponent<Button> ();
 		previous.onClick.RemoveAllListeners();
-		previous.onClick.AddListener(() => OnPreviousSandwichButtonClicked(this.currentLevel, chosenLevel));
+		previous.onClick.AddListener(() => OnPreviousSandwichButtonClicked(this.activeLevel));
         previousButton.gameObject.SetActive(visible);
     }
 
-	private void SetVisibilityNextSandwichButton(bool visible, int unlockedLevelsCount)
+	private void SetVisibilityNextSandwichButton(bool visible, Level activeLevel)
     {
 		Transform nextTransform = panelSandwich.transform.FindChild("ButtonNextSandwich");
         if (nextTransform == null)
@@ -534,7 +518,7 @@ public class GuiManager : MonoBehaviour
         }
 		Button nextButton = nextTransform.GetComponent<Button> ();
 		nextButton.onClick.RemoveAllListeners ();
-		nextButton.onClick.AddListener(() => OnNextSandwichButtonClicked(unlockedLevelsCount));
+		nextButton.onClick.AddListener(() => OnNextSandwichButtonClicked(activeLevel));
         nextTransform.gameObject.SetActive(visible);
     }
 
@@ -548,48 +532,48 @@ public class GuiManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-    private void AddButtonToLevelSelection(int unlockedLevelsCount)
-    {
-		GameObject panel = panelLevelSelection;
-        RectTransform panelRect = panel.GetComponentInChildren<RectTransform>();
-        foreach (Transform child in panel.transform)
-        {
-            GameObject.Destroy(child.gameObject);
-        }
+//    private void AddButtonToLevelSelection(int unlockedLevelsCount)
+//    {
+//		GameObject panel = panelLevelSelection;
+//        RectTransform panelRect = panel.GetComponentInChildren<RectTransform>();
+//        foreach (Transform child in panel.transform)
+//        {
+//            GameObject.Destroy(child.gameObject);
+//        }
+//
+//        foreach (Level level in levels)
+//        {
+//            int index = levels.IndexOf(level);
+//            if (index < unlockedLevelsCount)
+//            {
+//                GameObject goButton = Instantiate(prefabButtonLevel) as GameObject;
+//                goButton.transform.SetParent(panelRect, false);
+//                goButton.GetComponentInChildren<Text>().text = "Level " + (index + 1);
+//                goButton.GetComponentInChildren<Text>().fontSize = 16;
+//				goButton.GetComponent<Button>().onClick.AddListener(() => OnLevelButtonClicked(index, unlockedLevelsCount));
+//            }
+//            else
+//            {
+//                break;
+//            }
+//        }
+//    }
 
-        foreach (Level level in levels)
-        {
-            int index = levels.IndexOf(level);
-            if (index < unlockedLevelsCount)
-            {
-                GameObject goButton = Instantiate(prefabButtonLevel) as GameObject;
-                goButton.transform.SetParent(panelRect, false);
-                goButton.GetComponentInChildren<Text>().text = "Level " + (index + 1);
-                goButton.GetComponentInChildren<Text>().fontSize = 16;
-				goButton.GetComponent<Button>().onClick.AddListener(() => OnLevelButtonClicked(index, unlockedLevelsCount));
-            }
-            else
-            {
-                break;
-            }
-        }
-    }
+//	private void OnLevelButtonClicked(int chosenLevel, int unlockedLevelsCount)
+//    {
+//        SetActiveLevel(chosenLevel);
+//		firstBread = true;
+//		ingredients1.Clear ();
+//		ingredients2.Clear ();
+//		ShowSandwichCombinator(unlockedLevelsCount, levels.IndexOf(activeLevel));
+//    }
 
-	private void OnLevelButtonClicked(int chosenLevel, int unlockedLevelsCount)
-    {
-        SetActiveLevel(chosenLevel);
-		firstBread = true;
-		ingredients1.Clear ();
-		ingredients2.Clear ();
-		ShowSandwichCombinator(unlockedLevelsCount, levels.IndexOf(activeLevel));
-    }
+//    private void SetActiveLevel(int chosenLevel)
+//    {
+//        this.activeLevel = levels[chosenLevel];
+//    }
 
-    private void SetActiveLevel(int chosenLevel)
-    {
-        this.activeLevel = levels[chosenLevel];
-    }
-
-	private void OnNextSandwichButtonClicked(int unlockedLevelsCount)
+	private void OnNextSandwichButtonClicked(Level activeLevel)
     {
 		// Get data from all Dropdowns of sandwichchooser
 		GetAndSetSandwichDataFromAllDropdowns ();
@@ -601,7 +585,7 @@ public class GuiManager : MonoBehaviour
                 ingredients1.Add(ingredient2);
                 bread1 = bread;
                 firstBread = false;
-				ShowSandwichCombinator(unlockedLevelsCount, levels.IndexOf(activeLevel));
+				ShowSandwichCombinator(activeLevel);
             }
             else
             {
@@ -623,7 +607,7 @@ public class GuiManager : MonoBehaviour
 		int ingredient1Id = dropdownIngredient1.value;
 		int ingredient2Id = dropdownIngredient2.value;
 
-		Level level = this.levels[levels.IndexOf (activeLevel)];
+		Level level = this.activeLevel;
 		List<Ingredient> availableIngredients = level.availableIngredients;
 		List<KeyValuePair<Bread, int>> availableBreadsWithHits = level.availableBreadsWithHits;
 		bread = availableBreadsWithHits[breadId];
@@ -631,14 +615,14 @@ public class GuiManager : MonoBehaviour
 		ingredient2 = availableIngredients[ingredient2Id];
 	}
 
-	private void OnPreviousSandwichButtonClicked(int unlockedLevelsCount, int chosenLevel) {
+	private void OnPreviousSandwichButtonClicked(Level activeLevel) {
 		if (firstBread == true) {
-			ShowLevelSelection (unlockedLevelsCount);
+			// TODO Show Enemytypes or hide previous Button
 		} else {
 			ingredients1.Clear ();
 			ingredients2.Clear ();
 			firstBread = true;
-			ShowSandwichCombinator (unlockedLevelsCount, levels.IndexOf(activeLevel));
+			ShowSandwichCombinator (activeLevel);
 		}
 	}
 
@@ -654,16 +638,15 @@ public class GuiManager : MonoBehaviour
     private void SetVisibilityAllPanels(bool visibility)
     {
 		panelBackground.SetActive (visibility);
-		panelLevelSelection.SetActive (visibility);
 		panelSandwich.SetActive (visibility);
 		panelSelectedSandwich.SetActive (visibility);
 		panelWinLose.SetActive (visibility);
 		panelWeaponSlot1.SetActive (visibility);
 		panelWeaponSlot2.SetActive (visibility);
-		panelIntroduction.SetActive (visibility);
 		textGoToCounter.SetActive (visibility);
 		panelEnemyVegan.SetActive(visibility);
 		panelEnemyFattie.SetActive(visibility);
+		panelIntroductionSandwich.SetActive (visibility);
     }
 
     private void FindAndSetAllSubPanels()
