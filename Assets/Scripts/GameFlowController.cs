@@ -314,9 +314,11 @@ public class GameFlowController : MonoBehaviour
             {
                 GameObject.Destroy(enemy);
             }
-            if (unlockedLevelsCount == levels.IndexOf(activeLevel) + 1)
+            Debug.Log(PlayerPrefs.GetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, 0));
+            if (PlayerPrefs.GetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, 0) == levels.IndexOf(activeLevel))
             {
-                unlockedLevelsCount++;
+                PlayerPrefs.SetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, levels.IndexOf(activeLevel)+1);
+                Debug.Log(PlayerPrefs.GetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, 0));
             }
             //            showLevelClearedUI();
 
