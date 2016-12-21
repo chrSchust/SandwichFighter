@@ -26,7 +26,7 @@ public class MainMenuController : MonoBehaviour {
         // So hide the levelSelection button
 
         //only for testing!
-        PlayerPrefs.DeleteAll();
+//        PlayerPrefs.DeleteAll();
 
         levelButtons = new List<Button> { buttonLevel1, buttonLevel2, buttonLevel3 };
 		unlockedLevels = PlayerPrefs.GetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, -1);

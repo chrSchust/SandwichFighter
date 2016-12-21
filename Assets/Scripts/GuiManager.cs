@@ -66,6 +66,14 @@ public class GuiManager : MonoBehaviour
 		if (this.currentLevelNumber == 1) {
 			ShowIntroduction ();
 		}
+
+		if (this.currentLevelNumber == 2) {
+			ShowEnemyVegan ();
+		}
+
+		if (this.currentLevelNumber == 3) {
+			ShowEnemyFattie ();
+		}
     }
 
 	private void ShowIntroduction() {
@@ -73,6 +81,13 @@ public class GuiManager : MonoBehaviour
 		panelIntroduction.SetActive (true);
 		SetVisibilityCursor(true);
 		AddListenerToIntroductionNextButton ();
+	}
+
+	private void ShowIntroductionSandwich() {
+		SetVisibilityAllPanels (false);
+		panelIntroductionSandwich.SetActive (true);
+		SetVisibilityCursor(true);
+		AddListenerToIntroductionSandwichNextButton ();
 	}
 
 	private void ShowEnemyVegan() {
@@ -97,7 +112,7 @@ public class GuiManager : MonoBehaviour
 			Debug.LogError("Next Button is null");
 		}
 		Button nextIntroductionButton = nextEnemyVeganTransform.GetComponent<Button>();
-//		nextIntroductionButton.onClick.AddListener(() => OnNextEnemyVeganButton());
+		nextIntroductionButton.onClick.AddListener(() => OnNextEnemyVeganButton());
 	}
 
 	private void AddListenerToEnemyFattieNextButton()
@@ -108,18 +123,18 @@ public class GuiManager : MonoBehaviour
 			Debug.LogError("Next Button is null");
 		}
 		Button nextEnemyFattieButton = nextEnemyFattieTransform.GetComponent<Button>();
-//		nextEnemyFattieButton.onClick.AddListener(() => OnNextEnemyFattieButton());
+		nextEnemyFattieButton.onClick.AddListener(() => OnNextEnemyFattieButton());
 	}
 
-//	private void OnNextEnemyVeganButton()
-//	{
-//		ShowLevelSelection(currentLevel);
-//	}
+	private void OnNextEnemyVeganButton()
+	{
+		ShowIntroductionSandwich ();
+	}
 //
-//	private void OnNextEnemyFattieButton()
-//	{
-//		ShowLevelSelection(currentLevel);
-//	}
+	private void OnNextEnemyFattieButton()
+	{
+		ShowIntroductionSandwich ();
+	}
 
 	/**
    * Show the win or lose message and after the button "weiter" was clicked the level
@@ -151,6 +166,17 @@ public class GuiManager : MonoBehaviour
 		Button nextIntroductionButton = nextIntroductionTransform.GetComponent<Button> ();
 		nextIntroductionButton.onClick.AddListener (() => OnNextIntroductionButton());
 	}
+
+	private void AddListenerToIntroductionSandwichNextButton() {
+		Transform nextIntroductionTransform = panelIntroductionSandwich.transform.FindChild ("ButtonNext");
+		if (nextIntroductionTransform == null) {
+			Debug.LogError("Next Button is null");
+		}
+		Button nextIntroductionButton = nextIntroductionTransform.GetComponent<Button> ();
+		nextIntroductionButton.onClick.AddListener (() => OnNextIntroductionSandwichButton());
+	}
+
+
 
 	private void AddListenerToWinLoseNextButton(bool won) {
 		Transform nextTransform = panelWinLose.transform.FindChild("Button");
@@ -188,7 +214,12 @@ public class GuiManager : MonoBehaviour
 	}
 
 	private void OnNextButtonWin() {
-		
+		if (currentLevelNumber == 1) {
+			SceneManager.LoadScene (SceneKeys.SCENE_NAME_LEVEL_2);
+		}
+		if (currentLevelNumber == 2) {
+			SceneManager.LoadScene (SceneKeys.SCENE_NAME_LEVEL_3);
+		}
 	}
 
 	private void OnMainMenuButtonClicked() {
@@ -202,6 +233,12 @@ public class GuiManager : MonoBehaviour
 		ingredients.Add (activeLevel.availableIngredients [0]);
 		List<KeyValuePair<Bread, int>> bread = activeLevel.availableBreadsWithHits;
 		StartLevel (ingredients, ingredients, bread [0], bread [0], activeLevel);
+	}
+
+	private void OnNextIntroductionSandwichButton () {
+		Debug.Log ("bla");
+		firstBread = true;
+		ShowSandwichCombinator (activeLevel);
 	}
 
 	public void SetVisibilityTextGoToCounter (bool visibility) {
