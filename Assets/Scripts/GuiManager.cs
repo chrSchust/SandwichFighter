@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.SceneManagement;
 
 public class GuiManager : MonoBehaviour
 {
@@ -52,6 +53,10 @@ public class GuiManager : MonoBehaviour
         FindAndSetAllSubPanels();
         
 		this.activeLevel = level;
+		if (this.activeLevel == null) {
+			Debug.LogError ("GuiManager activeLevel is null");
+		}
+
 		this.currentLevelNumber = gameFlowController.getSceneLevelNumber ();
 		if (this.currentLevelNumber == -1) {
 			Debug.LogError ("currentLevelNumber could not be loaded in GuiManager");
@@ -121,12 +126,12 @@ public class GuiManager : MonoBehaviour
    * selection will be shown.
    *
    **/
-	public void ShowWinLoseMessageAndRestart(string text) {
+	public void ShowWinLoseMessageAndRestart(string text, bool won) {
 		SetVisibilityAllPanels (false);
 		panelWinLose.SetActive (true);
 		SetWinLoseTextUI (text);
 		SetVisibilityCursor (true);
-		AddListenerToWinLoseNextButton ();
+		AddListenerToWinLoseNextButton (won);
 	}
 
 	private void SetWinLoseTextUI(string text) {
@@ -147,23 +152,56 @@ public class GuiManager : MonoBehaviour
 		nextIntroductionButton.onClick.AddListener (() => OnNextIntroductionButton());
 	}
 
-	private void AddListenerToWinLoseNextButton() {
+	private void AddListenerToWinLoseNextButton(bool won) {
 		Transform nextTransform = panelWinLose.transform.FindChild("Button");
 		if (nextTransform == null)
 		{
 			Debug.LogError("Next Button is null");
 		}
 		Button nextButton = nextTransform.GetComponent<Button> ();
+		Transform mainTransform = panelWinLose.transform.FindChild("ButtonMainMenu");
+		if (mainTransform == null)
+		{
+			Debug.LogError("Main Button is null");
+		}
+		Button mainMenuButton = mainTransform.GetComponent<Button> ();
+
 		nextButton.onClick.RemoveAllListeners ();
-		nextButton.onClick.AddListener(() => OnNextButtonWinLose(this.activeLevel));
+
+		Transform nextButtonTrans = nextButton.transform.FindChild ("Text");
+		Text nextButtonText = nextButtonTrans.GetComponent<Text> ();
+		if (won) {
+			nextButtonText.text = "Nächste Level";
+			nextButton.onClick.AddListener (() => OnNextButtonWin ());
+		} else {
+			nextButtonText.text = "Level neustarten";
+			nextButton.onClick.AddListener (() => OnNextButtonLose ());
+		}
+
+		mainMenuButton.onClick.RemoveAllListeners ();
+		mainMenuButton.onClick.AddListener (() => OnMainMenuButtonClicked ());
 	}
 
-	private void OnNextButtonWinLose(Level unlockedLevelsCount) {
+	private void OnNextButtonLose() {
+		// Start current Level again
+		OnNextIntroductionButton();
+	}
+
+	private void OnNextButtonWin() {
 		
 	}
 
-	private void OnNextIntroductionButton () {
+	private void OnMainMenuButtonClicked() {
+		SceneManager.LoadScene (SceneKeys.SCENE_NAME_MAIN_MENU);
+	}
 
+	private void OnNextIntroductionButton () {
+		// First level means there is just one ingredient
+		List<Ingredient> ingredients = new List<Ingredient>();
+		ingredients.Add (activeLevel.availableIngredients [0]);
+		ingredients.Add (activeLevel.availableIngredients [0]);
+		List<KeyValuePair<Bread, int>> bread = activeLevel.availableBreadsWithHits;
+		StartLevel (ingredients, ingredients, bread [0], bread [0], activeLevel);
 	}
 
 	public void SetVisibilityTextGoToCounter (bool visibility) {
@@ -275,7 +313,7 @@ public class GuiManager : MonoBehaviour
 			panelWeaponSlot2.SetActive (visibility);
 	}
 
-	private void SetWeaponPanelsIngredientsText() {
+	private void SetWeaponPanelsIngredientsText(List<Ingredient> ingredients1, List<Ingredient> ingredients2, KeyValuePair<Bread, int> bread1, KeyValuePair<Bread, int> bread2) {
 		// Get textfield of panel
 		Transform textTrans1 = panelWeaponSlot1.transform.FindChild("TextIngredients");
 		Text text1 = textTrans1.GetComponent<Text> ();
@@ -630,7 +668,7 @@ public class GuiManager : MonoBehaviour
     {
         SetVisibilityCursor(false);
         SetVisibilityAllPanels(false);
-		SetWeaponPanelsIngredientsText ();
+		SetWeaponPanelsIngredientsText (ingredients1, ingredients2, bread1, bread2);
 		ShowWeaponPanels ();
         gameFlowController.StartLevel(ingredients1, ingredients2, bread1, bread2, activeLevel);
     }
@@ -646,6 +684,7 @@ public class GuiManager : MonoBehaviour
 		textGoToCounter.SetActive (visibility);
 		panelEnemyVegan.SetActive(visibility);
 		panelEnemyFattie.SetActive(visibility);
+		panelIntroduction.SetActive (visibility);
 		panelIntroductionSandwich.SetActive (visibility);
     }
 

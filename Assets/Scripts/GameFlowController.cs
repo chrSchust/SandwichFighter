@@ -47,7 +47,7 @@ public class GameFlowController : MonoBehaviour
         initLevels();
         // Get the current scene to determine which level was chosen
 
-		guiManager.Init(this, activeLevel);
+		setActiveLevel (guiManager);
         //        showLevelSelecetionUI();
     }
 
@@ -166,16 +166,18 @@ public class GameFlowController : MonoBehaviour
         player.GetComponent<FirstPersonController>().enabled = status;
     }
 
-    public void ButtonClicked(int buttonNo)
-    {
-        setActiveLevel(buttonNo);
-        //        showIngredientsSelectionUI();
-    }
+//    public void ButtonClicked(int buttonNo)
+//    {
+//        setActiveLevel(buttonNo);
+//        //        showIngredientsSelectionUI();
+//    }
 
     //call from level selection UI 
-    private void setActiveLevel(int levelNumber)
+	private void setActiveLevel(GuiManager guiManager)
     {
-        activeLevel = levels[levelNumber];
+		int activeLevelNumber = getSceneLevelNumber ();
+		activeLevel = levels[activeLevelNumber - 1];
+		guiManager.Init (this, activeLevel);
     }
 
     //    private void showIngredientsSelectionUI()
@@ -282,7 +284,7 @@ public class GameFlowController : MonoBehaviour
             //            guiManager.Init(this, levels, unlockedLevelsCount);
             guiManager.SetBread1Hits(0);
             guiManager.SetBread2Hits(0);
-            guiManager.ShowWinLoseMessageAndRestart("Game Over!");
+            guiManager.ShowWinLoseMessageAndRestart("Game Over!", false);
 
             player.transform.position = playerStartPosition;
             player.transform.rotation = playerStartRotation;
@@ -328,7 +330,7 @@ public class GameFlowController : MonoBehaviour
             //            guiManager.Init(this, levels, unlockedLevelsCount);
             guiManager.SetBread1Hits(0);
             guiManager.SetBread2Hits(0);
-            guiManager.ShowWinLoseMessageAndRestart("Win!");
+            guiManager.ShowWinLoseMessageAndRestart("Win!", true);
 
             player.transform.position = playerStartPosition;
             player.transform.rotation = playerStartRotation;

@@ -9011,22 +9011,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114000010425679228, guid: 7208a1c3dcf8e40619e683dbba9a73b3,
-        type: 2}
-      propertyPath: m_Text
-      value: 'Stelle dir dein Sandwich zusammen
-
-
-        Die Zutaten haben verschiedene Vor- und Nachteile'
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000014214694188, guid: 7208a1c3dcf8e40619e683dbba9a73b3, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013698188184, guid: 7208a1c3dcf8e40619e683dbba9a73b3, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7208a1c3dcf8e40619e683dbba9a73b3, type: 2}
   m_IsPrefabParent: 0
