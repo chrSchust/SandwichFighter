@@ -45,23 +45,29 @@ public class GameFlowController : MonoBehaviour
         //        panel.GetComponent<CanvasGroup>().alpha = 0f;
         //        panel.GetComponent<CanvasGroup>().blocksRaycasts = false;
         initLevels();
-		// Get the current scene to determine which level was chosen
+        // Get the current scene to determine which level was chosen
 
-		guiManager.Init(this, levels, getSceneLevelNumber());
+        guiManager.Init(this, levels, getSceneLevelNumber());
         //        showLevelSelecetionUI();
     }
 
-	private int getSceneLevelNumber() {
-		Scene activeScene = SceneManager.GetActiveScene();
-		string sceneName = activeScene.name;
+    private int getSceneLevelNumber()
+    {
+        Scene activeScene = SceneManager.GetActiveScene();
+        string sceneName = activeScene.name;
 
-		switch (sceneName) {
-		case SceneKeys.SCENE_NAME_LEVEL_1:
-			return 1;
-		default :
-			return -1;
-		}
-	}
+        switch (sceneName)
+        {
+            case SceneKeys.SCENE_NAME_LEVEL_1:
+                return 1;
+            case SceneKeys.SCENE_NAME_LEVEL_2:
+                return 2;
+            case SceneKeys.SCENE_NAME_LEVEL_3:
+                return 3;
+            default:
+                return -1;
+        }
+    }
 
     private void initLevels()
     {
@@ -74,53 +80,53 @@ public class GameFlowController : MonoBehaviour
         WholeGrain wholeGrain = new WholeGrain();
 
         levels = new List<Level>(){
-             	new Level {
-					enemyTypeAmount = new List<KeyValuePair<int, int>>() { 
-						new KeyValuePair<int, int>(Enemy.NORMAL, 10)
-					},
-                	maxFailsForGameOver = 1,
+                 new Level {
+                    enemyTypeAmount = new List<KeyValuePair<int, int>>() {
+                        new KeyValuePair<int, int>(Enemy.NORMAL, 10)
+                    },
+                    maxFailsForGameOver = 1,
                     minKillsForWin = 10,
                     availableIngredients = new List<Ingredient>() {chicken},
                     spawnInterval = 3,
                     availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
-						new KeyValuePair<Bread, int>(white, 30) 
-					}
+                        new KeyValuePair<Bread, int>(white, 30)
+                    }
                 },
                 new Level {
-					enemyTypeAmount = new List<KeyValuePair<int, int>>() { 
-						new KeyValuePair<int, int>(Enemy.VEGAN, 5), 
-						new KeyValuePair<int, int>(Enemy.NORMAL, 5),
-						new KeyValuePair<int, int>(Enemy.VEGAN, 5),
-						new KeyValuePair<int, int>(Enemy.NORMAL, 5)
-					},
+                    enemyTypeAmount = new List<KeyValuePair<int, int>>() {
+                        new KeyValuePair<int, int>(Enemy.VEGAN, 5),
+                        new KeyValuePair<int, int>(Enemy.NORMAL, 5),
+                        new KeyValuePair<int, int>(Enemy.VEGAN, 5),
+                        new KeyValuePair<int, int>(Enemy.NORMAL, 5)
+                    },
                     maxFailsForGameOver = 1,
                     minKillsForWin = 20,
                     availableIngredients = new List<Ingredient>() {chicken, tomato},
                     spawnInterval = 3,
                     availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
-						new KeyValuePair<Bread, int>(white, 30), 
-						new KeyValuePair<Bread, int>(wholeGrain, 20) 
-					}
+                        new KeyValuePair<Bread, int>(white, 30),
+                        new KeyValuePair<Bread, int>(wholeGrain, 20)
+                    }
                 },
                 new Level {
-					enemyTypeAmount = new List<KeyValuePair<int, int>>() { 
-						new KeyValuePair<int, int>(Enemy.NORMAL, 5), 
-						new KeyValuePair<int, int>(Enemy.VEGAN, 5), 
-						new KeyValuePair<int, int>(Enemy.FAT, 1),
-						new KeyValuePair<int, int>(Enemy.NORMAL, 5),
-						new KeyValuePair<int, int>(Enemy.FAT, 1),
-						new KeyValuePair<int, int>(Enemy.VEGAN, 5)
-					},
+                    enemyTypeAmount = new List<KeyValuePair<int, int>>() {
+                        new KeyValuePair<int, int>(Enemy.NORMAL, 5),
+                        new KeyValuePair<int, int>(Enemy.VEGAN, 5),
+                        new KeyValuePair<int, int>(Enemy.FAT, 1),
+                        new KeyValuePair<int, int>(Enemy.NORMAL, 5),
+                        new KeyValuePair<int, int>(Enemy.FAT, 1),
+                        new KeyValuePair<int, int>(Enemy.VEGAN, 5)
+                    },
                     maxFailsForGameOver = 1,
                     minKillsForWin = 22,
                     availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
                     spawnInterval = 1,
                     availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
-						new KeyValuePair<Bread, int>(white, 30), 
-						new KeyValuePair<Bread, int>(wholeGrain, 20) 
-					}
+                        new KeyValuePair<Bread, int>(white, 30),
+                        new KeyValuePair<Bread, int>(wholeGrain, 20)
+                    }
                 }
-		};
+        };
     }
 
     //    private void showLevelSelecetionUI()
@@ -243,14 +249,14 @@ public class GameFlowController : MonoBehaviour
 
         Type t = bread2.Key.GetType();
         Assembly a = Assembly.GetAssembly(t);
-        Bread newObject = (Bread) a.CreateInstance(t.FullName);
+        Bread newObject = (Bread)a.CreateInstance(t.FullName);
         weapon.GetComponent<MeleeAttack>().bread2 = newObject;
 
         weapon.GetComponent<MeleeAttack>().breadHealth2 = bread2.Value;
         weapon.GetComponent<MeleeAttack>().activebread = bread1.Key;
 
-		guiManager.SetBread1Hits (bread1.Value);
-		guiManager.SetBread2Hits (bread2.Value);
+        guiManager.SetBread1Hits(bread1.Value);
+        guiManager.SetBread2Hits(bread2.Value);
 
         GameObject spawner = GameObject.Find("Spawner");
         spawnMethod = StartCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
@@ -270,13 +276,13 @@ public class GameFlowController : MonoBehaviour
             }
             //            showGameOverUI();
 
-//            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
-//            GameObject.Destroy(guiManagerGo);
-//            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
-//            guiManager.Init(this, levels, unlockedLevelsCount);
-			guiManager.SetBread1Hits(0);
-			guiManager.SetBread2Hits(0);
-			guiManager.ShowWinLoseMessageAndRestart("Game Over!", levels, unlockedLevelsCount);
+            //            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
+            //            GameObject.Destroy(guiManagerGo);
+            //            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
+            //            guiManager.Init(this, levels, unlockedLevelsCount);
+            guiManager.SetBread1Hits(0);
+            guiManager.SetBread2Hits(0);
+            guiManager.ShowWinLoseMessageAndRestart("Game Over!", levels, unlockedLevelsCount);
 
             player.transform.position = playerStartPosition;
             player.transform.rotation = playerStartRotation;
@@ -308,18 +314,19 @@ public class GameFlowController : MonoBehaviour
             {
                 GameObject.Destroy(enemy);
             }
-            if (unlockedLevelsCount == levels.IndexOf(activeLevel)+1){
+            if (unlockedLevelsCount == levels.IndexOf(activeLevel) + 1)
+            {
                 unlockedLevelsCount++;
             }
             //            showLevelClearedUI();
 
-//            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
-//            GameObject.Destroy(guiManagerGo);
-//            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
-//            guiManager.Init(this, levels, unlockedLevelsCount);
-			guiManager.SetBread1Hits(0);
-			guiManager.SetBread2Hits(0);
-			guiManager.ShowWinLoseMessageAndRestart("Win!", levels, unlockedLevelsCount);
+            //            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
+            //            GameObject.Destroy(guiManagerGo);
+            //            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
+            //            guiManager.Init(this, levels, unlockedLevelsCount);
+            guiManager.SetBread1Hits(0);
+            guiManager.SetBread2Hits(0);
+            guiManager.ShowWinLoseMessageAndRestart("Win!", levels, unlockedLevelsCount);
 
             player.transform.position = playerStartPosition;
             player.transform.rotation = playerStartRotation;

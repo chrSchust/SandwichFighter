@@ -35,7 +35,7 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	private void OnButtonNewGameClicked() {
-		LoadScene ("Restaurant");
+		LoadScene ("Restaurant_Level1");
 	}
 
 	private void LoadScene(string sceneName) {
