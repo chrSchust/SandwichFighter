@@ -20,6 +20,7 @@ public class GuiManager : MonoBehaviour
 	public GameObject panelWeaponSlot2;
 	public GameObject panelIntroduction;
 	public GameObject panelIntroductionSandwich;
+	public GameObject panelIntroductionWeaponSwitch;
 	public GameObject textGoToCounter;
 
 //    private List<Level> levels;
@@ -82,6 +83,13 @@ public class GuiManager : MonoBehaviour
 		SetVisibilityCursor(true);
 		AddListenerToIntroductionNextButton ();
 	}
+		
+	private void ShowIntroductionWeaponSwitch() {
+		SetVisibilityAllPanels (false);
+		panelIntroductionWeaponSwitch.SetActive (true);
+		SetVisibilityCursor(true);
+		AddListenerToIntroductionWeaponSwitchNextButton ();
+	}
 
 	private void ShowIntroductionSandwich() {
 		SetVisibilityAllPanels (false);
@@ -128,7 +136,8 @@ public class GuiManager : MonoBehaviour
 
 	private void OnNextEnemyVeganButton()
 	{
-		ShowIntroductionSandwich ();
+		// ShowIntroductionSandwich ();
+		ShowIntroductionWeaponSwitch();
 	}
 //
 	private void OnNextEnemyFattieButton()
@@ -165,6 +174,15 @@ public class GuiManager : MonoBehaviour
 		}
 		Button nextIntroductionButton = nextIntroductionTransform.GetComponent<Button> ();
 		nextIntroductionButton.onClick.AddListener (() => OnNextIntroductionButton());
+	}
+
+	private void AddListenerToIntroductionWeaponSwitchNextButton() {
+		Transform nextIntroductionWeaponSwitchTransform = panelIntroductionWeaponSwitch.transform.FindChild ("ButtonNext");
+		if (nextIntroductionWeaponSwitchTransform == null) {
+			Debug.LogError("Next Button is null");
+		}
+		Button nextIntroductionWeaponSwitchButton = nextIntroductionWeaponSwitchTransform.GetComponent<Button> ();
+		nextIntroductionWeaponSwitchButton.onClick.AddListener (() => OnNextIntroductionWeaponSwitchButton());
 	}
 
 	private void AddListenerToIntroductionSandwichNextButton() {
@@ -233,6 +251,19 @@ public class GuiManager : MonoBehaviour
 		// ingredients.Add (activeLevel.availableIngredients [0]);
 		List<KeyValuePair<Bread, int>> bread = activeLevel.availableBreadsWithHits;
 		StartLevel (ingredients, ingredients, bread [0], bread [0], activeLevel);
+	}
+
+	private void OnNextIntroductionWeaponSwitchButton () {
+		// Second level means there are two ingredients
+		List<Ingredient> ingredients = new List<Ingredient>();
+		List<Ingredient> ingredients2 = new List<Ingredient>();
+		// Choose ingredient chicken for the first sandwich
+		// Choose tomato for the second
+		ingredients.Add (activeLevel.availableIngredients [0]);
+		ingredients2.Add (activeLevel.availableIngredients [1]);
+
+		List<KeyValuePair<Bread, int>> bread = activeLevel.availableBreadsWithHits;
+		StartLevel (ingredients, ingredients2, bread [0], bread [0], activeLevel);
 	}
 
 	private void OnNextIntroductionSandwichButton () {
@@ -724,6 +755,7 @@ public class GuiManager : MonoBehaviour
 		panelEnemyFattie.SetActive(visibility);
 		panelIntroduction.SetActive (visibility);
 		panelIntroductionSandwich.SetActive (visibility);
+		panelIntroductionWeaponSwitch.SetActive (visibility);
     }
 
     private void FindAndSetAllSubPanels()
