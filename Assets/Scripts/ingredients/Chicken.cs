@@ -18,9 +18,11 @@ public class Chicken : Ingredient
         switch (enemyType)
         {
             case Enemy.FAT:
-                return -5;
+                // return -5;
+				return 0;
             case Enemy.VEGAN:
-                return +5;
+                // return +5;
+				return +20;
             default: return 0;
         }
     }
@@ -30,9 +32,11 @@ public class Chicken : Ingredient
         switch (enemyType)
         {
             case Enemy.FAT:
-                return -2;
+                // return -2;
+				return -1;
             case Enemy.VEGAN:
-                return +2;
+                // return +2;
+				return +1;
             default: return 0;
         }
     }

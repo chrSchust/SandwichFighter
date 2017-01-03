@@ -18,9 +18,11 @@ public class Salami : Ingredient
         switch (enemyType)
         {
             case Enemy.FAT:
-                return -10;
+                // return -10;
+				return 0;
             case Enemy.VEGAN:
-                return +10;
+                // return +10;
+				return +30;
             default: return 0;
         }
     }
@@ -30,9 +32,11 @@ public class Salami : Ingredient
         switch (enemyType)
         {
             case Enemy.FAT:
-                return -3;
+                // return -3;
+				return -1;
             case Enemy.VEGAN:
-                return +3;
+                // return +3;
+				return +2;
             default: return 0;
         }
     }

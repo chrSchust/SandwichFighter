@@ -5,7 +5,8 @@ using System;
 public class White : Bread {
     public int getBaseDamage()
     {
-        return 10;
+        // return 10;
+		return 20;
     }
 
     public string getName()

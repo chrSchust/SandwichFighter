@@ -79,7 +79,54 @@ public class GameFlowController : MonoBehaviour
         White white = new White();
         WholeGrain wholeGrain = new WholeGrain();
 
-        levels = new List<Level>(){
+		levels = new List<Level>(){
+			new Level {
+				enemyTypeAmount = new List<KeyValuePair<int, int>>() {
+					new KeyValuePair<int, int>(Enemy.NORMAL, 10)
+				},
+				maxFailsForGameOver = 1,
+				minKillsForWin = 10,
+				availableIngredients = new List<Ingredient>() {chicken},
+				spawnInterval = 3,
+				availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
+					new KeyValuePair<Bread, int>(white, 20)
+				}
+			},
+			new Level {
+				enemyTypeAmount = new List<KeyValuePair<int, int>>() {
+					new KeyValuePair<int, int>(Enemy.VEGAN, 5),
+					new KeyValuePair<int, int>(Enemy.NORMAL, 5),
+					new KeyValuePair<int, int>(Enemy.NORMAL, 5)
+				},
+				maxFailsForGameOver = 2,
+				minKillsForWin = 15,
+				availableIngredients = new List<Ingredient>() {chicken, tomato},
+				spawnInterval = 3,
+				availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
+					new KeyValuePair<Bread, int>(white, 20)
+				}
+			},
+			new Level {
+				enemyTypeAmount = new List<KeyValuePair<int, int>>() {
+					new KeyValuePair<int, int>(Enemy.NORMAL, 5),
+					new KeyValuePair<int, int>(Enemy.VEGAN, 5),
+					new KeyValuePair<int, int>(Enemy.FAT, 1),
+					new KeyValuePair<int, int>(Enemy.NORMAL, 5),
+					new KeyValuePair<int, int>(Enemy.FAT, 1),
+					new KeyValuePair<int, int>(Enemy.VEGAN, 5)
+				},
+				maxFailsForGameOver = 4,
+				minKillsForWin = 22,
+				availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
+				spawnInterval = 3,
+				availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
+					new KeyValuePair<Bread, int>(white, 20),
+					new KeyValuePair<Bread, int>(wholeGrain, 30)
+				}
+			}
+		};
+
+        /* levels = new List<Level>(){
                  new Level {
                     enemyTypeAmount = new List<KeyValuePair<int, int>>() {
                         new KeyValuePair<int, int>(Enemy.NORMAL, 10)
@@ -126,7 +173,7 @@ public class GameFlowController : MonoBehaviour
                         new KeyValuePair<Bread, int>(wholeGrain, 20)
                     }
                 }
-        };
+        };*/
     }
 
     //    private void showLevelSelecetionUI()
