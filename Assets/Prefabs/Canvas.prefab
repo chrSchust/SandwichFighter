@@ -2109,7 +2109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000014261586634
 GameObject:
   m_ObjectHideFlags: 1
@@ -2617,10 +2617,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Stelle dir dein Sandwich zusammen
-
-
-    Die Zutaten haben verschiedene Vor- und Nachteile'
+  m_Text: "Du hast den Sandwichkombinator freigeschaltet. Gl\xFCckwunsch!!\r\n\r\nDu
+    kannst jetzt selbst w\xE4hlen was auf deine 2 Sandwiches soll."
 --- !u!114 &114000010486868220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3941,7 +3939,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Einf\xFChrung"
+  m_Text: Sandwichkombinator
 --- !u!114 &114000011830952662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5817,14 +5815,14 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Diese gem\xFCtliche Kunde verweilt gerne mit einem St\xFCck saftigem Fleisch.
-    Gem\xFCse bekommt ihm nicht sonderlich gut, doch es macht ihn sehr agil!\n"
+  m_Text: "Wieder ein neuer Kunde kommt hinzu:\r\n\r\nDer Fleischliebhaber (Fettie):
+    Er hasst Gem\xFCse\r\n"
 --- !u!114 &114000013771832112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8499,10 +8497,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 224000013838865998}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0.14375001, y: 0.24000001}
-  m_AnchorMax: {x: 0.89750004, y: 0.61600006}
-  m_AnchoredPosition: {x: -0.5, y: 2}
-  m_SizeDelta: {x: -9, y: -5}
+  m_AnchorMin: {x: 0, y: 0.24000001}
+  m_AnchorMax: {x: 1, y: 0.614}
+  m_AnchoredPosition: {x: -0.000045776367, y: 2.5}
+  m_SizeDelta: {x: 0, y: -4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000012025425344
 RectTransform:
@@ -9166,10 +9164,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 224000013838865998}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0.39875, y: 0.75600004}
-  m_AnchorMax: {x: 0.63500005, y: 0.924}
-  m_AnchoredPosition: {x: 1.5, y: 2}
-  m_SizeDelta: {x: 1, y: -6}
+  m_AnchorMin: {x: 0, y: 0.76400006}
+  m_AnchorMax: {x: 1, y: 0.924}
+  m_AnchoredPosition: {x: -0.000015258789, y: 0}
+  m_SizeDelta: {x: 0, y: -2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000013384623138
 RectTransform:
