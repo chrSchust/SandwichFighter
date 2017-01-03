@@ -26,10 +26,10 @@ public class GuiManager : MonoBehaviour
     private GameFlowController gameFlowController;
     private Transform panelBread;
     private Transform panelIngredient1;
-    private Transform panelIngredient2;
+    // private Transform panelIngredient2;
     private Dropdown dropdownBread;
     private Dropdown dropdownIngredient1;
-    private Dropdown dropdownIngredient2;
+    // private Dropdown dropdownIngredient2;
 	public GameObject panelEnemyVegan;
 	public GameObject panelEnemyFattie;
     // TODO Add bread
@@ -230,7 +230,7 @@ public class GuiManager : MonoBehaviour
 		// First level means there is just one ingredient
 		List<Ingredient> ingredients = new List<Ingredient>();
 		ingredients.Add (activeLevel.availableIngredients [0]);
-		ingredients.Add (activeLevel.availableIngredients [0]);
+		// ingredients.Add (activeLevel.availableIngredients [0]);
 		List<KeyValuePair<Bread, int>> bread = activeLevel.availableBreadsWithHits;
 		StartLevel (ingredients, ingredients, bread [0], bread [0], activeLevel);
 	}
@@ -269,7 +269,7 @@ public class GuiManager : MonoBehaviour
 //		SetEffectsIngredientPanel1 ();
 		SetDropdownBreadListener (panelBread.transform, dropdownBread);
 		SetDropdownIngredientListener (panelIngredient1.transform, dropdownIngredient1);
-		SetDropdownIngredientListener (panelIngredient2.transform, dropdownIngredient2);
+		// SetDropdownIngredientListener (panelIngredient2.transform, dropdownIngredient2);
 		List<KeyValuePair<Bread, int>> availableBreadWithHits = activeLevel.availableBreadsWithHits;
 		KeyValuePair<Bread, int> chosenBread = availableBreadWithHits[dropdownBread.value];
 		SetEffectsBreadPanel (panelBread.transform,
@@ -280,10 +280,10 @@ public class GuiManager : MonoBehaviour
 		SetEffectsIngredientPanel (panelIngredient1.transform, 
 			chosenIngredient
 		);
-		chosenIngredient = availableIngredients[dropdownIngredient2.value];
-		SetEffectsIngredientPanel (panelIngredient2.transform, 
+		// chosenIngredient = availableIngredients[dropdownIngredient2.value];
+		/* SetEffectsIngredientPanel (panelIngredient2.transform, 
 			chosenIngredient
-		);
+		);*/
     }
 
 	private void ShowWeaponPanels() {
@@ -567,8 +567,8 @@ public class GuiManager : MonoBehaviour
         // Add options
         dropdownIngredient1.ClearOptions();
         dropdownIngredient1.AddOptions(optionsTmp);
-        dropdownIngredient2.ClearOptions();
-        dropdownIngredient2.AddOptions(optionsTmp);
+        // dropdownIngredient2.ClearOptions();
+        // dropdownIngredient2.AddOptions(optionsTmp);
     }
 
 	private void SetVisibilityPreviousSandwichLevelButton(bool visible, Level activeLevel)
@@ -652,12 +652,13 @@ public class GuiManager : MonoBehaviour
     {
 		// Get data from all Dropdowns of sandwichchooser
 		GetAndSetSandwichDataFromAllDropdowns ();
-		if (ingredient1 != null && ingredient2 != null && activeLevel != null)
+		// if (ingredient1 != null && ingredient2 != null && activeLevel != null)
+		if (ingredient1 != null && activeLevel != null)
         {
             if (firstBread == true)
             {
                 ingredients1.Add(ingredient1);
-                ingredients1.Add(ingredient2);
+                // ingredients1.Add(ingredient2);
                 bread1 = bread;
                 firstBread = false;
 				ShowSandwichCombinator(activeLevel);
@@ -665,7 +666,7 @@ public class GuiManager : MonoBehaviour
             else
             {
                 ingredients2.Add(ingredient1);
-                ingredients2.Add(ingredient2);
+                // ingredients2.Add(ingredient2);
                 bread2 = bread;
                 StartLevel(ingredients1, ingredients2, bread1, bread2, activeLevel);
             }
@@ -680,14 +681,14 @@ public class GuiManager : MonoBehaviour
 		// When "Next" Button got clicked put the choice in the lists
 		int breadId = dropdownBread.value;
 		int ingredient1Id = dropdownIngredient1.value;
-		int ingredient2Id = dropdownIngredient2.value;
+		// int ingredient2Id = dropdownIngredient2.value;
 
 		Level level = this.activeLevel;
 		List<Ingredient> availableIngredients = level.availableIngredients;
 		List<KeyValuePair<Bread, int>> availableBreadsWithHits = level.availableBreadsWithHits;
 		bread = availableBreadsWithHits[breadId];
 		ingredient1 = availableIngredients[ingredient1Id];
-		ingredient2 = availableIngredients[ingredient2Id];
+		// ingredient2 = availableIngredients[ingredient2Id];
 	}
 
 	private void OnPreviousSandwichButtonClicked(Level activeLevel) {
@@ -732,11 +733,11 @@ public class GuiManager : MonoBehaviour
         panelBread = panelSandwichTransform.FindChild("PanelBread");
         Transform panelIngredient1Transform = panelSandwich.transform;
         panelIngredient1 = panelIngredient1Transform.FindChild("PanelIngredient1");
-        Transform panelIngredient2Transform = panelSandwich.transform;
-        panelIngredient2 = panelIngredient2Transform.FindChild("PanelIngredient2");
+        // Transform panelIngredient2Transform = panelSandwich.transform;
+        // panelIngredient2 = panelIngredient2Transform.FindChild("PanelIngredient2");
         if (panelBread == null ||
-            panelIngredient1 == null ||
-            panelIngredient2 == null)
+			panelIngredient1 == null) // ||
+            // panelIngredient2 == null)
         {
             Debug.LogError("A sub panel is null");
         }
@@ -747,10 +748,10 @@ public class GuiManager : MonoBehaviour
         string dropdownText = "Dropdown";
         dropdownBread = panelBread.FindChild(dropdownText).GetComponent<Dropdown>();
         dropdownIngredient1 = panelIngredient1.FindChild(dropdownText).GetComponent<Dropdown>();
-        dropdownIngredient2 = panelIngredient2.FindChild(dropdownText).GetComponent<Dropdown>();
+        // dropdownIngredient2 = panelIngredient2.FindChild(dropdownText).GetComponent<Dropdown>();
         if (dropdownBread == null ||
-           dropdownIngredient1 == null ||
-           dropdownIngredient2 == null)
+			dropdownIngredient1 == null) // ||
+           // dropdownIngredient2 == null)
         {
             Debug.LogError("A dropdown is null");
         }
