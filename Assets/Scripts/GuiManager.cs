@@ -75,6 +75,10 @@ public class GuiManager : MonoBehaviour
 		if (this.currentLevelNumber == 3) {
 			ShowEnemyFattie ();
 		}
+
+		if (this.currentLevelNumber == 4) {
+			ShowIntroductionSandwich ();
+		}
     }
 
 	private void ShowIntroduction() {
@@ -228,7 +232,22 @@ public class GuiManager : MonoBehaviour
 
 	private void OnNextButtonLose() {
 		// Start current Level again
-		OnNextIntroductionButton();
+		// Show Introduction just in the first level else show the enemytypes
+		if (this.currentLevelNumber == 1) {
+			ShowIntroduction ();
+		}
+
+		if (this.currentLevelNumber == 2) {
+			ShowEnemyVegan ();
+		}
+
+		if (this.currentLevelNumber == 3) {
+			ShowEnemyFattie ();
+		}
+
+		if (this.currentLevelNumber == 4) {
+			ShowIntroductionSandwich ();
+		}
 	}
 
 	private void OnNextButtonWin() {
@@ -237,6 +256,9 @@ public class GuiManager : MonoBehaviour
 		}
 		if (currentLevelNumber == 2) {
 			SceneManager.LoadScene (SceneKeys.SCENE_NAME_LEVEL_3);
+		}
+		if (currentLevelNumber == 3) {
+			SceneManager.LoadScene (SceneKeys.SCENE_NAME_MAIN_MENU);
 		}
 	}
 
