@@ -12,6 +12,7 @@ public class MainMenuController : MonoBehaviour {
 	public Button buttonLevel1;
 	public Button buttonLevel2;
 	public Button buttonLevel3;
+	public Button buttonLevel4;
     public Button back;
     List<Button> levelButtons;
     public GameObject panelMainMenu;
@@ -28,7 +29,7 @@ public class MainMenuController : MonoBehaviour {
         //only for testing!
 //        PlayerPrefs.DeleteAll();
 
-        levelButtons = new List<Button> { buttonLevel1, buttonLevel2, buttonLevel3 };
+        levelButtons = new List<Button> { buttonLevel1, buttonLevel2, buttonLevel3, buttonLevel4 };
 		unlockedLevels = PlayerPrefs.GetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, -1);
         //unlockedLevels = 3;
 
@@ -87,11 +88,15 @@ public class MainMenuController : MonoBehaviour {
                 LoadScene("Restaurant_Level1");
                 break;
             case 1:
-                LoadScene("Restaurant_Level2");
+                LoadScene("Restaurant_Level1_2");
                 break;
             case 2:
-                LoadScene("Restaurant_Level3");
+                LoadScene("Restaurant_Level2");
                 break;
+			case 3:
+				LoadScene("Restaurant_Level3");
+			break;
+
         }
     }
 

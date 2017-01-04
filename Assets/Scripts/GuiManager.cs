@@ -77,7 +77,9 @@ public class GuiManager : MonoBehaviour
 		}
 
 		if (this.currentLevelNumber == 4) {
-			ShowIntroductionSandwich ();
+			SetVisibilityAllPanels(false);
+			SetVisibilityCursor(true);
+			OnNextIntroductionSandwichButton ();
 		}
     }
 
@@ -234,19 +236,19 @@ public class GuiManager : MonoBehaviour
 		// Start current Level again
 		// Show Introduction just in the first level else show the enemytypes
 		if (this.currentLevelNumber == 1) {
-			ShowIntroduction ();
+			SceneManager.LoadScene (SceneKeys.SCENE_NAME_LEVEL_1);
 		}
 
 		if (this.currentLevelNumber == 2) {
-			ShowEnemyVegan ();
+			SceneManager.LoadScene (SceneKeys.SCENE_NAME_LEVEL_2);
 		}
 
 		if (this.currentLevelNumber == 3) {
-			ShowEnemyFattie ();
+			SceneManager.LoadScene (SceneKeys.SCENE_NAME_LEVEL_3);
 		}
 
 		if (this.currentLevelNumber == 4) {
-			ShowIntroductionSandwich ();
+			SceneManager.LoadScene (SceneKeys.SCENE_NAME_LEVEL_4);
 		}
 	}
 
@@ -258,6 +260,9 @@ public class GuiManager : MonoBehaviour
 			SceneManager.LoadScene (SceneKeys.SCENE_NAME_LEVEL_3);
 		}
 		if (currentLevelNumber == 3) {
+			SceneManager.LoadScene (SceneKeys.SCENE_NAME_LEVEL_4);
+		}
+		if (this.currentLevelNumber == 4) {
 			SceneManager.LoadScene (SceneKeys.SCENE_NAME_MAIN_MENU);
 		}
 	}
@@ -289,7 +294,6 @@ public class GuiManager : MonoBehaviour
 	}
 
 	private void OnNextIntroductionSandwichButton () {
-		Debug.Log ("bla");
 		firstBread = true;
 		ShowSandwichCombinator (activeLevel);
 	}

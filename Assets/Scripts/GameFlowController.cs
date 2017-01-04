@@ -64,6 +64,8 @@ public class GameFlowController : MonoBehaviour
                 return 2;
             case SceneKeys.SCENE_NAME_LEVEL_3:
                 return 3;
+			case SceneKeys.SCENE_NAME_LEVEL_4:
+				return 4;
             default:
                 return -1;
         }
@@ -104,6 +106,24 @@ public class GameFlowController : MonoBehaviour
 				spawnInterval = 3,
 				availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
 					new KeyValuePair<Bread, int>(white, 20)
+				}
+			},
+			new Level {
+				enemyTypeAmount = new List<KeyValuePair<int, int>>() {
+					new KeyValuePair<int, int>(Enemy.NORMAL, 5),
+					new KeyValuePair<int, int>(Enemy.VEGAN, 5),
+					new KeyValuePair<int, int>(Enemy.FAT, 1),
+					new KeyValuePair<int, int>(Enemy.NORMAL, 5),
+					new KeyValuePair<int, int>(Enemy.FAT, 1),
+					new KeyValuePair<int, int>(Enemy.VEGAN, 5)
+				},
+				maxFailsForGameOver = 4,
+				minKillsForWin = 22,
+				availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
+				spawnInterval = 3,
+				availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
+					new KeyValuePair<Bread, int>(white, 20),
+					new KeyValuePair<Bread, int>(wholeGrain, 30)
 				}
 			},
 			new Level {
