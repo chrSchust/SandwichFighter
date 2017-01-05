@@ -19,7 +19,7 @@ public class Salad : Ingredient
         {
             case Enemy.FAT:
                 // return +10;
-				return +30;
+				return +20;
             case Enemy.VEGAN:
                 // return -10;
 				return 0;

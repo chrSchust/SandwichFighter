@@ -19,7 +19,7 @@ public class Tomato : Ingredient
         {
             case Enemy.FAT:
                 // return +5;
-				return +20;
+				return +10;
             case Enemy.VEGAN:
                 // return -5;
 				return 0;

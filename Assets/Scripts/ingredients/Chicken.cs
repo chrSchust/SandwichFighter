@@ -22,7 +22,7 @@ public class Chicken : Ingredient
 				return 0;
             case Enemy.VEGAN:
                 // return +5;
-				return +20;
+				return +10;
             default: return 0;
         }
     }

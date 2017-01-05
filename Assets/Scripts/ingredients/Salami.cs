@@ -22,7 +22,7 @@ public class Salami : Ingredient
 				return 0;
             case Enemy.VEGAN:
                 // return +10;
-				return +30;
+				return +20;
             default: return 0;
         }
     }

@@ -2109,7 +2109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000014261586634
 GameObject:
   m_ObjectHideFlags: 1
@@ -2276,7 +2276,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Vegetarier
+  m_Text: Neuer Kunde!
 --- !u!114 &114000010117913962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2617,8 +2617,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Du hast den Sandwichkombinator freigeschaltet. Gl\xFCckwunsch!!\r\n\r\nDu
-    kannst jetzt selbst w\xE4hlen was auf deine 2 Sandwiches soll."
+  m_Text: "Sandwichkombinator freigeschaltet\nGl\xFCckwunsch!!\r\n\r\nW\xE4hle selbst
+    2 Sandwiches aus"
 --- !u!114 &114000010486868220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3017,10 +3017,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Ein neuer Kunde kommt dazu:
-
-
-    Der Vegetarier: Er hasst Fleisch'
+  m_Text: "Der Vegetarier\n\nFleisch macht mehr Schaden\nGem\xFCse macht ihn langsamer"
 --- !u!114 &114000010815771754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3673,7 +3670,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Fettie
+  m_Text: "Neuer Kunde!\r"
 --- !u!114 &114000011635121324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5821,8 +5818,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Wieder ein neuer Kunde kommt hinzu:\r\n\r\nDer Fleischliebhaber (Fettie):
-    Er hasst Gem\xFCse\r\n"
+  m_Text: "Der Fleischliebhaber (Fettie)\n\nGem\xFCse macht mehr Schaden\nFleisch
+    macht ihn langsamer\n"
 --- !u!114 &114000013771832112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6099,9 +6096,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Schlage den Vegetarier mit dem Fleischsandwich.\nDas vertreibt ihn wesentlich
-    schneller.\n\nAllerdings wird er bei Gem\xFCsesandwiches langsamer.\n\n\n1, 2
-    oder Mausrad = Sandwichwechsel"
+  m_Text: 'Wechsel zwischen den Sandwiches
+
+
+    1, 2 oder Mausrad = Sandwichwechsel'
 --- !u!114 &114000014030961640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7692,10 +7690,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 224000013346084414}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0.14375001, y: 0.24000001}
-  m_AnchorMax: {x: 0.89750004, y: 0.61600006}
-  m_AnchoredPosition: {x: -0.5, y: 2}
-  m_SizeDelta: {x: -9, y: -5}
+  m_AnchorMin: {x: 0, y: 0.24000001}
+  m_AnchorMax: {x: 1, y: 0.61600006}
+  m_AnchoredPosition: {x: 0.0000076293945, y: 2}
+  m_SizeDelta: {x: 0, y: -5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000010695600022
 RectTransform:
@@ -8009,10 +8007,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 224000011785436128}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0.39875, y: 0.75600004}
-  m_AnchorMax: {x: 0.63500005, y: 0.924}
-  m_AnchoredPosition: {x: 1.5, y: 1.9999847}
-  m_SizeDelta: {x: 1, y: -6}
+  m_AnchorMin: {x: 0, y: 0.75600004}
+  m_AnchorMax: {x: 1, y: 0.92200005}
+  m_AnchoredPosition: {x: -0.000030517578, y: 2.4999847}
+  m_SizeDelta: {x: 0, y: -5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000011190817514
 RectTransform:
@@ -8219,10 +8217,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 224000012170103010}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0.14375001, y: 0.24000001}
-  m_AnchorMax: {x: 0.89750004, y: 0.61600006}
-  m_AnchoredPosition: {x: -0.49996948, y: 2.0000076}
-  m_SizeDelta: {x: -9, y: -5}
+  m_AnchorMin: {x: 0, y: 0.24000001}
+  m_AnchorMax: {x: 1, y: 0.61200005}
+  m_AnchoredPosition: {x: -0.000045776367, y: 3.0000076}
+  m_SizeDelta: {x: 0, y: -3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000011587781504
 RectTransform:
@@ -8953,10 +8951,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 224000012170103010}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0.39875, y: 0.75600004}
-  m_AnchorMax: {x: 0.63500005, y: 0.924}
-  m_AnchoredPosition: {x: 1.5, y: 1.9999847}
-  m_SizeDelta: {x: 1, y: -6}
+  m_AnchorMin: {x: 0, y: 0.75600004}
+  m_AnchorMax: {x: 1, y: 0.91800004}
+  m_AnchoredPosition: {x: -0.000045776367, y: 3.4999847}
+  m_SizeDelta: {x: 0, y: -3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000013012806422
 RectTransform:
@@ -9086,10 +9084,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 224000013346084414}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0.39875, y: 0.75600004}
-  m_AnchorMax: {x: 0.63500005, y: 0.924}
-  m_AnchoredPosition: {x: 1.5, y: 2}
-  m_SizeDelta: {x: 1, y: -6}
+  m_AnchorMin: {x: 0, y: 0.75600004}
+  m_AnchorMax: {x: 1, y: 0.924}
+  m_AnchoredPosition: {x: -0.000045776367, y: 2}
+  m_SizeDelta: {x: 0, y: -6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000013205292186
 RectTransform:
@@ -9182,10 +9180,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 224000011785436128}
   m_RootOrder: 1
-  m_AnchorMin: {x: 0.14375001, y: 0.24000001}
-  m_AnchorMax: {x: 0.89750004, y: 0.61600006}
-  m_AnchoredPosition: {x: -0.49996948, y: 2.0000076}
-  m_SizeDelta: {x: -9, y: -5}
+  m_AnchorMin: {x: 0, y: 0.24000001}
+  m_AnchorMax: {x: 1, y: 0.614}
+  m_AnchoredPosition: {x: -0.0000076293945, y: 2.5000076}
+  m_SizeDelta: {x: 0, y: -4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000013403365356
 RectTransform:

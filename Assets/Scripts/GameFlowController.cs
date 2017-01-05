@@ -98,10 +98,11 @@ public class GameFlowController : MonoBehaviour
 				enemyTypeAmount = new List<KeyValuePair<int, int>>() {
 					new KeyValuePair<int, int>(Enemy.VEGAN, 5),
 					new KeyValuePair<int, int>(Enemy.NORMAL, 5),
-					new KeyValuePair<int, int>(Enemy.NORMAL, 5)
+					new KeyValuePair<int, int>(Enemy.VEGAN, 5),
+					new KeyValuePair<int, int>(Enemy.NORMAL, 2)
 				},
 				maxFailsForGameOver = 2,
-				minKillsForWin = 15,
+				minKillsForWin = 17,
 				availableIngredients = new List<Ingredient>() {chicken, tomato},
 				spawnInterval = 3,
 				availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
@@ -130,15 +131,15 @@ public class GameFlowController : MonoBehaviour
 				enemyTypeAmount = new List<KeyValuePair<int, int>>() {
 					new KeyValuePair<int, int>(Enemy.NORMAL, 5),
 					new KeyValuePair<int, int>(Enemy.VEGAN, 5),
-					new KeyValuePair<int, int>(Enemy.FAT, 1),
+					new KeyValuePair<int, int>(Enemy.FAT, 3),
 					new KeyValuePair<int, int>(Enemy.NORMAL, 5),
-					new KeyValuePair<int, int>(Enemy.FAT, 1),
+					new KeyValuePair<int, int>(Enemy.FAT, 3),
 					new KeyValuePair<int, int>(Enemy.VEGAN, 5)
 				},
-				maxFailsForGameOver = 4,
-				minKillsForWin = 22,
+				maxFailsForGameOver = 6,
+				minKillsForWin = 31,
 				availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
-				spawnInterval = 3,
+				spawnInterval = 2,
 				availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
 					new KeyValuePair<Bread, int>(white, 20),
 					new KeyValuePair<Bread, int>(wholeGrain, 30)
@@ -334,6 +335,7 @@ public class GameFlowController : MonoBehaviour
     internal void checkGameOver()
     {
         fails++;
+		activeLevel.minKillsForWin--;
         if (fails == activeLevel.maxFailsForGameOver)
         {
             // GameObject.Find("LevelEnd").GetComponent<Text>().text = "Game Over";
@@ -351,7 +353,7 @@ public class GameFlowController : MonoBehaviour
             //            guiManager.Init(this, levels, unlockedLevelsCount);
             guiManager.SetBread1Hits(0);
             guiManager.SetBread2Hits(0);
-            guiManager.ShowWinLoseMessageAndRestart("Game Over!", false);
+            guiManager.ShowWinLoseMessageAndRestart("Verloren!", false);
 
             player.transform.position = playerStartPosition;
             player.transform.rotation = playerStartRotation;
@@ -374,7 +376,7 @@ public class GameFlowController : MonoBehaviour
     internal void checkWon()
     {
         kills++;
-        if (kills == activeLevel.minKillsForWin)
+		if (kills == activeLevel.minKillsForWin && fails < activeLevel.maxFailsForGameOver)
         {
             // GameObject.Find("LevelEnd").GetComponent<Text>().text = "Level Cleared";
             // TODO Have to be linked with GUIManager for now just use Debug message
@@ -397,7 +399,7 @@ public class GameFlowController : MonoBehaviour
             //            guiManager.Init(this, levels, unlockedLevelsCount);
             guiManager.SetBread1Hits(0);
             guiManager.SetBread2Hits(0);
-            guiManager.ShowWinLoseMessageAndRestart("Win!", true);
+            guiManager.ShowWinLoseMessageAndRestart("Gewonnen!", true);
 
             player.transform.position = playerStartPosition;
             player.transform.rotation = playerStartRotation;
