@@ -327,6 +327,10 @@ public class GameFlowController : MonoBehaviour
 
         guiManager.SetBread1Hits(bread1.Value);
         guiManager.SetBread2Hits(bread2.Value);
+		fails = 0;
+		kills = 0;
+		guiManager.SetCustomerLossTextProg (fails, activeLevel.maxFailsForGameOver);
+		guiManager.SetCustomerWinTextProg (kills, activeLevel.minKillsForWin);
 
         GameObject spawner = GameObject.Find("Spawner");
         spawnMethod = StartCoroutine(spawner.GetComponent<SpawnController>().spawn(activeLevel));
@@ -336,6 +340,8 @@ public class GameFlowController : MonoBehaviour
     {
         fails++;
 		activeLevel.minKillsForWin--;
+		guiManager.SetCustomerLossTextProg (fails, activeLevel.maxFailsForGameOver);
+		guiManager.SetCustomerWinTextProg (kills, activeLevel.minKillsForWin);
         if (fails == activeLevel.maxFailsForGameOver)
         {
             // GameObject.Find("LevelEnd").GetComponent<Text>().text = "Game Over";
@@ -376,6 +382,7 @@ public class GameFlowController : MonoBehaviour
     internal void checkWon()
     {
         kills++;
+		guiManager.SetCustomerWinTextProg (kills, activeLevel.minKillsForWin);
 		if (kills == activeLevel.minKillsForWin && fails < activeLevel.maxFailsForGameOver)
         {
             // GameObject.Find("LevelEnd").GetComponent<Text>().text = "Level Cleared";

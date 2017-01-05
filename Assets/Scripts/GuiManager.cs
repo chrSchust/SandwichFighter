@@ -21,6 +21,7 @@ public class GuiManager : MonoBehaviour
 	public GameObject panelIntroduction;
 	public GameObject panelIntroductionSandwich;
 	public GameObject panelIntroductionWeaponSwitch;
+	public GameObject panelCustomer;
 	public GameObject textGoToCounter;
 
 //    private List<Level> levels;
@@ -343,10 +344,11 @@ public class GuiManager : MonoBehaviour
 		);*/
     }
 
-	private void ShowWeaponPanels() {
+	private void ShowWeaponCustomerPanels() {
 		SetVisibilityAllPanels (false);
 		panelWeaponSlot1.SetActive (true);
 		panelWeaponSlot2.SetActive (true);
+		panelCustomer.SetActive (true);
 		SetChosenWeapon (1);
 	}
 
@@ -397,6 +399,52 @@ public class GuiManager : MonoBehaviour
 		}
         else SetVisibilityWeaponPanel2(true);
     }
+
+	public void SetCustomerWinTextProg (int killed, int maxKills) {
+		Transform transKilled = panelCustomer.transform.FindChild ("TextCustomerKilledProgL");
+		Text textKilled = transKilled.GetComponent<Text> ();
+		textKilled.text = killed.ToString();
+		Transform transMax = panelCustomer.transform.FindChild ("TextCustomerKilledProgR");
+		Text textMax = transMax.GetComponent<Text> ();
+		textMax.text = maxKills.ToString();
+
+		//Progress bars
+		float fillNumber;
+		if (maxKills != 0) {
+			fillNumber =  (float)killed / (float)maxKills;
+		} else {
+			fillNumber = 0;
+		}
+
+		Transform transProgress = panelCustomer.transform.FindChild ("ProgressForegroundKilled");
+		transProgress.gameObject.GetComponent<Image> ().fillAmount = fillNumber;
+	}
+
+	public void SetCustomerLossTextProg (int throughDoor, int maxDoor) {
+		Transform transLoss = panelCustomer.transform.FindChild ("TextCustomerLossProgL");
+		Text textLoss = transLoss.GetComponent<Text> ();
+		textLoss.text = throughDoor.ToString();
+		Transform transMax = panelCustomer.transform.FindChild ("TextCustomerLossProgR");
+		Text textMax = transMax.GetComponent<Text> ();
+		textMax.text = maxDoor.ToString();
+
+		//Progress bars
+		float fillNumber;
+		if (maxDoor != 0) {
+			fillNumber =  (float) throughDoor / (float) maxDoor;
+		} else {
+			fillNumber = 0;
+		}
+		Debug.Log (throughDoor);
+		Debug.Log (maxDoor);
+		Debug.Log (fillNumber);
+		Transform transProgress = panelCustomer.transform.FindChild ("ProgressForegroundLoss");
+		transProgress.gameObject.GetComponent<Image> ().fillAmount = fillNumber;
+	}
+
+	private void SetVisibilityCustomerPanel(bool visibility) {
+		panelCustomer.SetActive (visibility);
+	}
 
 	private void SetVisibilityWeaponPanel1(bool visibility) {
 			panelWeaponSlot1.SetActive (visibility);
@@ -764,7 +812,7 @@ public class GuiManager : MonoBehaviour
         SetVisibilityCursor(false);
         SetVisibilityAllPanels(false);
 		SetWeaponPanelsIngredientsText (ingredients1, ingredients2, bread1, bread2);
-		ShowWeaponPanels ();
+		ShowWeaponCustomerPanels ();
         gameFlowController.StartLevel(ingredients1, ingredients2, bread1, bread2, activeLevel);
     }
 
@@ -782,6 +830,7 @@ public class GuiManager : MonoBehaviour
 		panelIntroduction.SetActive (visibility);
 		panelIntroductionSandwich.SetActive (visibility);
 		panelIntroductionWeaponSwitch.SetActive (visibility);
+		panelCustomer.SetActive (visibility);
     }
 
     private void FindAndSetAllSubPanels()
