@@ -137,7 +137,7 @@ public class GameFlowController : MonoBehaviour
 					new KeyValuePair<int, int>(Enemy.VEGAN, 5)
 				},
 				maxFailsForGameOver = 6,
-				minKillsForWin = 31,
+				minKillsForWin = 26,
 				availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
 				spawnInterval = 2,
 				availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
