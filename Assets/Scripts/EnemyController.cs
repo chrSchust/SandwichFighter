@@ -23,6 +23,8 @@ public class EnemyController : MonoBehaviour
     private Animator animator;
     private Material defaultMaterial;
 
+    public float minSpeed = 0.5f;
+
     // Use this for initialization
     void Start()
     {
@@ -136,7 +138,10 @@ public class EnemyController : MonoBehaviour
             //Debug.Log(ingredient.getSpeedBonus(type));
             speedBonus = speedBonus + ingredient.getSpeedBonus(type);
         }
-        speed = speed + speedBonus;
+        if((speed + speedBonus) > minSpeed)
+        {
+            speed = speed + speedBonus;
+        }
         agent.speed = speed;
 
 
