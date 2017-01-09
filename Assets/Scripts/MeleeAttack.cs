@@ -27,6 +27,8 @@ public class MeleeAttack : MonoBehaviour
     private GameObject progressBackground;
     private GameObject progressForeground;
 
+    public GameObject arrow;
+
     void Start()
     {
         weapon = GameObject.Find("Weapon");
@@ -52,7 +54,8 @@ public class MeleeAttack : MonoBehaviour
 
 		if (breadHealth1 <= 0 && breadHealth2 <= 0) {
 			guiManager.SetVisibilityTextGoToCounter (true);
-		}
+            arrow.SetActive(true);
+        }
 
         if (Input.GetKey(KeyCode.E) && (breadHealth1 <= 0 || breadHealth2 <= 0))
         {
@@ -63,7 +66,8 @@ public class MeleeAttack : MonoBehaviour
 				if (hit.transform.gameObject.name == "Counter") {
 					// Gui stuff
 					guiManager.SetVisibilityTextGoToCounter (false);
-					progressBackground.SetActive (true);
+                    arrow.SetActive(false);
+                    progressBackground.SetActive (true);
 					progressForeground.SetActive (true);
 					progressForeground.GetComponent<Image> ().fillAmount = progressForeground.GetComponent<Image> ().fillAmount + (Time.deltaTime * 0.4f);
 
