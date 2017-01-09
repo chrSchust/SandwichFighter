@@ -111,6 +111,24 @@ public class MeleeAttack : MonoBehaviour
             weapon.GetComponentInChildren<Renderer>().material = material2;
         }
 
+        if(Input.GetAxis("Mouse ScrollWheel") != 0f)
+        {
+            Debug.Log("scroll");
+            if(activebread != null && activebread == bread1 && breadHealth2 > 0) 
+            {
+                activeIngredients = ingredients2;
+                activebread = bread2;
+                weapon.GetComponentInChildren<Renderer>().material = material2;
+                return;
+            }
+            if (activebread != null && activebread == bread2 && breadHealth1 > 0)
+            {
+                activeIngredients = ingredients1;
+                activebread = bread1;
+                weapon.GetComponentInChildren<Renderer>().material = material1;
+            }
+        }
+
         if (Input.GetButtonDown("Fire1"))
         {
             if (activeIngredients != null)

@@ -34,16 +34,17 @@ public class WeaponController : MonoBehaviour {
             transform.localRotation = Quaternion.Lerp(transform.localRotation, startRotation, Time.deltaTime * speed);
         }
 
-		if (Input.GetKey ("1")) {
-			if (guiManager.GetChosenWeapon () != 1) {
+		if (Input.GetKey ("1") || Input.GetAxis("Mouse ScrollWheel") != 0f) {
+			if (guiManager.GetChosenWeapon () == 2) {
 				guiManager.SetChosenWeapon (1);
 				transform.localRotation = Quaternion.Lerp (transform.localRotation, 
 					new Quaternion (startRotation.x, startRotation.y, -4.0f, startRotation.w), Time.deltaTime * speed);
+                return;
 			}
 		}
-		if (Input.GetKey ("2")) {
-			if (guiManager.GetChosenWeapon () != 2) {
-				guiManager.SetChosenWeapon (2);
+		if (Input.GetKey ("2") || Input.GetAxis("Mouse ScrollWheel") != 0f) {
+			if (guiManager.GetChosenWeapon () == 1) {
+                guiManager.SetChosenWeapon (2);
 				transform.localRotation = Quaternion.Lerp (transform.localRotation, 
 					new Quaternion (startRotation.x, startRotation.y, -4.0f, startRotation.w), Time.deltaTime * speed);
 			}
