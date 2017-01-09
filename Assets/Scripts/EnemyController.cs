@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class EnemyController : MonoBehaviour
     private Material defaultMaterial;
 
     public float minSpeed = 0.5f;
+
+    public GameObject DamageTextPrefab;
 
     // Use this for initialization
     void Start()
@@ -155,6 +158,7 @@ public class EnemyController : MonoBehaviour
         }
         int baseDamage = activebread.getBaseDamage();
         int damage = baseDamage + bonusDamage;
+        InitDamageText(damage.ToString());
         health = health - damage;
         if (health <= 0)
         {
@@ -201,5 +205,18 @@ public class EnemyController : MonoBehaviour
                 else moveToWaypoint();
             }
         }
+    }
+
+    void InitDamageText(string text)
+    {
+        GameObject temp = Instantiate(DamageTextPrefab) as GameObject;
+        RectTransform tempRect = temp.GetComponent<RectTransform>();
+        temp.transform.SetParent(transform.FindChild("EnemyCanvas"));
+        tempRect.transform.localPosition = DamageTextPrefab.transform.localPosition;
+        tempRect.transform.localScale = DamageTextPrefab.transform.localScale;
+        tempRect.transform.localRotation = DamageTextPrefab.transform.localRotation;
+
+        tempRect.GetComponent<Text>().text = text;
+        Destroy(temp, 2);
     }
 }
