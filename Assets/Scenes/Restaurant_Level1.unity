@@ -10176,14 +10176,6 @@ Prefab:
       propertyPath: counter
       value: 
       objectReference: {fileID: 662816640}
-    - target: {fileID: 1000010192290950, guid: f90f0bc3762ee274dbf23fc357c6eabb, type: 2}
-      propertyPath: m_Name
-      value: FirstPersonCharacter
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010324477858, guid: f90f0bc3762ee274dbf23fc357c6eabb, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f90f0bc3762ee274dbf23fc357c6eabb, type: 2}
   m_IsPrefabParent: 0
