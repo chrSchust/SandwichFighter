@@ -158,6 +158,7 @@ public class EnemyController : MonoBehaviour
         }
         int baseDamage = activebread.getBaseDamage();
         int damage = baseDamage + bonusDamage;
+		Debug.Log (damage);
         InitDamageText(damage.ToString());
         health = health - damage;
         if (health <= 0)
