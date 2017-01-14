@@ -41,6 +41,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+		private NavMeshAgent navMeshAgent;
 
         // Use this for initialization
         private void Start()
@@ -55,6 +56,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+			navMeshAgent = GetComponent<NavMeshAgent> ();
         }
 
 
@@ -115,6 +117,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                 if (m_Jump)
                 {
+					navMeshAgent.enabled = false;
 					m_MoveDir.y = m_JumpSpeed;
                     PlayJumpSound();
                     m_Jump = false;
@@ -255,5 +258,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
+
+		void OnTriggerEnter(Collider other) {
+			Debug.Log ("Trigger");
+			if (other.tag.Equals ("Ground")) {
+				navMeshAgent.enabled = true;
+			}
+		}
     }
 }

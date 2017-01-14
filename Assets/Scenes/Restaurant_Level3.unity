@@ -2630,9 +2630,10 @@ GameObject:
   - 33: {fileID: 648796747}
   - 64: {fileID: 648796746}
   - 23: {fileID: 648796745}
+  - 65: {fileID: 648796749}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -2698,6 +2699,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!65 &648796749
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 648796744}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: -0.38509417, z: 10}
+  m_Center: {x: 0, y: 0.19254708, z: 0}
 --- !u!1001 &681682687
 Prefab:
   m_ObjectHideFlags: 0
@@ -10841,6 +10854,21 @@ Prefab:
       propertyPath: counter
       value: 
       objectReference: {fileID: 1887390427}
+    - target: {fileID: 136000012453701040, guid: f90f0bc3762ee274dbf23fc357c6eabb,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54000010859985390, guid: f90f0bc3762ee274dbf23fc357c6eabb,
+        type: 2}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54000010859985390, guid: f90f0bc3762ee274dbf23fc357c6eabb,
+        type: 2}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f90f0bc3762ee274dbf23fc357c6eabb, type: 2}
   m_IsPrefabParent: 0
@@ -11296,9 +11324,10 @@ GameObject:
   - 33: {fileID: 1888423344}
   - 64: {fileID: 1888423343}
   - 23: {fileID: 1888423342}
+  - 65: {fileID: 1888423346}
   m_Layer: 0
   m_Name: Ground (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -11364,6 +11393,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
+--- !u!65 &1888423346
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1888423341}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: -0.54187965, z: 9.999999}
+  m_Center: {x: 0, y: 0.27093983, z: 0}
 --- !u!1 &1959185948
 GameObject:
   m_ObjectHideFlags: 0
