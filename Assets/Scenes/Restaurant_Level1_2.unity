@@ -594,6 +594,58 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400012, guid: 56a12d3afe7ba403a9520e325576d027, type: 3}
   m_PrefabInternal: {fileID: 347942379}
+--- !u!1 &347942381 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100006, guid: 56a12d3afe7ba403a9520e325576d027, type: 3}
+  m_PrefabInternal: {fileID: 347942379}
+--- !u!65 &347942382
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 347942381}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24000001, y: 0.0925, z: 0.003269}
+  m_Center: {x: 0, y: 0, z: 0.118364975}
+--- !u!65 &347942383
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 347942381}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24000001, y: 0.0925, z: 0.0034873702}
+  m_Center: {x: 0, y: 0, z: -0.11825616}
+--- !u!65 &347942384
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 347942381}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0044210237, y: 0.0925, z: 0.24}
+  m_Center: {x: -0.11778926, y: 0, z: 0}
+--- !u!65 &347942385
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 347942381}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.004653672, y: 0.0925, z: 0.24}
+  m_Center: {x: 0.117673054, y: 0, z: 0}
 --- !u!1 &355188384
 GameObject:
   m_ObjectHideFlags: 0
@@ -2071,9 +2123,10 @@ GameObject:
   - 33: {fileID: 648796747}
   - 64: {fileID: 648796746}
   - 23: {fileID: 648796745}
+  - 65: {fileID: 648796749}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -2139,6 +2192,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!65 &648796749
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 648796744}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: -0.46483278, z: 10}
+  m_Center: {x: 0, y: 0.32088304, z: 0}
 --- !u!1 &662816640 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1000011222670996, guid: 6dfe398170c9b4218bbe9b93e1ce5128,
