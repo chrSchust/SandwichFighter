@@ -84,10 +84,10 @@ public class GameFlowController : MonoBehaviour
 		levels = new List<Level>(){
 			new Level {
 				enemyTypeAmount = new List<KeyValuePair<int, int>>() {
-					new KeyValuePair<int, int>(Enemy.NORMAL, 10)
+					new KeyValuePair<int, int>(Enemy.NORMAL, 12)
 				},
 				maxFailsForGameOver = 1,
-				minKillsForWin = 10,
+				minKillsForWin = 12,
 				availableIngredients = new List<Ingredient>() {chicken},
 				spawnInterval = 3,
 				availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
@@ -342,36 +342,36 @@ public class GameFlowController : MonoBehaviour
 		activeLevel.minKillsForWin--;
 		guiManager.SetCustomerLossTextProg (fails, activeLevel.maxFailsForGameOver);
 		guiManager.SetCustomerWinTextProg (kills, activeLevel.minKillsForWin);
-        if (fails == activeLevel.maxFailsForGameOver)
-        {
-            // GameObject.Find("LevelEnd").GetComponent<Text>().text = "Game Over";
-            // TODO Have to be linked with GUIManager for now just use Debug message
-            Debug.Log("Game over");
-            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
-            {
-                GameObject.Destroy(enemy);
-            }
-            //            showGameOverUI();
+		if (fails == activeLevel.maxFailsForGameOver) {
+			// GameObject.Find("LevelEnd").GetComponent<Text>().text = "Game Over";
+			// TODO Have to be linked with GUIManager for now just use Debug message
+			Debug.Log ("Game over");
+			foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
+				GameObject.Destroy (enemy);
+			}
+			//            showGameOverUI();
 
-            //            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
-            //            GameObject.Destroy(guiManagerGo);
-            //            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
-            //            guiManager.Init(this, levels, unlockedLevelsCount);
-            guiManager.SetBread1Hits(0);
-            guiManager.SetBread2Hits(0);
-            guiManager.ShowWinLoseMessageAndRestart("Verloren!", false);
+			//            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
+			//            GameObject.Destroy(guiManagerGo);
+			//            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
+			//            guiManager.Init(this, levels, unlockedLevelsCount);
+			guiManager.SetBread1Hits (0);
+			guiManager.SetBread2Hits (0);
+			guiManager.ShowWinLoseMessageAndRestart ("Verloren!", false);
 
-            player.transform.position = playerStartPosition;
-            player.transform.rotation = playerStartRotation;
+			player.transform.position = playerStartPosition;
+			player.transform.rotation = playerStartRotation;
 
-            //GameObject.Find("Weapon").GetComponentInChildren<Renderer>().enabled = true;
+			//GameObject.Find("Weapon").GetComponentInChildren<Renderer>().enabled = true;
 
-            fails = 0;
-            kills = 0;
-            activeIngredientList = new List<Ingredient>();
-            GameObject spawner = GameObject.Find("Spawner");
-            StopCoroutine(spawnMethod);
-        }
+			fails = 0;
+			kills = 0;
+			activeIngredientList = new List<Ingredient> ();
+			GameObject spawner = GameObject.Find ("Spawner");
+			StopCoroutine (spawnMethod);
+		}
+		checkWonDesicion ();
+
     }
 
     //    private void showGameOverUI()
@@ -383,43 +383,47 @@ public class GameFlowController : MonoBehaviour
     {
         kills++;
 		guiManager.SetCustomerWinTextProg (kills, activeLevel.minKillsForWin);
-		if (kills == activeLevel.minKillsForWin && fails < activeLevel.maxFailsForGameOver)
-        {
-            // GameObject.Find("LevelEnd").GetComponent<Text>().text = "Level Cleared";
-            // TODO Have to be linked with GUIManager for now just use Debug message
-            Debug.Log("Level cleared");
-            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
-            {
-                GameObject.Destroy(enemy);
-            }
-            Debug.Log(PlayerPrefs.GetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, 0));
-            if (PlayerPrefs.GetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, 0) == levels.IndexOf(activeLevel))
-            {
-                PlayerPrefs.SetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, levels.IndexOf(activeLevel)+1);
-                Debug.Log(PlayerPrefs.GetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, 0));
-            }
-            //            showLevelClearedUI();
-
-            //            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
-            //            GameObject.Destroy(guiManagerGo);
-            //            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
-            //            guiManager.Init(this, levels, unlockedLevelsCount);
-            guiManager.SetBread1Hits(0);
-            guiManager.SetBread2Hits(0);
-            guiManager.ShowWinLoseMessageAndRestart("Gewonnen!", true);
-
-            player.transform.position = playerStartPosition;
-            player.transform.rotation = playerStartRotation;
-
-            //GameObject.Find("Weapon").GetComponentInChildren<Renderer>().enabled = true;
-
-            kills = 0;
-            fails = 0;
-            activeIngredientList = new List<Ingredient>();
-            GameObject spawner = GameObject.Find("Spawner");
-            StopCoroutine(spawnMethod);
-        }
+		checkWonDesicion ();
     }
+
+	private void checkWonDesicion() {
+		if (kills == activeLevel.minKillsForWin && fails < activeLevel.maxFailsForGameOver)
+		{
+			// GameObject.Find("LevelEnd").GetComponent<Text>().text = "Level Cleared";
+			// TODO Have to be linked with GUIManager for now just use Debug message
+			Debug.Log("Level cleared");
+			foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+			{
+				GameObject.Destroy(enemy);
+			}
+			Debug.Log(PlayerPrefs.GetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, 0));
+			if (PlayerPrefs.GetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, 0) == levels.IndexOf(activeLevel))
+			{
+				PlayerPrefs.SetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, levels.IndexOf(activeLevel)+1);
+				Debug.Log(PlayerPrefs.GetInt(SceneKeys.PLAYER_PREF_KEY_UNLOCKED_LEVELS, 0));
+			}
+			//            showLevelClearedUI();
+
+			//            GameObject guiManagerGo = GameObject.FindGameObjectWithTag("GuiManager");
+			//            GameObject.Destroy(guiManagerGo);
+			//            guiManager = Instantiate(GuiManagerPrefab).GetComponent<GuiManager>();
+			//            guiManager.Init(this, levels, unlockedLevelsCount);
+			guiManager.SetBread1Hits(0);
+			guiManager.SetBread2Hits(0);
+			guiManager.ShowWinLoseMessageAndRestart("Gewonnen!", true);
+
+			player.transform.position = playerStartPosition;
+			player.transform.rotation = playerStartRotation;
+
+			//GameObject.Find("Weapon").GetComponentInChildren<Renderer>().enabled = true;
+
+			kills = 0;
+			fails = 0;
+			activeIngredientList = new List<Ingredient>();
+			GameObject spawner = GameObject.Find("Spawner");
+			StopCoroutine(spawnMethod);
+		}
+	}
 
     //    private void showLevelClearedUI()
     //    {
