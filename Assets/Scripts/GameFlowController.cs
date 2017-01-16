@@ -134,12 +134,14 @@ public class GameFlowController : MonoBehaviour
 					new KeyValuePair<int, int>(Enemy.FAT, 3),
 					new KeyValuePair<int, int>(Enemy.NORMAL, 5),
 					new KeyValuePair<int, int>(Enemy.FAT, 3),
-					new KeyValuePair<int, int>(Enemy.VEGAN, 5)
+					new KeyValuePair<int, int>(Enemy.VEGAN, 5),
+					new KeyValuePair<int, int>(Enemy.FAT, 3),
+					new KeyValuePair<int, int>(Enemy.NORMAL, 5)
 				},
 				maxFailsForGameOver = 6,
-				minKillsForWin = 26,
+				minKillsForWin = 34,
 				availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
-				spawnInterval = 2,
+				spawnInterval = 1,
 				availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
 					new KeyValuePair<Bread, int>(white, 20),
 					new KeyValuePair<Bread, int>(wholeGrain, 30)
@@ -371,7 +373,6 @@ public class GameFlowController : MonoBehaviour
 			StopCoroutine (spawnMethod);
 		}
 		checkWonDesicion ();
-
     }
 
     //    private void showGameOverUI()
