@@ -161,6 +161,9 @@ public class EnemyController : MonoBehaviour
 		Debug.Log (damage);
         InitDamageText(damage.ToString());
         health = health - damage;
+
+        transform.Find("EnemyCanvas").Find("HealthBarForeground").gameObject.GetComponent<Image>().fillAmount = health / Enemy.HealthList[type];
+
         if (health <= 0)
         {
             Destroy(this.gameObject);
