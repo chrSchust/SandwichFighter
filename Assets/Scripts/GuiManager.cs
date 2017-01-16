@@ -22,6 +22,7 @@ public class GuiManager : MonoBehaviour
 	public GameObject panelIntroductionSandwich;
 	public GameObject panelIntroductionWeaponSwitch;
 	public GameObject panelCustomer;
+	public GameObject panelPause;
 	public GameObject textGoToCounter;
 
 //    private List<Level> levels;
@@ -53,7 +54,7 @@ public class GuiManager : MonoBehaviour
     {
 		this.gameFlowController = gameFlowController;
         FindAndSetAllSubPanels();
-        
+		AddListenerToPausePanelButtons ();   
 		this.activeLevel = level;
 		if (this.activeLevel == null) {
 			Debug.LogError ("GuiManager activeLevel is null");
@@ -201,6 +202,17 @@ public class GuiManager : MonoBehaviour
 		nextIntroductionButton.onClick.AddListener (() => OnNextIntroductionSandwichButton());
 	}
 
+	private void AddListenerToPausePanelButtons() {
+		Transform resumeTransform = panelPause.transform.FindChild ("ButtonResume");
+		Transform mainMenuTransform = panelPause.transform.FindChild ("ButtonMainMenu");
+		if (resumeTransform == null || mainMenuTransform == null) {
+			Debug.LogError("Pause Panel button is null");
+		}
+		Button resumeButton = resumeTransform.GetComponent<Button> ();
+		resumeButton.onClick.AddListener (() => OnResumeButtonClicked());
+		Button mainMenuButton = mainMenuTransform.GetComponent<Button> ();
+		mainMenuButton.onClick.AddListener (() => OnMainMenuButtonClicked());
+	}
 
 
 	private void AddListenerToWinLoseNextButton(bool won) {
@@ -269,7 +281,12 @@ public class GuiManager : MonoBehaviour
 	}
 
 	private void OnMainMenuButtonClicked() {
+		Time.timeScale = 1;
 		SceneManager.LoadScene (SceneKeys.SCENE_NAME_MAIN_MENU);
+	}
+
+	private void OnResumeButtonClicked() {
+		ShowPausePanel ();
 	}
 
 	private void OnNextIntroductionButton () {
@@ -350,6 +367,43 @@ public class GuiManager : MonoBehaviour
 		panelWeaponSlot2.SetActive (true);
 		panelCustomer.SetActive (true);
 		SetChosenWeapon (1);
+	}
+
+	public void ShowPausePanel() {
+		if (panelPause.activeSelf) {
+			if (!isOtherPanelExceptOfPausePanelActive ()) {
+				SetVisibilityCursor (false);
+			}
+			Time.timeScale = 1;
+			panelPause.SetActive (false);
+		} else {
+			if (!isOtherPanelExceptOfPausePanelActive ()) {
+				SetVisibilityCursor (true);
+			}
+			// Pause game
+			Time.timeScale = 0;
+			panelPause.SetActive (true);
+		}
+	}
+
+	private bool isOtherPanelExceptOfPausePanelActive() {
+		if (panelSelectedSandwich.activeSelf)
+			return true;
+		if (panelSandwich.activeSelf)
+			return true;
+		if (panelWinLose.activeSelf)
+			return true;
+		if (panelIntroduction.activeSelf)
+			return true;
+		if (panelIntroductionSandwich.activeSelf)
+			return true;
+		if (panelIntroductionWeaponSwitch.activeSelf)
+			return true;
+		if (panelEnemyVegan.activeSelf)
+			return true;
+		if (panelEnemyFattie.activeSelf)
+			return true;
+		return false;
 	}
 
 	public void SetChosenWeapon(int weaponSlotNumber) {
@@ -831,6 +885,7 @@ public class GuiManager : MonoBehaviour
 		panelIntroductionSandwich.SetActive (visibility);
 		panelIntroductionWeaponSwitch.SetActive (visibility);
 		panelCustomer.SetActive (visibility);
+		panelPause.SetActive (visibility);
     }
 
     private void FindAndSetAllSubPanels()
