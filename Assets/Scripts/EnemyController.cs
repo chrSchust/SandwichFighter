@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviour
         defaultMaterial = GetComponentInChildren<Renderer>().material;
 
         agent = GetComponent<NavMeshAgent>();
-        agent.avoidancePriority = UnityEngine.Random.Range(45, 55);
+        agent.avoidancePriority = UnityEngine.Random.Range(35, 65);
         agent.speed = speed;
 
         moveToWaypoint();
@@ -97,12 +97,12 @@ public class EnemyController : MonoBehaviour
 
                 }
             }
-            if (avoiding == true && agent.remainingDistance <= agent.stoppingDistance)
-            {
-                agent.destination = tempDest;
-                avoiding = false;
-                //Debug.LogError("Avoided!");
-            }
+        }
+        if (avoiding == true && agent.remainingDistance <= 3)
+        {
+            agent.destination = tempDest;
+            avoiding = false;
+            //Debug.LogError("Avoided!");
         }
     }
 
