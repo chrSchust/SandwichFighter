@@ -666,7 +666,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013200675430}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.976164, y: -5.8613806e-17, z: 4.7440042}
+  m_LocalPosition: {x: -1.56, y: -6.022479e-17, z: 5.1962385}
   m_LocalScale: {x: 9.163208, y: 9.163204, z: 9.163204}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -848,7 +848,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012161388302}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.1072, y: 0, z: 0.0931}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -1149,7 +1149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc278c6de4f4c14c97dc62c019bdeb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitMaterial: {fileID: 2100000, guid: 2783ba5515c4979449dfdc038e259529, type: 2}
+  hitMaterial: {fileID: 2100000, guid: 229978295b344f94ca6a129aa6b3ae63, type: 2}
   health: 0
   speed: 0
   maxHitDistance: 10
@@ -1297,7 +1297,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: cc13217d1ef4e3040b4910731086f4cf, type: 2}
+  - {fileID: 2100000, guid: 5665e8c860b95a14dabd377f8db1c807, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -1444,7 +1444,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: cc13217d1ef4e3040b4910731086f4cf, type: 2}
+  - {fileID: 2100000, guid: 8394021dd408d314182371921d0af33b, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
