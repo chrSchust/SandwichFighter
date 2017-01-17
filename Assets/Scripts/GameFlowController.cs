@@ -85,7 +85,7 @@ public class GameFlowController : MonoBehaviour
 			new Level {
 				enemyTypeAmount = new List<KeyValuePair<int, int>>() {
 					new KeyValuePair<int, int>(Enemy.NORMAL, 12)
-				},
+                },
 				maxFailsForGameOver = 1,
 				minKillsForWin = 12,
 				availableIngredients = new List<Ingredient>() {chicken},
