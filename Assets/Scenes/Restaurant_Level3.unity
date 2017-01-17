@@ -2112,8 +2112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81613c1887b9f9745abead16f3d905b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyVegan: {fileID: 100096, guid: b2a01e0ae5f611a4da3b95e3fc0a420b, type: 2}
-  enemyNormal: {fileID: 1000012604981116, guid: a192dde506e8740d2bc895c2dc8596cc,
+  enemyVegan: {fileID: 1000011443044144, guid: ed9150247f8cbee4a95c12ee9b43f6ee, type: 2}
+  enemyNormal: {fileID: 1000013200675430, guid: 2d6143356f42de4438e8fb3bb110b11e,
     type: 2}
   enemyFat: {fileID: 1000012493342246, guid: c208a71cbbb9b9040ac47245c058719d, type: 2}
 --- !u!4 &537558134
