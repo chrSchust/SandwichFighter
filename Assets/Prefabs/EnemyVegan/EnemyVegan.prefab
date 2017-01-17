@@ -1419,7 +1419,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.227221, y: -7.233066e-17, z: 8.594586}
+  m_LocalPosition: {x: 3.130316, y: -7.499588e-17, z: 9.342763}
   m_LocalScale: {x: 1.8178927, y: 1.817893, z: 1.817893}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1554,7 +1554,7 @@ GameObject:
   - 114: {fileID: 114000010409214318}
   - 114: {fileID: 114000014032681526}
   m_Layer: 5
-  m_Name: HealthBarForeground (1)
+  m_Name: HealthBarForeground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1572,7 +1572,7 @@ GameObject:
   - 114: {fileID: 114000011391952192}
   - 114: {fileID: 114000014260197990}
   m_Layer: 5
-  m_Name: HealthBarBackground (1)
+  m_Name: HealthBarBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
