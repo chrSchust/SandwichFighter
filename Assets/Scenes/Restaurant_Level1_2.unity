@@ -8890,12 +8890,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 19
       objectReference: {fileID: 0}
-    - target: {fileID: 114000010247679586, guid: 0ff07926347e5b4458dd1818acea2e84,
-        type: 2}
-      propertyPath: enemyFat
-      value: 
-      objectReference: {fileID: 1000013132135080, guid: da974f6206c10fd41bd7a2d7aac99fd6,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0ff07926347e5b4458dd1818acea2e84, type: 2}
   m_IsPrefabParent: 0

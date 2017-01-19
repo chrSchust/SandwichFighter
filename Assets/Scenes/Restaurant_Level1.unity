@@ -11728,10 +11728,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81613c1887b9f9745abead16f3d905b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyVegan: {fileID: 1000011443044144, guid: ed9150247f8cbee4a95c12ee9b43f6ee, type: 2}
-  enemyNormal: {fileID: 1000013200675430, guid: 2d6143356f42de4438e8fb3bb110b11e,
+  enemyVegan: {fileID: 1000011855430014, guid: 0371bb3c805360f4993bb22b9d669283, type: 2}
+  enemyNormal: {fileID: 1000010584273630, guid: 55f11bcb8b6237545a7c2971475e5286,
     type: 2}
-  enemyFat: {fileID: 0}
+  enemyFat: {fileID: 1000013132135080, guid: da974f6206c10fd41bd7a2d7aac99fd6, type: 2}
 --- !u!4 &1856590089
 Transform:
   m_ObjectHideFlags: 0
