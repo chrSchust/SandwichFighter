@@ -1517,7 +1517,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010584273630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.4938006, y: -3.515701e-17, z: -4.717407}
+  m_LocalPosition: {x: -7.5154123, y: -2.2395081e-17, z: -5.423277}
   m_LocalScale: {x: 9.163208, y: 9.163204, z: 9.163204}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1695,6 +1695,13 @@ MonoBehaviour:
   hitMaterial: {fileID: 2100000, guid: 229978295b344f94ca6a129aa6b3ae63, type: 2}
   health: 0
   speed: 0
+  rendererSkin: {fileID: 137000013474495498}
+  rendererShirt: {fileID: 137000011881103904}
+  rendererBeard: {fileID: 0}
+  rendererTrousersSkirt: {fileID: 137000013503196614}
+  rendererShoeLeft: {fileID: 137000010072413402}
+  rendererShoeRight: {fileID: 137000010072413402}
+  rendererHairCap: {fileID: 137000012139948392}
   maxHitDistance: 10
   hitRadius: 0.3
   minSpeed: 0.5

@@ -260,7 +260,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 		void OnTriggerEnter(Collider other) {
-			Debug.Log ("Trigger");
 			if (other.tag.Equals ("Ground")) {
 				navMeshAgent.enabled = true;
 			}

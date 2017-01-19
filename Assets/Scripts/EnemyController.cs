@@ -10,6 +10,13 @@ public class EnemyController : MonoBehaviour
     public float health;
     public float speed;
     public int type { get; set; }
+	public Renderer rendererSkin;
+	public Renderer rendererShirt;
+	public Renderer rendererBeard;
+	public Renderer rendererTrousersSkirt;
+	public Renderer rendererShoeLeft;
+	public Renderer rendererShoeRight;
+	public Renderer rendererHairCap;
     private int? lastWaypointIndex = null;
     private int wayPointsToVisit;
     private int wayPointsVisited = 0;
@@ -23,6 +30,13 @@ public class EnemyController : MonoBehaviour
 
     private Animator animator;
     private Material defaultMaterial;
+	private Material defaultMaterialSkin;
+	private Material defaultMaterialBeard;
+	private Material defaultMaterialShirt;
+	private Material defaultMaterialTrousersSkirt;
+	private Material defaultMaterialShoeLeft;
+	private Material defaultMaterialShoeRight;
+	private Material defaultMaterialHairCap;
 
     public float minSpeed = 0.5f;
 
@@ -48,8 +62,10 @@ public class EnemyController : MonoBehaviour
             default:
                 break;
         }*/
-        // this.GetComponent<Renderer>().material = defaultMaterial;
-        defaultMaterial = GetComponentInChildren<Renderer>().material;
+        // defaultMaterial = GetComponentInChildren<Renderer>().material;
+		initDefaultMaterials();
+		defaultMaterial = rendererShirt.material;
+		Debug.Log (rendererBeard);
 
         agent = GetComponent<NavMeshAgent>();
         agent.avoidancePriority = UnityEngine.Random.Range(35, 65);
@@ -58,12 +74,27 @@ public class EnemyController : MonoBehaviour
         moveToWaypoint();
     }
 
+	private void initDefaultMaterials() {
+		if (rendererSkin != null)
+			defaultMaterialSkin = rendererSkin.material;
+		if (rendererShirt != null)
+			defaultMaterialShirt = rendererShirt.material;
+		if (rendererBeard != null)
+			defaultMaterialBeard = rendererBeard.material;
+		if (rendererTrousersSkirt != null)
+			defaultMaterialTrousersSkirt = rendererTrousersSkirt.material;
+		if (rendererShoeLeft != null)
+			defaultMaterialShoeLeft = rendererShoeLeft.material;
+		if (rendererShoeRight != null)
+			defaultMaterialShoeRight = rendererShoeRight.material;
+		if (rendererHairCap != null)
+			defaultMaterialHairCap = rendererHairCap.material;
+	}
+
 
 
     void FixedUpdate()
     {
-        animator.SetFloat("Speed", 1f);
-
         RaycastHit[] allHits;
         allHits = Physics.SphereCastAll(transform.position + transform.forward + transform.up, hitRadius, transform.forward, maxHitDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
         foreach (RaycastHit hit in allHits)
@@ -180,18 +211,54 @@ public class EnemyController : MonoBehaviour
         while (time <= duration)
         {
             time += Time.deltaTime;
-            foreach (Renderer r in GetComponentsInChildren<Renderer>())
+            /*foreach (Renderer r in GetComponentsInChildren<Renderer>())
             {
                 r.material = hitMaterial;
-            }
+            }*/
+			ShowHitMaterial ();
             //GetComponentInChildren<Renderer>().material = hitMaterial;
             yield return null;
         }
-        foreach (Renderer r in GetComponentsInChildren<Renderer>())
+		RestoreDefaultMaterial ();
+		/* foreach (Renderer r in GetComponentsInChildren<Renderer>())
         {
             r.material = defaultMaterial;
-        }
+        }*/
     }
+
+	private void RestoreDefaultMaterial() {
+		if (rendererSkin != null)
+			rendererSkin.material = defaultMaterialSkin;
+		if (rendererShirt != null)
+			rendererShirt.material = defaultMaterialShirt;
+		if (rendererBeard != null)
+			rendererBeard.material = defaultMaterialBeard;
+		if (rendererTrousersSkirt != null)
+			rendererTrousersSkirt.material = defaultMaterialTrousersSkirt;
+		if (rendererShoeLeft != null)
+			rendererShoeLeft.material = defaultMaterialShoeLeft;
+		if (rendererShoeRight != null)
+			rendererShoeRight.material = defaultMaterialShoeRight;
+		if (rendererHairCap != null)
+			rendererHairCap.material = defaultMaterialHairCap;
+	}
+
+	private void ShowHitMaterial() {
+		if (rendererSkin != null)
+			rendererSkin.material = hitMaterial;
+		if (rendererShirt != null)
+			rendererShirt.material = hitMaterial;
+		if (rendererBeard != null)
+			rendererBeard.material = hitMaterial;
+		if (rendererTrousersSkirt != null)
+			rendererTrousersSkirt.material = hitMaterial;
+		if (rendererShoeLeft != null)
+			rendererShoeLeft.material = hitMaterial;
+		if (rendererShoeRight != null)
+			rendererShoeRight.material = hitMaterial;
+		if (rendererHairCap != null)
+			rendererHairCap.material = hitMaterial;
+	}
 
     void OnTriggerEnter(Collider other)
     {
