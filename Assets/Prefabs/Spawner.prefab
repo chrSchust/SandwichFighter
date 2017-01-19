@@ -110,6 +110,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyVegan: {fileID: 1000011443044144, guid: ed9150247f8cbee4a95c12ee9b43f6ee, type: 2}
-  enemyNormal: {fileID: 1000013200675430, guid: 2d6143356f42de4438e8fb3bb110b11e,
+  enemyNormal: {fileID: 1000010584273630, guid: 55f11bcb8b6237545a7c2971475e5286,
     type: 2}
-  enemyFat: {fileID: 1000012493342246, guid: c208a71cbbb9b9040ac47245c058719d, type: 2}
+  enemyFat: {fileID: 1000013132135080, guid: da974f6206c10fd41bd7a2d7aac99fd6, type: 2}
