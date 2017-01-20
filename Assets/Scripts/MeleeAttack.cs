@@ -44,8 +44,22 @@ public class MeleeAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (activebread != null && activebread == bread1 && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == SceneKeys.SCENE_NAME_LEVEL_2)
+        {
+            foreach (GameObject arrow in GameObject.FindGameObjectsWithTag("EnemyArrow"))
+            {
+                arrow.GetComponent<Renderer>().enabled = true;
+            }
+        }
+        else
+        {
+            foreach (GameObject arrow in GameObject.FindGameObjectsWithTag("EnemyArrow"))
+            {
+                arrow.GetComponent<Renderer>().enabled = false;
+            }
+        }
 
-        if (breadHealth1 != null && breadHealth2 != null && !originalHealthSet)
+            if (breadHealth1 != null && breadHealth2 != null && !originalHealthSet)
         {
             originalHealth1 = breadHealth1;
             originalHealth2 = breadHealth2;

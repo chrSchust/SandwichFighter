@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
+    public AudioClip hit1;
+    public AudioClip hit2;
+
     public Material hitMaterial;
     public float health;
     public float speed;
@@ -162,6 +165,14 @@ public class EnemyController : MonoBehaviour
 
     public void HitByPlayer(List<Ingredient> ingredients, Bread activebread)
     {
+        //AudioSource[] audioSources = GetComponents<AudioSource>();
+        //audioSources[UnityEngine.Random.Range(0, audioSources.Length)].Play();
+        if(UnityEngine.Random.Range(0, 2) == 0)
+        {
+            AudioSource.PlayClipAtPoint(hit1, transform.position);
+        }
+        else AudioSource.PlayClipAtPoint(hit2, transform.position);
+
         StartCoroutine(displayDamage());
 
         int speedBonus = 0;
