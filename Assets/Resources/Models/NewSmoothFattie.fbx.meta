@@ -1,0 +1,181 @@
+fileFormatVersion: 2
+guid: 66ab6a60391d40549829e8ad815d023e
+timeCreated: 1484928483
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: beard
+    100002: eye1
+    100004: eye2
+    100006: Fattie:polySurface1
+    100008: Fattie:polySurface10
+    100010: Fattie:polySurface2
+    100012: Fattie:polySurface4
+    100014: Fattie:polySurface8
+    100016: Fattie:polySurface9
+    100018: Fattie:pSphere1
+    100020: Fattie:pSphere2
+    100022: Fattie:transform1
+    100024: Fattie:transform2
+    100026: Fattie:transform3
+    100028: Fattie:transform4
+    100030: Fattie:transform5
+    100032: Fattie:transform6
+    100034: mixamorig:Head
+    100036: mixamorig:HeadTop_End
+    100038: mixamorig:Hips
+    100040: mixamorig:LeftArm
+    100042: mixamorig:LeftFoot
+    100044: mixamorig:LeftForeArm
+    100046: mixamorig:LeftHand
+    100048: mixamorig:LeftLeg
+    100050: mixamorig:LeftShoulder
+    100052: mixamorig:LeftToe_End
+    100054: mixamorig:LeftToeBase
+    100056: mixamorig:LeftUpLeg
+    100058: mixamorig:Neck
+    100060: mixamorig:RightArm
+    100062: mixamorig:RightFoot
+    100064: mixamorig:RightForeArm
+    100066: mixamorig:RightHand
+    100068: mixamorig:RightLeg
+    100070: mixamorig:RightShoulder
+    100072: mixamorig:RightToe_End
+    100074: mixamorig:RightToeBase
+    100076: mixamorig:RightUpLeg
+    100078: mixamorig:Spine
+    100080: mixamorig:Spine1
+    100082: mixamorig:Spine2
+    100084: //RootNode
+    100086: Shirt
+    100088: skin
+    100090: trousers
+    400000: beard
+    400002: eye1
+    400004: eye2
+    400006: Fattie:polySurface1
+    400008: Fattie:polySurface10
+    400010: Fattie:polySurface2
+    400012: Fattie:polySurface4
+    400014: Fattie:polySurface8
+    400016: Fattie:polySurface9
+    400018: Fattie:pSphere1
+    400020: Fattie:pSphere2
+    400022: Fattie:transform1
+    400024: Fattie:transform2
+    400026: Fattie:transform3
+    400028: Fattie:transform4
+    400030: Fattie:transform5
+    400032: Fattie:transform6
+    400034: mixamorig:Head
+    400036: mixamorig:HeadTop_End
+    400038: mixamorig:Hips
+    400040: mixamorig:LeftArm
+    400042: mixamorig:LeftFoot
+    400044: mixamorig:LeftForeArm
+    400046: mixamorig:LeftHand
+    400048: mixamorig:LeftLeg
+    400050: mixamorig:LeftShoulder
+    400052: mixamorig:LeftToe_End
+    400054: mixamorig:LeftToeBase
+    400056: mixamorig:LeftUpLeg
+    400058: mixamorig:Neck
+    400060: mixamorig:RightArm
+    400062: mixamorig:RightFoot
+    400064: mixamorig:RightForeArm
+    400066: mixamorig:RightHand
+    400068: mixamorig:RightLeg
+    400070: mixamorig:RightShoulder
+    400072: mixamorig:RightToe_End
+    400074: mixamorig:RightToeBase
+    400076: mixamorig:RightUpLeg
+    400078: mixamorig:Spine
+    400080: mixamorig:Spine1
+    400082: mixamorig:Spine2
+    400084: //RootNode
+    400086: Shirt
+    400088: skin
+    400090: trousers
+    4300000: eye1
+    4300002: eye2
+    4300004: skin
+    4300006: beard
+    4300008: Fattie:polySurface9
+    4300010: Fattie:polySurface10
+    4300012: trousers
+    4300014: Shirt
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: beard
+    13700002: eye1
+    13700004: eye2
+    13700006: Fattie:polySurface10
+    13700008: Fattie:polySurface9
+    13700010: Shirt
+    13700012: skin
+    13700014: trousers
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
