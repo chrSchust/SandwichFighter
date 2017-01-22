@@ -10,6 +10,10 @@ public class GuiManager : MonoBehaviour
     public const string BUTTON_NEXT_SANWICH = "ButtonNextSandwich";
 	public const string BUTTON_PREVIOUS_SANDWICH_LEVEL = "ButtonPreviousSandwich";
 
+    public Sprite chickenImage;
+    public Sprite saladImage;
+
+
     public GameObject prefabButtonLevel;
     public GameObject panelBackground;
 //    public GameObject panelLevelSelection;
@@ -636,13 +640,52 @@ public class GuiManager : MonoBehaviour
 
 		textDamage.text = chosenBread.Key.getBaseDamage ().ToString () + " Schaden";
 		textHits.text = chosenBread.Value.ToString () + " Haltbarkeit";
-	}
+
+        switch (chosenBread.Key.getName())
+        {
+            case ("Weißbrot"):
+                {
+                    panelBread.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("weissbrot");
+                    break;
+                }
+            case ("Vollkornbrot"):
+                {
+                    panelBread.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("vollkornbrot");
+                    break;
+                }
+        }
+    }
 
 	private void SetEffectsIngredientPanel(
 		Transform panelIngredient, 
 		Ingredient chosenIngredient
 	) {
-		Transform panelEffectsTrans = panelIngredient.transform.FindChild ("PanelEffects");
+        switch (chosenIngredient.getName())
+        {
+            case ("Hähnchen"):
+                {
+                    panelIngredient.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("brathhnchen");
+                    break;
+                }
+            case ("Salat"):
+                {
+                    panelIngredient.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("salat");
+                    break;
+                }
+            case ("Salami"):
+                {
+                    panelIngredient.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("salami");
+                    break;
+                }
+            case ("Tomaten"):
+                {
+                    panelIngredient.FindChild("Image").GetComponent<Image>().sprite = Resources.Load<Sprite>("tomate");
+                    break;
+                }
+
+        }
+
+        Transform panelEffectsTrans = panelIngredient.transform.FindChild ("PanelEffects");
 		Transform textVegiPosTrans = panelEffectsTrans.FindChild ("TextVegiPos");
 		Text textVegiPos = textVegiPosTrans.GetComponent<Text> ();
 		Transform textVegiNegTrans = panelEffectsTrans.FindChild ("TextVegiNeg");
