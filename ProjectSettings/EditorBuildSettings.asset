@@ -15,3 +15,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Restaurant_Level2.unity
   - enabled: 1
     path: Assets/Scenes/Restaurant_Level3.unity
+  - enabled: 1
+    path: Assets/Scenes/Restaurant_Level3_2.unity

@@ -87,6 +87,12 @@ public class GuiManager : MonoBehaviour
 			SetVisibilityCursor(true);
 			OnNextIntroductionSandwichButton ();
 		}
+
+		if (this.currentLevelNumber == 5) {
+			SetVisibilityAllPanels(false);
+			SetVisibilityCursor(true);
+			OnNextIntroductionSandwichButton ();
+		}
     }
 
 	private void ShowIntroduction() {
@@ -267,6 +273,9 @@ public class GuiManager : MonoBehaviour
 		if (this.currentLevelNumber == 4) {
 			SceneManager.LoadScene (SceneKeys.SCENE_NAME_LEVEL_4);
 		}
+		if (this.currentLevelNumber == 5) {
+			SceneManager.LoadScene (SceneKeys.SCENE_NAME_LEVEL_5);
+		}
 	}
 
 	private void OnNextButtonWin() {
@@ -280,6 +289,9 @@ public class GuiManager : MonoBehaviour
 			SceneManager.LoadScene (SceneKeys.SCENE_NAME_LEVEL_4);
 		}
 		if (this.currentLevelNumber == 4) {
+			SceneManager.LoadScene (SceneKeys.SCENE_NAME_LEVEL_5);
+		}
+		if (this.currentLevelNumber == 5) {
 			SceneManager.LoadScene (SceneKeys.SCENE_NAME_MAIN_MENU);
 		}
 	}

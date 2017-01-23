@@ -66,6 +66,8 @@ public class GameFlowController : MonoBehaviour
                 return 3;
 			case SceneKeys.SCENE_NAME_LEVEL_4:
 				return 4;
+			case SceneKeys.SCENE_NAME_LEVEL_5:
+				return 5;
             default:
                 return -1;
         }
@@ -129,17 +131,27 @@ public class GameFlowController : MonoBehaviour
 			},
 			new Level {
 				enemyTypeAmount = new List<KeyValuePair<int, int>>() {
-					new KeyValuePair<int, int>(Enemy.NORMAL, 5),
-					new KeyValuePair<int, int>(Enemy.VEGAN, 5),
-					new KeyValuePair<int, int>(Enemy.FAT, 3),
-					new KeyValuePair<int, int>(Enemy.NORMAL, 5),
-					new KeyValuePair<int, int>(Enemy.FAT, 3),
-					new KeyValuePair<int, int>(Enemy.VEGAN, 5),
-					new KeyValuePair<int, int>(Enemy.FAT, 3),
-					new KeyValuePair<int, int>(Enemy.NORMAL, 5)
+					new KeyValuePair<int, int>(Enemy.NORMAL, 8),
+					new KeyValuePair<int, int>(Enemy.VEGAN, 7),
+					new KeyValuePair<int, int>(Enemy.FAT, 7)
 				},
 				maxFailsForGameOver = 6,
-				minKillsForWin = 34,
+				minKillsForWin = 22,
+				availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
+				spawnInterval = 2,
+				availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
+					new KeyValuePair<Bread, int>(white, 20),
+					new KeyValuePair<Bread, int>(wholeGrain, 30)
+				}
+			},
+			new Level {
+				enemyTypeAmount = new List<KeyValuePair<int, int>>() {
+					new KeyValuePair<int, int>(Enemy.NORMAL, 10),
+					new KeyValuePair<int, int>(Enemy.VEGAN, 10),
+					new KeyValuePair<int, int>(Enemy.FAT, 10)
+				},
+				maxFailsForGameOver = 6,
+				minKillsForWin = 30,
 				availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
 				spawnInterval = 1,
 				availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {
