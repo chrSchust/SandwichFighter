@@ -25,7 +25,7 @@ public class WeaponController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             GetComponent<Animator>().Play("HitAnimation");
             //transform.localRotation = Quaternion.Lerp(transform.localRotation, new Quaternion(0.3f, -0.2f, 0.1f, 0.9f), Time.deltaTime * speed);

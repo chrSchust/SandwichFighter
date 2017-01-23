@@ -164,7 +164,7 @@ public class MeleeAttack : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && !weapon.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("HitAnimation"))
         {
             RaycastHit[] allHits;
             allHits = Physics.SphereCastAll(transform.position, hitRadius, transform.forward, maxHitDistance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
