@@ -20,33 +20,34 @@ public class WeaponController : MonoBehaviour {
 		}
 		startRotation = transform.localRotation;
 		startPosition = transform.localPosition;
-        GetComponentInChildren<Renderer>().material = material1;
+        //GetComponentInChildren<Renderer>().material = material1;
     }
 
     // Update is called once per frame
     void Update () {
         if (Input.GetMouseButton(0))
         {
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, new Quaternion(0.3f, -0.2f, 0.1f, 0.9f), Time.deltaTime * speed);
+            GetComponent<Animator>().Play("HitAnimation");
+            //transform.localRotation = Quaternion.Lerp(transform.localRotation, new Quaternion(0.3f, -0.2f, 0.1f, 0.9f), Time.deltaTime * speed);
         }
         else
         {
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, startRotation, Time.deltaTime * speed);
+            //transform.localRotation = Quaternion.Lerp(transform.localRotation, startRotation, Time.deltaTime * speed);
         }
 
 		if (Input.GetKey ("1") || Input.GetAxis("Mouse ScrollWheel") != 0f) {
 			if (guiManager.GetChosenWeapon () == 2) {
 				guiManager.SetChosenWeapon (1);
-				transform.localRotation = Quaternion.Lerp (transform.localRotation, 
-					new Quaternion (startRotation.x, startRotation.y, -4.0f, startRotation.w), Time.deltaTime * speed);
+				//transform.localRotation = Quaternion.Lerp (transform.localRotation, 
+					//new Quaternion (startRotation.x, startRotation.y, -4.0f, startRotation.w), Time.deltaTime * speed);
                 return;
 			}
 		}
 		if (Input.GetKey ("2") || Input.GetAxis("Mouse ScrollWheel") != 0f) {
 			if (guiManager.GetChosenWeapon () == 1) {
                 guiManager.SetChosenWeapon (2);
-				transform.localRotation = Quaternion.Lerp (transform.localRotation, 
-					new Quaternion (startRotation.x, startRotation.y, -4.0f, startRotation.w), Time.deltaTime * speed);
+				//transform.localRotation = Quaternion.Lerp (transform.localRotation, 
+					//new Quaternion (startRotation.x, startRotation.y, -4.0f, startRotation.w), Time.deltaTime * speed);
 			}
 		}
     }

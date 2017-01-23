@@ -8338,21 +8338,6 @@ Prefab:
       propertyPath: counter
       value: 
       objectReference: {fileID: 1887390427}
-    - target: {fileID: 136000012453701040, guid: f90f0bc3762ee274dbf23fc357c6eabb,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 54000010859985390, guid: f90f0bc3762ee274dbf23fc357c6eabb,
-        type: 2}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 54000010859985390, guid: f90f0bc3762ee274dbf23fc357c6eabb,
-        type: 2}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f90f0bc3762ee274dbf23fc357c6eabb, type: 2}
   m_IsPrefabParent: 0

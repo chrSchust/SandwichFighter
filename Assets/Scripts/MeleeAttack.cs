@@ -114,7 +114,8 @@ public class MeleeAttack : MonoBehaviour
         {
             activeIngredients = ingredients1;
             activebread = bread1;
-            weapon.GetComponentInChildren<Renderer>().material = material1;
+            weapon.GetComponentsInChildren<Renderer>()[0].material = material1;
+            weapon.GetComponentsInChildren<Renderer>()[1].material = material1;
 
         }
 
@@ -122,34 +123,46 @@ public class MeleeAttack : MonoBehaviour
         {
             activeIngredients = ingredients2;
             activebread = bread2;
-            weapon.GetComponentInChildren<Renderer>().material = material2;
+            weapon.GetComponentsInChildren<Renderer>()[0].material = material2;
+            weapon.GetComponentsInChildren<Renderer>()[1].material = material2;
         }
 
-        if(Input.GetAxis("Mouse ScrollWheel") != 0f)
+        if (Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
             Debug.Log("scroll");
             if(activebread != null && activebread == bread1 && breadHealth2 > 0) 
             {
                 activeIngredients = ingredients2;
                 activebread = bread2;
-                weapon.GetComponentInChildren<Renderer>().material = material2;
+                weapon.GetComponentsInChildren<Renderer>()[0].material = material2;
+                weapon.GetComponentsInChildren<Renderer>()[1].material = material2;
                 return;
             }
             if (activebread != null && activebread == bread2 && breadHealth1 > 0)
             {
                 activeIngredients = ingredients1;
                 activebread = bread1;
-                weapon.GetComponentInChildren<Renderer>().material = material1;
+                weapon.GetComponentsInChildren<Renderer>()[0].material = material1;
+                weapon.GetComponentsInChildren<Renderer>()[1].material = material1;
             }
         }
 
         if (breadHealth1 != null && breadHealth1 <= 0 && breadHealth2 != null && breadHealth2 <= 0)
         {
             Debug.Log("both dead");
-            weapon.GetComponentInChildren<Renderer>().enabled = false;
+            //weapon.GetComponent<Renderer>().enabled = false;
+            foreach (Renderer r in weapon.GetComponentsInChildren<Renderer>())
+            {
+                r.enabled = false;
+            }
             return;
         }
-        else { weapon.GetComponentInChildren<Renderer>().enabled = true; }
+        else { //weapon.GetComponent<Renderer>().enabled = true;
+            foreach (Renderer r in weapon.GetComponentsInChildren<Renderer>())
+            {
+                r.enabled = true;
+            }
+        }
 
         if (Input.GetButtonDown("Fire1"))
         {
@@ -178,7 +191,8 @@ public class MeleeAttack : MonoBehaviour
                             {
                                 activeIngredients = ingredients2;
                                 activebread = bread2;
-                                weapon.GetComponentInChildren<Renderer>().material = material2;
+                                weapon.GetComponentsInChildren<Renderer>()[0].material = material2;
+                                weapon.GetComponentsInChildren<Renderer>()[1].material = material2;
                             }
 
                         }
@@ -194,7 +208,8 @@ public class MeleeAttack : MonoBehaviour
                             {
                                 activeIngredients = ingredients1;
                                 activebread = bread1;
-                                weapon.GetComponentInChildren<Renderer>().material = material1;
+                                weapon.GetComponentsInChildren<Renderer>()[0].material = material1;
+                                weapon.GetComponentsInChildren<Renderer>()[1].material = material1;
                             }
                         }
                     }
