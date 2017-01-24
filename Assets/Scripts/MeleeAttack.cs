@@ -112,6 +112,7 @@ public class MeleeAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1) && breadHealth1 > 0)
         {
+            guiManager.SetChosenWeapon(1);
             activeIngredients = ingredients1;
             activebread = bread1;
             weapon.GetComponentsInChildren<Renderer>()[0].material = material1;
@@ -121,6 +122,7 @@ public class MeleeAttack : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha2) && breadHealth2 > 0)
         {
+            guiManager.SetChosenWeapon(2);
             activeIngredients = ingredients2;
             activebread = bread2;
             weapon.GetComponentsInChildren<Renderer>()[0].material = material2;
@@ -193,6 +195,7 @@ public class MeleeAttack : MonoBehaviour
                                 activebread = bread2;
                                 weapon.GetComponentsInChildren<Renderer>()[0].material = material2;
                                 weapon.GetComponentsInChildren<Renderer>()[1].material = material2;
+                                guiManager.SetChosenWeapon(2);
                             }
 
                         }
@@ -210,6 +213,7 @@ public class MeleeAttack : MonoBehaviour
                                 activebread = bread1;
                                 weapon.GetComponentsInChildren<Renderer>()[0].material = material1;
                                 weapon.GetComponentsInChildren<Renderer>()[1].material = material1;
+                                guiManager.SetChosenWeapon(1);
                             }
                         }
                     }
