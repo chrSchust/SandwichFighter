@@ -12,6 +12,7 @@ public class GuiManager : MonoBehaviour
 
     public Sprite chickenImage;
     public Sprite saladImage;
+    public Color chosenWeaponColor;
 
 
     public GameObject prefabButtonLevel;
@@ -427,19 +428,21 @@ public class GuiManager : MonoBehaviour
 		ColorUtility.TryParseHtmlString("#FFFFFF63", out colorNotChosen);
 		Image img1 = panelWeaponSlot1.GetComponent<Image> ();
 		Image img2 = panelWeaponSlot2.GetComponent<Image> ();
-		switch (weaponSlotNumber) {
+        Color chosenWeaponColor = new Color32(0, 111, 14, 200);
+
+        switch (weaponSlotNumber) {
 			case 1:
-				img1.color = UnityEngine.Color.grey;
+				img1.color = chosenWeaponColor;
 				img2.color = colorNotChosen;
 				chosenWeapon = 1;
 				break;
 			case 2:
 				img1.color = colorNotChosen;
-				img2.color = UnityEngine.Color.grey;
+				img2.color = chosenWeaponColor;
 				chosenWeapon = 2;
 				break;
 			default:
-				img1.color = UnityEngine.Color.grey;
+				img1.color = chosenWeaponColor;
 				img2.color = colorNotChosen;
 				chosenWeapon = 1;
 				break;
