@@ -146,12 +146,12 @@ public class GameFlowController : MonoBehaviour
 			},
 			new Level {
 				enemyTypeAmount = new List<KeyValuePair<int, int>>() {
-					new KeyValuePair<int, int>(Enemy.NORMAL, 10),
-					new KeyValuePair<int, int>(Enemy.VEGAN, 10),
-					new KeyValuePair<int, int>(Enemy.FAT, 10)
+					new KeyValuePair<int, int>(Enemy.NORMAL, 8),
+					new KeyValuePair<int, int>(Enemy.VEGAN, 8),
+					new KeyValuePair<int, int>(Enemy.FAT, 9)
 				},
 				maxFailsForGameOver = 6,
-				minKillsForWin = 30,
+				minKillsForWin = 25,
 				availableIngredients = new List<Ingredient>() {chicken, tomato, salad, salami},
 				spawnInterval = 1,
 				availableBreadsWithHits = new List<KeyValuePair<Bread, int>>() {

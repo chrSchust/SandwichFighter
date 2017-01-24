@@ -71,6 +71,7 @@ public class MainMenuController : MonoBehaviour {
         buttonNewGame.gameObject.SetActive(true);
         buttonExit.gameObject.SetActive(true);
         panelLevelSelection.SetActive(false);
+        panelMainMenu.SetActive(true);
     }
 
     private void OnButtonLevelSelectionClicked()
@@ -79,6 +80,7 @@ public class MainMenuController : MonoBehaviour {
         buttonNewGame.gameObject.SetActive(false);
         buttonExit.gameObject.SetActive(false);
         panelLevelSelection.SetActive(true);
+        panelMainMenu.SetActive(false);
     }
 
     private void OnLevelButtonClicked(Button buttonLevel)
